@@ -8,6 +8,22 @@ public interface IDeviceStore
         CancellationToken cancellationToken);
 }
 
+public interface IDeviceSettingsStore
+{
+    Task<DeviceSettingsSnapshot?> GetAsync(
+        Guid accountId,
+        Guid deviceId,
+        CancellationToken cancellationToken);
+
+    Task<DeviceSettingsSnapshot> PutAsync(
+        Guid accountId,
+        Guid deviceId,
+        ReadOnlyMemory<byte> settingsData,
+        ReadOnlyMemory<byte> sha256,
+        DateTimeOffset now,
+        CancellationToken cancellationToken);
+}
+
 public interface ICharacterStore
 {
     Task<IReadOnlyList<VaultCharacterSummary>> ListAsync(

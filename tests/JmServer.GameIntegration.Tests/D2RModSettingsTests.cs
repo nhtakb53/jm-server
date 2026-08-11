@@ -117,4 +117,51 @@ public sealed class D2RModSettingsTests
 
         Assert.Throws<ArgumentOutOfRangeException>(settings.Validate);
     }
+
+    [Fact]
+    public async Task SyncedSettingsAreValidatedAndInstalledExactly()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-sync-test-" + Guid.NewGuid().ToString("N"));
+        var settings = """{"Gamma":241,"VSync":0,"Sound Volume":77}"""u8.ToArray();
+        try
+        {
+            await D2RModSettings.InstallSyncedAsync(settings, root);
+
+            var saved = await D2RModSettings.ReadForSyncAsync(root);
+            Assert.Equal(settings, saved);
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    [Theory]
+    [InlineData("[]")]
+    [InlineData("invalid")]
+    public async Task InvalidSyncedSettingsAreRejected(string value)
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-sync-invalid-test-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            await Assert.ThrowsAsync<InvalidDataException>(() =>
+                D2RModSettings.InstallSyncedAsync(
+                    System.Text.Encoding.UTF8.GetBytes(value),
+                    root));
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
 }

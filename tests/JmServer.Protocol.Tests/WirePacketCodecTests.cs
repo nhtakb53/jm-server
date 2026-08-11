@@ -7,6 +7,27 @@ namespace JmServer.Protocol.Tests;
 public sealed class WirePacketCodecTests
 {
     [Fact]
+    public void DeviceSettingsBinaryPayloadRoundTrips()
+    {
+        var settings = """{"Gamma":220,"VSync":0}"""u8.ToArray();
+        var metadata = new PutDeviceSettingsRequest(
+            settings.Length,
+            Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(settings)));
+        var packet = WirePacket.CreateWithBinary(
+            MessageType.PutDeviceSettingsRequest,
+            Guid.NewGuid(),
+            metadata,
+            settings);
+
+        var decodedPacket = WirePacketCodec.Decode(WirePacketCodec.Encode(packet));
+        var decoded = PacketPayload.DeserializeWithBinary<PutDeviceSettingsRequest>(
+            decodedPacket.Body.Span);
+
+        Assert.Equal(metadata, decoded.Metadata);
+        Assert.Equal(settings, decoded.Binary);
+    }
+
+    [Fact]
     public void EncodeAndDecode_PreserveHeaderAndJsonPayload()
     {
         var correlationId = Guid.NewGuid();

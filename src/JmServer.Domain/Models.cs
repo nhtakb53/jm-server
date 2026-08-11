@@ -22,6 +22,11 @@ public sealed record ProfileCheckinResult(
     long Revision,
     byte[] Sha256);
 
+public sealed record DeviceSettingsSnapshot(
+    long Revision,
+    byte[] SettingsData,
+    byte[] Sha256);
+
 public enum VaultCharacterClass
 {
     Amazon,

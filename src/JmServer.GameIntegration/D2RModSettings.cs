@@ -6,6 +6,50 @@ namespace JmServer.GameIntegration;
 public static class D2RModSettings
 {
     private const string SettingsFileName = "Settings.json";
+    public const int MaximumSettingsLength = 256 * 1024;
+
+    public static string GetSettingsPath(string? modSaveDirectory = null)
+    {
+        modSaveDirectory = Path.TrimEndingDirectorySeparator(Path.GetFullPath(
+            modSaveDirectory ?? D2RClientLayout.GetModSaveDirectory()));
+        return Path.Combine(modSaveDirectory, SettingsFileName);
+    }
+
+    public static async Task<byte[]?> ReadForSyncAsync(
+        string? modSaveDirectory = null,
+        CancellationToken cancellationToken = default)
+    {
+        var path = GetSettingsPath(modSaveDirectory);
+        if (!File.Exists(path))
+        {
+            return null;
+        }
+
+        var settingsData = await File.ReadAllBytesAsync(path, cancellationToken);
+        ValidateSyncData(settingsData, path);
+        return settingsData;
+    }
+
+    public static async Task InstallSyncedAsync(
+        ReadOnlyMemory<byte> settingsData,
+        string? modSaveDirectory = null,
+        CancellationToken cancellationToken = default)
+    {
+        var targetPath = GetSettingsPath(modSaveDirectory);
+        ValidateSyncData(settingsData.Span, targetPath);
+        Directory.CreateDirectory(Path.GetDirectoryName(targetPath)!);
+
+        var temporaryPath = targetPath + ".sync-" + Guid.NewGuid().ToString("N") + ".tmp";
+        try
+        {
+            await File.WriteAllBytesAsync(temporaryPath, settingsData.ToArray(), cancellationToken);
+            File.Move(temporaryPath, targetPath, overwrite: true);
+        }
+        finally
+        {
+            File.Delete(temporaryPath);
+        }
+    }
 
     public static async Task EnsureInitializedAsync(
         string? baseSaveDirectory = null,
@@ -20,7 +64,7 @@ public static class D2RModSettings
         Directory.CreateDirectory(modSaveDirectory);
 
         var sourcePath = Path.Combine(baseSaveDirectory, SettingsFileName);
-        var targetPath = Path.Combine(modSaveDirectory, SettingsFileName);
+        var targetPath = GetSettingsPath(modSaveDirectory);
         var source = await ReadObjectAsync(sourcePath, cancellationToken);
         var target = await ReadObjectAsync(targetPath, cancellationToken);
 
@@ -89,9 +133,40 @@ public static class D2RModSettings
             return JsonNode.Parse(json)?.AsObject()
                    ?? throw new InvalidDataException($"D2R settings file '{path}' is empty.");
         }
-        catch (JsonException exception)
+        catch (Exception exception) when (exception is JsonException or InvalidOperationException)
         {
             throw new InvalidDataException($"D2R settings file '{path}' is not valid JSON.", exception);
+        }
+    }
+
+    private static void ValidateSyncData(ReadOnlySpan<byte> settingsData, string path)
+    {
+        if (settingsData.IsEmpty)
+        {
+            throw new InvalidDataException($"D2R settings file '{path}' is empty.");
+        }
+
+        if (settingsData.Length > MaximumSettingsLength)
+        {
+            throw new InvalidDataException(
+                $"D2R settings file '{path}' is {settingsData.Length} bytes; " +
+                $"maximum is {MaximumSettingsLength}.");
+        }
+
+        try
+        {
+            var node = JsonNode.Parse(settingsData);
+            if (node is not JsonObject)
+            {
+                throw new InvalidDataException(
+                    $"D2R settings file '{path}' must contain a JSON object.");
+            }
+        }
+        catch (JsonException exception)
+        {
+            throw new InvalidDataException(
+                $"D2R settings file '{path}' is not valid JSON.",
+                exception);
         }
     }
 }

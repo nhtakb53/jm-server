@@ -8,6 +8,7 @@ namespace JmServer.Server;
 
 public sealed class PacketDispatcher(
     IDeviceStore deviceStore,
+    DeviceSettingsService deviceSettings,
     CharacterVaultService vault,
     ProfileVaultService profileVault,
     PvpRoomService pvpRooms,
@@ -84,6 +85,12 @@ public sealed class PacketDispatcher(
                     break;
                 case MessageType.CheckinProfileRequest:
                     await HandleProfileCheckinAsync(session, packet);
+                    break;
+                case MessageType.GetDeviceSettingsRequest:
+                    await HandleGetDeviceSettingsAsync(session, packet);
+                    break;
+                case MessageType.PutDeviceSettingsRequest:
+                    await HandlePutDeviceSettingsAsync(session, packet);
                     break;
                 case MessageType.ListPvpRoomsRequest:
                     await HandleListPvpRoomsAsync(session, packet);
@@ -486,6 +493,78 @@ public sealed class PacketDispatcher(
                 MessageType.CheckinProfileResponse,
                 packet.CorrelationId,
                 new CheckinProfileResponse(result.Revision, Convert.ToHexString(result.Sha256))));
+    }
+
+    private async ValueTask HandleGetDeviceSettingsAsync(
+        JmSession session,
+        WirePacket packet)
+    {
+        _ = PacketPayload.DeserializeJson<GetDeviceSettingsRequest>(packet.Body.Span);
+        var identity = RequireIdentity(session);
+        var settings = await deviceSettings.GetAsync(
+            identity.AccountId,
+            identity.DeviceId,
+            CancellationToken.None);
+        if (settings is null)
+        {
+            await SendAsync(
+                session,
+                WirePacket.CreateWithBinary(
+                    MessageType.GetDeviceSettingsResponse,
+                    packet.CorrelationId,
+                    new GetDeviceSettingsResponse(false, 0, 0, string.Empty),
+                    ReadOnlySpan<byte>.Empty));
+            return;
+        }
+
+        await SendAsync(
+            session,
+            WirePacket.CreateWithBinary(
+                MessageType.GetDeviceSettingsResponse,
+                packet.CorrelationId,
+                new GetDeviceSettingsResponse(
+                    true,
+                    settings.Revision,
+                    settings.SettingsData.Length,
+                    Convert.ToHexString(settings.Sha256)),
+                settings.SettingsData));
+    }
+
+    private async ValueTask HandlePutDeviceSettingsAsync(
+        JmSession session,
+        WirePacket packet)
+    {
+        var payload = PacketPayload.DeserializeWithBinary<PutDeviceSettingsRequest>(packet.Body.Span);
+        var request = payload.Metadata;
+        if (request.SettingsLength != payload.Binary.Length)
+        {
+            throw new WireProtocolException(
+                $"Declared device settings length {request.SettingsLength} does not match " +
+                $"{payload.Binary.Length} bytes received.");
+        }
+
+        if (payload.Binary.Length > ProtocolConstants.MaxDeviceSettingsLength)
+        {
+            throw new WireProtocolException(
+                $"Device settings are {payload.Binary.Length} bytes; maximum is " +
+                $"{ProtocolConstants.MaxDeviceSettingsLength}.");
+        }
+
+        var identity = RequireIdentity(session);
+        var result = await deviceSettings.PutAsync(
+            identity.AccountId,
+            identity.DeviceId,
+            payload.Binary,
+            request.Sha256Hex,
+            CancellationToken.None);
+        await SendAsync(
+            session,
+            WirePacket.Create(
+                MessageType.PutDeviceSettingsResponse,
+                packet.CorrelationId,
+                new PutDeviceSettingsResponse(
+                    result.Revision,
+                    Convert.ToHexString(result.Sha256))));
     }
 
     private async ValueTask HandleListPvpRoomsAsync(

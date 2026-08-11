@@ -217,6 +217,29 @@ public sealed class LauncherConnection : IAsyncDisposable
             MessageType.CheckinProfileResponse,
             cancellationToken);
 
+    public Task<BinaryPayload<GetDeviceSettingsResponse>> GetDeviceSettingsAsync(
+        CancellationToken cancellationToken) =>
+        RequestBinaryAsync<GetDeviceSettingsResponse>(
+            WirePacket.Create(
+                MessageType.GetDeviceSettingsRequest,
+                Guid.NewGuid(),
+                new GetDeviceSettingsRequest()),
+            MessageType.GetDeviceSettingsResponse,
+            cancellationToken);
+
+    public Task<PutDeviceSettingsResponse> PutDeviceSettingsAsync(
+        PutDeviceSettingsRequest metadata,
+        ReadOnlySpan<byte> settingsData,
+        CancellationToken cancellationToken) =>
+        RequestAsync<PutDeviceSettingsResponse>(
+            WirePacket.CreateWithBinary(
+                MessageType.PutDeviceSettingsRequest,
+                Guid.NewGuid(),
+                metadata,
+                settingsData),
+            MessageType.PutDeviceSettingsResponse,
+            cancellationToken);
+
     public Task<ListPvpRoomsResponse> ListPvpRoomsAsync(CancellationToken cancellationToken) =>
         RequestAsync<ListPvpRoomsResponse>(
             WirePacket.Create(

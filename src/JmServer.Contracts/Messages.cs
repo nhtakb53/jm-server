@@ -146,6 +146,22 @@ public sealed record CheckinProfileResponse(
     long Revision,
     string Sha256Hex);
 
+public sealed record GetDeviceSettingsRequest;
+
+public sealed record GetDeviceSettingsResponse(
+    bool Exists,
+    long Revision,
+    int SettingsLength,
+    string Sha256Hex);
+
+public sealed record PutDeviceSettingsRequest(
+    int SettingsLength,
+    string Sha256Hex);
+
+public sealed record PutDeviceSettingsResponse(
+    long Revision,
+    string Sha256Hex);
+
 public enum PvpRoomStatus
 {
     Waiting,

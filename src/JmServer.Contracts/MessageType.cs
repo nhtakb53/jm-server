@@ -19,6 +19,10 @@ public enum MessageType : ushort
     RenewProfileLeaseResponse = 23,
     CheckinProfileRequest = 24,
     CheckinProfileResponse = 25,
+    GetDeviceSettingsRequest = 26,
+    GetDeviceSettingsResponse = 27,
+    PutDeviceSettingsRequest = 28,
+    PutDeviceSettingsResponse = 29,
 
     ListPvpRoomsRequest = 30,
     ListPvpRoomsResponse = 31,

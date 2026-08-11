@@ -56,6 +56,7 @@ if (args.Length > 0)
 }
 
 var deviceStore = new NpgsqlDeviceStore(dataSource);
+var deviceSettings = new DeviceSettingsService(new NpgsqlDeviceSettingsStore(dataSource));
 var characterSaveFactory = new D2CharacterSaveFactory();
 var characterStore = new NpgsqlCharacterStore(dataSource, characterSaveFactory);
 var vault = new CharacterVaultService(
@@ -75,6 +76,7 @@ using var loggerFactory = LoggerFactory.Create(builder =>
 });
 var dispatcher = new PacketDispatcher(
     deviceStore,
+    deviceSettings,
     vault,
     profileVault,
     pvpRooms,
