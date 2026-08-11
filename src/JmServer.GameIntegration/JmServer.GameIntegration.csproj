@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <InternalsVisibleTo Include="JmServer.GameIntegration.Tests" />
+    <ProjectReference Include="..\JmServer.Domain\JmServer.Domain.csproj" />
+    <PackageReference Include="D2SSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ModData\**\*" />
+  </ItemGroup>
+</Project>

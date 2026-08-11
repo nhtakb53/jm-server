@@ -1,0 +1,405 @@
+{
+  "SchemaVersion": 3,
+  "GameVersion": "3.2.92777",
+  "SourceRevision": "cb27a8f574b873807e15cf9613d04d655cabdb60",
+  "UniqueItemCount": 410,
+  "SetItemCount": 140,
+  "SelectorCount": 550,
+  "BaseSelectorCount": 508,
+  "MaterialSelectorCount": 71,
+  "CharmSelectorCount": 46,
+  "ControlTokenCount": 19,
+  "CustomItemCount": 1194,
+  "WorkbenchRecipeCount": 91,
+  "QuickCraftRecipeCount": 36,
+  "GambleUniqueWeight": 1000,
+  "GambleSetWeight": 1000,
+  "GambleRareWeight": 80000,
+  "Categories": [
+    {
+      "Key": "unique-sword",
+      "DisplayName": "\uC720\uB2C8\uD06C \uAC80",
+      "Vendor": "Akara",
+      "ItemCount": 36,
+      "FirstItemName": "Azurewrath"
+    },
+    {
+      "Key": "unique-axe",
+      "DisplayName": "\uC720\uB2C8\uD06C \uB3C4\uB07C",
+      "Vendor": "Akara",
+      "ItemCount": 31,
+      "FirstItemName": "Bladebone"
+    },
+    {
+      "Key": "unique-blunt",
+      "DisplayName": "\uC720\uB2C8\uD06C \uB454\uAE30\u00B7\uD640",
+      "Vendor": "Akara",
+      "ItemCount": 35,
+      "FirstItemName": "Baezil\u0027s Vortex"
+    },
+    {
+      "Key": "unique-bow",
+      "DisplayName": "\uC720\uB2C8\uD06C \uD65C\u00B7\uC11D\uAD81",
+      "Vendor": "Akara",
+      "ItemCount": 29,
+      "FirstItemName": "Blastbark"
+    },
+    {
+      "Key": "unique-pole",
+      "DisplayName": "\uC720\uB2C8\uD06C \uCC3D\u00B7\uD22C\uCC3D",
+      "Vendor": "Akara",
+      "ItemCount": 32,
+      "FirstItemName": "Arioc\u0027s Needle"
+    },
+    {
+      "Key": "unique-dagger",
+      "DisplayName": "\uC720\uB2C8\uD06C \uB2E8\uAC80\u00B7\uD22C\uCC99",
+      "Vendor": "Akara",
+      "ItemCount": 14,
+      "FirstItemName": "Blackbog\u0027s Sharp"
+    },
+    {
+      "Key": "unique-caster",
+      "DisplayName": "\uC720\uB2C8\uD06C \uC9C0\uD321\uC774\u00B7\uC644\uB4DC\u00B7\uC624\uBE0C",
+      "Vendor": "Akara",
+      "ItemCount": 25,
+      "FirstItemName": "Arm of King Leoric"
+    },
+    {
+      "Key": "unique-class-weapon",
+      "DisplayName": "\uC720\uB2C8\uD06C \uC9C1\uC5C5 \uC804\uC6A9 \uBB34\uAE30",
+      "Vendor": "Akara",
+      "ItemCount": 10,
+      "FirstItemName": "Bloodraven\u0027s Charge"
+    },
+    {
+      "Key": "unique-body",
+      "DisplayName": "\uC720\uB2C8\uD06C \uAC11\uC637",
+      "Vendor": "Akara",
+      "ItemCount": 37,
+      "FirstItemName": "Arkaine\u0027s Valor"
+    },
+    {
+      "Key": "unique-helm",
+      "DisplayName": "\uC720\uB2C8\uD06C \uD22C\uAD6C\u00B7\uC11C\uD074\uB9BF",
+      "Vendor": "Akara",
+      "ItemCount": 27,
+      "FirstItemName": "Andariel\u0027s Visage"
+    },
+    {
+      "Key": "unique-shield",
+      "DisplayName": "\uC720\uB2C8\uD06C \uBC29\uD328",
+      "Vendor": "Akara",
+      "ItemCount": 22,
+      "FirstItemName": "Blackoak Shield"
+    },
+    {
+      "Key": "unique-gloves",
+      "DisplayName": "\uC720\uB2C8\uD06C \uC7A5\uAC11",
+      "Vendor": "Akara",
+      "ItemCount": 13,
+      "FirstItemName": "Bloodfist"
+    },
+    {
+      "Key": "unique-boots",
+      "DisplayName": "\uC720\uB2C8\uD06C \uC2E0\uBC1C",
+      "Vendor": "Akara",
+      "ItemCount": 14,
+      "FirstItemName": "Goblin Toe"
+    },
+    {
+      "Key": "unique-belts",
+      "DisplayName": "\uC720\uB2C8\uD06C \uBCA8\uD2B8",
+      "Vendor": "Akara",
+      "ItemCount": 14,
+      "FirstItemName": "Arachnid Mesh"
+    },
+    {
+      "Key": "unique-class-armor",
+      "DisplayName": "\uC720\uB2C8\uD06C \uC9C1\uC5C5 \uC804\uC6A9 \uBC29\uC5B4\uAD6C",
+      "Vendor": "Akara",
+      "ItemCount": 18,
+      "FirstItemName": "Alma Negra"
+    },
+    {
+      "Key": "unique-rings",
+      "DisplayName": "\uC720\uB2C8\uD06C \uBC18\uC9C0",
+      "Vendor": "Akara",
+      "ItemCount": 11,
+      "FirstItemName": "Bul Katho\u0027s Wedding Band"
+    },
+    {
+      "Key": "unique-amulets",
+      "DisplayName": "\uC720\uB2C8\uD06C \uBAA9\uAC78\uC774",
+      "Vendor": "Akara",
+      "ItemCount": 13,
+      "FirstItemName": "Atma\u0027s Scarab"
+    },
+    {
+      "Key": "unique-charms",
+      "DisplayName": "\uC720\uB2C8\uD06C \uBD80\uC801\u00B7\uBCF4\uC11D",
+      "Vendor": "Akara",
+      "ItemCount": 29,
+      "FirstItemName": "Gheed\u0027s Fortune"
+    },
+    {
+      "Key": "set-weapons",
+      "DisplayName": "\uC138\uD2B8 \uBB34\uAE30",
+      "Vendor": "Akara",
+      "ItemCount": 27,
+      "FirstItemName": "Aldur\u0027s Gauntlet"
+    },
+    {
+      "Key": "set-body",
+      "DisplayName": "\uC138\uD2B8 \uAC11\uC637",
+      "Vendor": "Akara",
+      "ItemCount": 26,
+      "FirstItemName": "Aldur\u0027s Deception"
+    },
+    {
+      "Key": "set-helm",
+      "DisplayName": "\uC138\uD2B8 \uD22C\uAD6C\u00B7\uC11C\uD074\uB9BF",
+      "Vendor": "Akara",
+      "ItemCount": 23,
+      "FirstItemName": "Arcanna\u0027s Head"
+    },
+    {
+      "Key": "set-shield",
+      "DisplayName": "\uC138\uD2B8 \uBC29\uD328",
+      "Vendor": "Akara",
+      "ItemCount": 8,
+      "FirstItemName": "Civerb\u0027s Ward"
+    },
+    {
+      "Key": "set-gloves",
+      "DisplayName": "\uC138\uD2B8 \uC7A5\uAC11",
+      "Vendor": "Akara",
+      "ItemCount": 13,
+      "FirstItemName": "Arctic Mitts"
+    },
+    {
+      "Key": "set-boots",
+      "DisplayName": "\uC138\uD2B8 \uC2E0\uBC1C",
+      "Vendor": "Akara",
+      "ItemCount": 12,
+      "FirstItemName": "Aldur\u0027s Advance"
+    },
+    {
+      "Key": "set-belts",
+      "DisplayName": "\uC138\uD2B8 \uBCA8\uD2B8",
+      "Vendor": "Akara",
+      "ItemCount": 15,
+      "FirstItemName": "Arctic Binding"
+    },
+    {
+      "Key": "set-class-armor",
+      "DisplayName": "\uC138\uD2B8 \uC9C1\uC5C5 \uC804\uC6A9 \uBC29\uC5B4\uAD6C",
+      "Vendor": "Akara",
+      "ItemCount": 5,
+      "FirstItemName": "Aldur\u0027s Stony Gaze"
+    },
+    {
+      "Key": "set-jewelry",
+      "DisplayName": "\uC138\uD2B8 \uBC18\uC9C0\u00B7\uBAA9\uAC78\uC774",
+      "Vendor": "Akara",
+      "ItemCount": 11,
+      "FirstItemName": "Angelic Halo"
+    },
+    {
+      "Key": "base-sword",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uAC80",
+      "Vendor": "Akara",
+      "ItemCount": 42,
+      "FirstItemName": "Ancient Sword"
+    },
+    {
+      "Key": "base-axe",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uB3C4\uB07C",
+      "Vendor": "Akara",
+      "ItemCount": 36,
+      "FirstItemName": "Ancient Axe"
+    },
+    {
+      "Key": "base-blunt",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uB454\uAE30\u00B7\uD640",
+      "Vendor": "Akara",
+      "ItemCount": 33,
+      "FirstItemName": "Barbed Club"
+    },
+    {
+      "Key": "base-bow",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uD65C\u00B7\uC11D\uAD81",
+      "Vendor": "Akara",
+      "ItemCount": 36,
+      "FirstItemName": "Arbalest"
+    },
+    {
+      "Key": "base-pole",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uCC3D\u00B7\uD22C\uCC3D",
+      "Vendor": "Akara",
+      "ItemCount": 48,
+      "FirstItemName": "Balrog Spear"
+    },
+    {
+      "Key": "base-dagger",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uB2E8\uAC80\u00B7\uD22C\uCC99",
+      "Vendor": "Akara",
+      "ItemCount": 18,
+      "FirstItemName": "Balanced Knife"
+    },
+    {
+      "Key": "base-caster",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uC9C0\uD321\uC774\u00B7\uC644\uB4DC\u00B7\uC624\uBE0C",
+      "Vendor": "Akara",
+      "ItemCount": 42,
+      "FirstItemName": "Archon Staff"
+    },
+    {
+      "Key": "base-class-weapon",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uC9C1\uC5C5 \uC804\uC6A9 \uBB34\uAE30",
+      "Vendor": "Akara",
+      "ItemCount": 36,
+      "FirstItemName": "Ashwood Bow"
+    },
+    {
+      "Key": "base-body",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uAC11\uC637",
+      "Vendor": "Akara",
+      "ItemCount": 45,
+      "FirstItemName": "Ancient Armor"
+    },
+    {
+      "Key": "base-helm",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uD22C\uAD6C\u00B7\uC11C\uD074\uB9BF",
+      "Vendor": "Akara",
+      "ItemCount": 28,
+      "FirstItemName": "Armet"
+    },
+    {
+      "Key": "base-shield",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uBC29\uD328",
+      "Vendor": "Akara",
+      "ItemCount": 24,
+      "FirstItemName": "Aegis"
+    },
+    {
+      "Key": "base-gloves",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uC7A5\uAC11",
+      "Vendor": "Akara",
+      "ItemCount": 15,
+      "FirstItemName": "Battle Gauntlets"
+    },
+    {
+      "Key": "base-boots",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uC2E0\uBC1C",
+      "Vendor": "Akara",
+      "ItemCount": 15,
+      "FirstItemName": "Battle Boots"
+    },
+    {
+      "Key": "base-belts",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uBCA8\uD2B8",
+      "Vendor": "Akara",
+      "ItemCount": 15,
+      "FirstItemName": "Battle Belt"
+    },
+    {
+      "Key": "base-class-armor",
+      "DisplayName": "\uBCA0\uC774\uC2A4 \uC9C1\uC5C5 \uC804\uC6A9 \uBC29\uC5B4\uAD6C",
+      "Vendor": "Akara",
+      "ItemCount": 75,
+      "FirstItemName": "Aerin Shield"
+    },
+    {
+      "Key": "materials-runes",
+      "DisplayName": "\uB8EC \uC7AC\uB8CC",
+      "Vendor": "Akara",
+      "ItemCount": 33,
+      "FirstItemName": "El Rune"
+    },
+    {
+      "Key": "materials-gems",
+      "DisplayName": "\uBCF4\uC11D \uC7AC\uB8CC",
+      "Vendor": "Akara",
+      "ItemCount": 35,
+      "FirstItemName": "Chipped Sapphire"
+    },
+    {
+      "Key": "materials-charms",
+      "DisplayName": "\uCC38\uACFC \uC8FC\uC5BC",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "Jewel"
+    },
+    {
+      "Key": "skill-charms-amazon",
+      "DisplayName": "\uC544\uB9C8\uC874 \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uC544\uB9C8\uC874: \uD65C\u00B7\uC1E0\uB1CC \u002B1"
+    },
+    {
+      "Key": "skill-charms-sorceress",
+      "DisplayName": "\uC6D0\uC18C\uC220\uC0AC \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uC6D0\uC18C\uC220\uC0AC: \uD654\uC5FC \u002B1"
+    },
+    {
+      "Key": "skill-charms-necromancer",
+      "DisplayName": "\uAC15\uB839\uC220\uC0AC \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uAC15\uB839\uC220\uC0AC: \uC800\uC8FC \u002B1"
+    },
+    {
+      "Key": "skill-charms-paladin",
+      "DisplayName": "\uC131\uAE30\uC0AC \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uC131\uAE30\uC0AC: \uC804\uD22C \u002B1"
+    },
+    {
+      "Key": "skill-charms-barbarian",
+      "DisplayName": "\uC57C\uB9CC\uC6A9\uC0AC \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uC57C\uB9CC\uC6A9\uC0AC: \uC219\uB828 \u002B1"
+    },
+    {
+      "Key": "skill-charms-druid",
+      "DisplayName": "\uB4DC\uB8E8\uC774\uB4DC \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uB4DC\uB8E8\uC774\uB4DC: \uC18C\uD658 \u002B1"
+    },
+    {
+      "Key": "skill-charms-assassin",
+      "DisplayName": "\uC554\uC0B4\uC790 \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uC554\uC0B4\uC790: \uB36B \u002B1"
+    },
+    {
+      "Key": "skill-charms-warlock",
+      "DisplayName": "\uC545\uB9C8\uC220\uC0AC \uC2A4\uD0AC\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 3,
+      "FirstItemName": "\uC545\uB9C8\uC220\uC0AC: \uC545\uB9C8 \uC9C0\uBC30 \u002B1"
+    },
+    {
+      "Key": "popular-small-charms",
+      "DisplayName": "\uC778\uAE30 \uC2A4\uBAB0\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 11,
+      "FirstItemName": "\uC815\uAD50\uD55C: \uCD5C\uB300 \uD53C\uD574\u00B7\uBA85\uC911\uB960"
+    },
+    {
+      "Key": "popular-large-charms",
+      "DisplayName": "\uC778\uAE30 \uB77C\uC9C0\uCC38",
+      "Vendor": "Akara",
+      "ItemCount": 11,
+      "FirstItemName": "\uB0A0\uCE74\uB85C\uC6B4: \uCD5C\uB300 \uD53C\uD574\u00B7\uBA85\uC911\uB960"
+    }
+  ]
+}

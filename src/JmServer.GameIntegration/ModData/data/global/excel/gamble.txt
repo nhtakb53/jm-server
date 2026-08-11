@@ -1,0 +1,386 @@
+name	code
+amulet	amu
+ring	rin
+Hand Axe	hax
+Axe	axe
+Double Axe	2ax
+Military Pick	mpi
+War Axe	wax
+Large Axe	lax
+Broad Axe 	bax
+Battle Axe	btx
+Great Axe	gax
+Giant Axe	gix
+Club	clb
+Spiked Club	spc
+Mace	mac
+Morning Star	mst
+Flail	fla
+War Hammer	whm
+Maul	mau
+Great Maul	gma
+Short Sword	ssd
+Scimitar	scm
+Saber	sbr
+Falchion	flc
+Crystal Sword	crs
+Broad Sword	bsd
+Long Sword 	lsd
+War Sword	wsd
+Two-Handed Sword	2hs
+Claymore	clm
+Giant Sword	gis
+Bastard Sword	bsw
+Flamberge	flb
+Great Sword	gsd
+Spear	spr
+Trident	tri
+Brandistock	brn
+Spetum	spt
+Pike	pik
+Bardiche	bar
+Voulge	vou
+Scythe	scy
+Poleaxe	pax
+Halberd	hal
+War Scythe	wsc
+Short Bow	sbw
+Hunter's Bow	hbw
+Long Bow	lbw
+Composite Bow	cbw
+Short Battle Bow	sbb
+Long Battle Bow	lbb
+Short War Bow	swb
+Long War Bow	lwb
+Light Crossbow	lxb
+Crossbow	mxb
+Heavy Crossbow	hxb
+Repeating Crossbow	rxb
+Cap/hat	cap
+Skull Cap	skp
+Helm	hlm
+Full Helm	fhl
+Great Helm	ghm
+Crown	crn
+Mask	msk
+Quilted Armor	qui
+Leather Armor	lea
+Hard Leather Armor	hla
+Studded Leather 	stu
+Ring Mail	rng
+Scale Mail	scl
+Chain Mail	chn
+Breast Plate	brs
+Splint Mail	spl
+Plate Mail	plt
+Field Plate	fld
+Gothic Plate	gth
+Full Plate Mail	ful
+Ancient Armor	aar
+Light Plate	ltp
+Buckler	buc
+Small Shield	sml
+Large Shield	lrg
+Kite Shield	kit
+Tower Shield	tow
+Gothic Shield	gts
+Gloves(L)	lgl
+Heavy Gloves	vgl
+Bracers(M)	mgl
+Light Gauntlets	tgl
+Gaunlets(H)	hgl
+Leather Boots	lbt
+Heavy Boots	vbt
+Chain Boots	mbt
+Light Plate Boots	tbt
+Plate Boots	hbt
+Sash(L)	lbl
+Light Belt	vbl
+Belt(M)	mbl
+Heavy Belt	tbl
+Girdle(H)	hbl
+Bone Helm	bhm
+Bone Shield	bsh
+Spiked Shield	spk
+Expansion	
+Throwing Knife	tkf
+Throwing Axe	tax
+Balanced Knife	bkf
+Balanced Axe	bal
+Javelin	jav
+Pilum	pil
+Short Spear	ssp
+Glaive	glv
+Throwing Spear	tsp
+Katar	ktr
+Wrist Blade	wrb
+Axe Fist	axf
+Cestus	ces
+Claws	clw
+Blade Talons	btl
+Scissors Katar	skr
+Circlet	ci0
+Coronet	ci1
+Colossal Jewel	cjw
+Jewel	jew
+Aegis	uow
+Ancient Shield	xts
+Armet	ulm
+Avenger Guard	ba5
+Balrog Skin	upl
+Barbed Shield	xpk
+Basinet	xhl
+Battle Belt	ztb
+Battle Boots	xtb
+Battle Gauntlets	xtg
+Blade Barrier	upk
+Blasphemous Compendium	wae
+Blasphemous Grimoire 	waf
+Blood Spirit	drb
+Bloodlord Skull	nef
+Bone Visage	uh9
+Boneweave Boots	umb
+Bramble Mitts	ulg
+Burnt Text	wa6
+Cantor Trophy	ne9
+Casque	xlm
+Chaos Armor	xul
+Conqueror Crown	bae
+Corona	urn
+Cuirass	xrs
+Death Mask	xsk
+Defender	xuc
+Demonhead	usk
+Demonhide Armor	xla
+Demonhide Boots	xlb
+Demonhide Gloves	xlg
+Demonhide Sash	zlb
+Destroyer Helm	bad
+Diadem	ci3
+Dragon Shield	xit
+Dusk Shroud	uui
+Earth Spirit	drd
+Embossed Plate	xth
+Fury Visor	bac
+Ghost Armor	xui
+Gilded Shield	pa9
+Grand Crown	xrn
+Grim Helm	xh9
+Grim Shield	xsh
+Heavy Bracers	xmg
+Heirophant Trophy	nea
+Hellforge Plate	ult
+Hunter's Guise	dr8
+Kraken Shell	uld
+Lacquered Plate	uth
+Linked Mail	xng
+Loricated Mail	ucl
+Luna	uml
+Mage Plate	xtp
+Mesh Armor	xhn
+Mesh Belt	zmb
+Mesh Boots	xmb
+Mirrored Boots	utb
+Mithril Coil	umc
+Monarch	uit
+Myrmidon Greaves	uhb
+Occult Codex	wad
+Occult Tome	wac
+Ogre Gauntlets	uhg
+Ornate Armor	xar
+Pavise	xow
+Round Shield	xml
+Russet Armor	xpl
+Sacred Armor	uar
+Sacred Rondache	pac
+Sallet	xkp
+Scarabshell Boots	uvb
+Scutum	xrg
+Serpentskin Armor	xea
+Shadow Plate	uul
+Shako	uap
+Sharkskin Belt	zvb
+Sharkskin Boots	xvb
+Sharkskin Gloves	xvg
+Sharktooth Armor	xld
+Sky Spirit	dre
+Slayer Guard	baa
+Spiderweb Sash	ulc
+Spired Helm	uhm
+Succubus Skull	nee
+Templar Coat	xlt
+Tiara	ci2
+Tigulated Mail	xcl
+Totemic Mask	dra
+Trellised Armor	xtu
+Troll Belt	utc
+Troll Nest	ush
+Vambraces	umg
+Vampirebone Gloves	uvg
+Vampirefang Belt	uvc
+Vortex Shield	paf
+War Belt	zhb
+War Boots	xhb
+War Gauntlets	xhg
+War Hat	xap
+Ward	uts
+Winged Helm	xhm
+Wire Fleece	utu
+Zakarum Shield	pae
+Ancient Axe	9gi
+Ancient Sword	9wd
+Arbalest	8lx
+Archon Staff	6ws
+Ataghan	7sm
+Ballista	8hx
+Balrog Blade	7gs
+Balrog Spear	7s7
+Barbed Club	9sp
+Battle Cestus	7cs
+Battle Dart	9tk
+Battle Hammer	9wh
+Battle Scythe	9s8
+Battle Staff	bst
+Battle Sword	9bs
+Bearded Axe 	9ba
+Bec-de-Corbin	9h9
+Berserker Axe	7wa
+Bill	9vo
+Blade	bld
+Bone Knife	7dg
+Bone Wand	bwn
+Burnt Wand	9wn
+Caduceus	7ws
+Cedar Bow	8lb
+Cedar Staff	8cs
+Ceremonial Bow	am7
+Ceremonial Javelin	ama
+Ceremonial Pike	am9
+Champion Axe	7ga
+Champion Sword	7b7
+Chu-Ko-Nu	8rx
+Cinquedeas	9kr
+Cleaver	9ax
+Colossus Blade	7gd
+Colossus Crossbow	6hx
+Crowbill	9mp
+Crusader Bow	6l7
+Cryptic Axe	7pa
+Cryptic Sword	7ls
+Cudgel	9cl
+Cutlass	9sm
+Dacian Falx	9cm
+Dagger	dgr
+Decapitator	7bt
+Demon Crossbow	6rx
+Devil Star	7mt
+Dimensional Blade	9cr
+Dimensional Shard	obf
+Dirk	dir
+Divine Scepter	9ws
+Double Bow	8cb
+Edge Bow	8sb
+Elder Staff	6cs
+Eldritch Orb	obc
+Elegant Blade	7sb
+Espandon	92h
+Ettin Axe	72a
+Executioner Sword	9gd
+Fanged Knife	7kr
+Feral Claws	7lw
+Flanged Mace	9ma
+Flying Axe	7ta
+Francisca	9ta
+Fuscina	9tr
+Ghost Glaive	7gl
+Giant Thresher	7wc
+Gladius	9ss
+Glorious Axe	7gi
+Gnarled Staff	cst
+Gothic Axe	9ga
+Gothic Bow	8lw
+Gothic Staff	8bs
+Gothic Sword	9b9
+Grand Matron Bow	amc
+Grand Scepter	gsc
+Grave Wand	9gw
+Greater Talons	9tw
+Grim Scythe	9wc
+Grim Wand	gwn
+Hatchet	9ha
+Holy Water Sprinkler	9qs
+Hydra Bow	6lw
+Hyperion Spear	7sr
+Jagged Star	9mt
+Jo Staff	8ss
+Knout	9fl
+Kriss	kri
+Lance	9p9
+Legend Spike	7bl
+Legend Sword	72h
+Legendary Mallet	7wh
+Lich Wand	7bw
+Lochaber Axe	9b7
+Long Siege Bow	8l8
+Long Staff	lst
+Mancatcher	7br
+Martel de Fer	9gm
+Matriarchal Bow	amb
+Matriarchal Javelin	amf
+Matriarchal Spear	amd
+Mighty Scepter	7sc
+Military Axe	9la
+Mithral Point	7di
+Mythical Sword	7wd
+Naga	9wa
+Ogre Axe	7o7
+Ogre Maul	7m7
+Partizan	9pa
+Petrified Wand	9yw
+Phase Blade	7cr
+Poignard	9dg
+Quarterstaff	8ls
+Razor Bow	8hb
+Reinforced Mace	7ma
+Rondel	9di
+Rune Bow	8sw
+Rune Scepter	9sc
+Rune Staff	8ws
+Rune Sword	9ls
+Scepter	scp
+Scissors Suwayyah	7qr
+Scourge	7fl
+Shamshir	9sb
+Short Siege Bow	8s8
+Short Staff	sst
+Siege Crossbow	8mx
+Silver-edged Axe	7ba
+Stilleto	9bl
+Swirling Crystal	oba
+Tabar	9bt
+Thresher	7s8
+Thunder Maul	7gm
+Tomahawk	7ha
+Tomb Wand	9bw
+Truncheon	7cl
+Tulwar	9fc
+Tusk Sword	9gs
+Twin Axe	92a
+Tyrant Club	7sp
+Unearthed Wand	7gw
+Wand	wnd
+War Club	9m9
+War Fork	9br
+War Pike	7p7
+War Scepter	wsp
+War Spear	9sr
+War Spike	7mp
+War Staff	wst
+Ward Bow	6sw
+Winged Axe	7b8
+Winged Harpoon	7ts
+Winged Knife	7bk
+Wrist Sword	7wb
+Yari	9st
+Yew Wand	ywn
+Zweihander	9fb

@@ -1,0 +1,89 @@
+{
+  "SchemaVersion": 3,
+  "GameVersion": "3.2.92777",
+  "SourceRevision": "cb27a8f574b873807e15cf9613d04d655cabdb60",
+  "UniqueItemCount": 410,
+  "SetItemCount": 140,
+  "SelectorCount": 550,
+  "BaseSelectorCount": 508,
+  "MaterialSelectorCount": 71,
+  "CharmSelectorCount": 46,
+  "ControlTokenCount": 19,
+  "CustomItemCount": 1194,
+  "WorkbenchRecipeCount": 91,
+  "QuickCraftRecipeCount": 36,
+  "Files": [
+    {
+      "RelativePath": "data/global/excel/armor.txt",
+      "Sha256": "0F9A11CFEB7A7644349D1E273380B92549B8F70D15AE97DE313C61772803D5D0"
+    },
+    {
+      "RelativePath": "data/global/excel/automagic.txt",
+      "Sha256": "C1442DCE09CCA0C2394C8366B79111C5E7EE53E28F17F296C0A4C37CED78CB6A"
+    },
+    {
+      "RelativePath": "data/global/excel/cubemain.txt",
+      "Sha256": "EA87BD42B6501071C77A08A9A4E190B46491E7E0D41F4F33ABDB9BD6265B679D"
+    },
+    {
+      "RelativePath": "data/global/excel/difficultylevels.txt",
+      "Sha256": "ECB2BB31AC94BED87655EA305AB1D24B688E1A7F05A11D8EF35CF9202F234B27"
+    },
+    {
+      "RelativePath": "data/global/excel/gamble.txt",
+      "Sha256": "DB0E256761F6F56649F055B1BEF26C579713D97BB774474155C4F7EB0124385D"
+    },
+    {
+      "RelativePath": "data/global/excel/lvlprest.txt",
+      "Sha256": "F864537E802F6BE1AD12522EF9317C2B34A781CA62A2711FB627B0B4BC2F6723"
+    },
+    {
+      "RelativePath": "data/global/excel/magicprefix.txt",
+      "Sha256": "F2FBBB30F8687C41BD2ED575FEDA0466EE38DEC1648F924FD4401BB3E2613FD2"
+    },
+    {
+      "RelativePath": "data/global/excel/magicsuffix.txt",
+      "Sha256": "8B684233BFB103FCF8C9D6CC8BA558AB64A49782507AD15418024F3581CEB5C3"
+    },
+    {
+      "RelativePath": "data/global/excel/misc.txt",
+      "Sha256": "73208C8F7701C88D5B17722370F27537935170A55D3BF7193C948E8BA3969E74"
+    },
+    {
+      "RelativePath": "data/global/excel/runes.txt",
+      "Sha256": "E6B61E97AC9CBCD07242228CBFC9295FD962E2E90B31C7482031C7B73B8A8B15"
+    },
+    {
+      "RelativePath": "data/global/excel/setitems.txt",
+      "Sha256": "1A31B5E6E9B0265AACDF7281C99811860E49FC280005269A8699B6EDC8E205B1"
+    },
+    {
+      "RelativePath": "data/global/excel/uniqueitems.txt",
+      "Sha256": "079082C0C817B6B977331E8D35D3E3F126DC944C3AE0862002782FEBEF1AEF3B"
+    },
+    {
+      "RelativePath": "data/global/excel/weapons.txt",
+      "Sha256": "2493F779C4D615F100D74D8156FF08D1E4C88A5320A485081B0B4B66A09D287B"
+    },
+    {
+      "RelativePath": "data/hd/items/items.json",
+      "Sha256": "11030C38C398728FEDA60D4EE45C0FE256AC76B58371CF525DD562686BA6B9C2"
+    },
+    {
+      "RelativePath": "data/local/lng/strings/item-names.json",
+      "Sha256": "3AB46E9366AED462BCC3AC1F8D395E9BDE38DF9B07AD1426AD8C4611B57E580F"
+    },
+    {
+      "RelativePath": "data/local/lng/strings/ui.json",
+      "Sha256": "1F34E1CA4C30829F7B021382B4F200488289BC374C79EDCC104CDFE19D8D197D"
+    },
+    {
+      "RelativePath": "jm-loot-filter.json",
+      "Sha256": "D6DA55A012EB0AE29A0FBD679E3B1A0FF6C40C64BE7B932D9C10E054EB5EAE2F"
+    },
+    {
+      "RelativePath": "jm-supply-catalog.json",
+      "Sha256": "3CCE5230FF950F72D48AE11AF3814F0F007952E188B0804D36A94E53F4BB539A"
+    }
+  ]
+}

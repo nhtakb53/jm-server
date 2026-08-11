@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>정만서버 통합 사용 가이드</title>
+  <style>
+    :root {
+      --bg: #090a0c;
+      --panel: #111318;
+      --panel-2: #171a20;
+      --line: #303640;
+      --text: #f2eee6;
+      --muted: #b7b1a6;
+      --gold: #d3a44a;
+      --gold-2: #f0cf7a;
+      --green: #58d79f;
+      --blue: #78b9ed;
+      --red: #ff7e7e;
+      --shadow: 0 18px 60px rgba(0,0,0,.36);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 78% -10%, rgba(142,92,26,.26), transparent 34rem),
+        radial-gradient(circle at -10% 24%, rgba(96,25,25,.18), transparent 30rem),
+        var(--bg);
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+      line-height: 1.68;
+    }
+    a { color: var(--gold-2); }
+    b, strong { color: var(--text); }
+    code, kbd {
+      color: #f5d992;
+      background: #08090b;
+      border: 1px solid #252932;
+      padding: .12rem .36rem;
+      border-radius: 4px;
+      overflow-wrap: anywhere;
+    }
+    kbd { color: #e9e4da; box-shadow: inset 0 -1px #444; }
+    .layout { width: min(1220px, calc(100% - 36px)); margin: 0 auto; }
+    header { padding: 68px 0 38px; border-bottom: 1px solid var(--line); }
+    .eyebrow { color: var(--gold-2); letter-spacing: .18em; font-size: .78rem; font-weight: 800; }
+    h1 { margin: 10px 0 10px; font-family: Georgia, "Noto Serif KR", serif; font-size: clamp(2.5rem, 7vw, 5.2rem); line-height: 1; }
+    .lead { max-width: 820px; color: var(--muted); font-size: 1.08rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+    .badge { border: 1px solid #514123; background: #211a0e; color: #efd18d; padding: 5px 10px; border-radius: 999px; font-size: .82rem; }
+    nav { position: sticky; top: 0; z-index: 5; backdrop-filter: blur(14px); background: rgba(9,10,12,.9); border-bottom: 1px solid var(--line); }
+    nav .layout { display: flex; gap: 4px; overflow-x: auto; padding: 10px 0; }
+    nav a { color: var(--muted); text-decoration: none; white-space: nowrap; padding: 8px 11px; border-radius: 6px; }
+    nav a:hover, nav a:focus { color: var(--text); background: var(--panel-2); }
+    main { padding: 38px 0 80px; }
+    section { scroll-margin-top: 74px; margin-bottom: 58px; }
+    h2 { margin: 0 0 18px; font-size: clamp(1.55rem, 3vw, 2.2rem); }
+    h3 { margin: 0 0 8px; font-size: 1.09rem; }
+    h4 { margin: 18px 0 7px; color: var(--gold-2); }
+    p { margin: 0 0 12px; }
+    .subtle { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, 1fr); }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0; }
+    .metric { background: #13161b; border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+    .metric strong { display: block; color: var(--gold-2); font: 750 1.45rem/1.15 Georgia, serif; }
+    .metric span { color: var(--muted); font-size: .85rem; }
+    .card { background: linear-gradient(145deg, rgba(25,28,34,.98), rgba(14,16,20,.98)); border: 1px solid var(--line); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
+    .card p, .card li { color: var(--muted); }
+    .number { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 7px; margin-bottom: 12px; border-radius: 99px; color: #1a1308; background: var(--gold-2); font-weight: 900; }
+    ul, ol { margin: 8px 0 0; padding-left: 1.25rem; }
+    li + li { margin-top: 7px; }
+    .steps > li { padding-left: 5px; margin-bottom: 10px; }
+    .ok { color: var(--green); }
+    .blue { color: var(--blue); }
+    .warn { border-left: 3px solid var(--gold); background: #19150e; padding: 14px 16px; border-radius: 0 8px 8px 0; color: #ded2bd; }
+    .danger { border-left-color: var(--red); background: #1a1012; }
+    .info { border-left-color: var(--blue); background: #0d151c; }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); }
+    table { width: 100%; min-width: 680px; border-collapse: collapse; background: var(--panel); }
+    th, td { padding: 11px 13px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--gold-2); background: #17140e; position: sticky; top: 0; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #161a20; }
+    .compact th, .compact td { padding: 8px 10px; }
+    details { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 13px 16px; }
+    details + details { margin-top: 9px; }
+    summary { cursor: pointer; font-weight: 750; color: var(--text); }
+    details > :last-child { margin-bottom: 0; }
+    .search-box { position: relative; margin-top: 24px; max-width: 760px; }
+    .search-box input { width: 100%; border: 1px solid #5a4a2b; border-radius: 9px; background: #111318; color: var(--text); padding: 13px 15px; font: inherit; outline: none; }
+    .search-box input:focus { border-color: var(--gold-2); box-shadow: 0 0 0 3px rgba(240,207,122,.12); }
+    #searchStatus { min-height: 1.4em; margin: 7px 2px 0; color: var(--muted); font-size: .86rem; }
+    .search-hidden { display: none !important; }
+    .anchor-list { columns: 2; column-gap: 30px; }
+    .anchor-list li { break-inside: avoid; }
+    .chip { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; color: var(--muted); font-size: .8rem; }
+    footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 44px; font-size: .9rem; }
+    @media (max-width: 900px) { .grid, .grid.two, .metrics { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 620px) {
+      .grid, .grid.two, .metrics { grid-template-columns: 1fr; }
+      .anchor-list { columns: 1; }
+      header { padding-top: 46px; }
+      .layout { width: calc(100% - 24px); max-width: 1220px; }
+      .lead, p, li, summary { overflow-wrap: anywhere; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="layout">
+      <div class="eyebrow">JM PRIVATE PVP · 통합 운영 문서</div>
+      <h1>정만서버</h1>
+      <p class="lead">서버 전용 캐릭터를 중앙에 저장하고, D2R 안에서 장비를 준비한 뒤 두 사람이 TCP/IP로 PK하는 전체 사용법입니다. 아래 수치는 현재 포함된 모드 데이터와 서버 소스를 직접 대조한 값입니다.</p>
+      <div class="badges">
+        <span class="badge">D2R 3.2.92777</span>
+        <span class="badge">D2RLoader 1.0.1-beta</span>
+        <span class="badge">프로토콜 v6</span>
+        <span class="badge">선택 카드 1,175종</span>
+        <span class="badge">작업석 19종</span>
+        <span class="badge">추가 큐브식 5,839개</span>
+      </div>
+      <div class="search-box">
+        <label for="guideSearch" class="eyebrow">가이드 안에서 찾기</label>
+        <input id="guideSearch" type="search" placeholder="예: 스킬참, 에테리얼, 빠른 크래프트, 소켓, 15571" autocomplete="off">
+        <p id="searchStatus" aria-live="polite">레시피·상인·재료·문제 해결 항목을 검색할 수 있습니다.</p>
+      </div>
+    </div>
+  </header>
+
+  <nav aria-label="가이드 목차">
+    <div class="layout">
+      <a href="#overview">빠른 시작</a><a href="#start">설치·실행</a><a href="#character">캐릭터</a><a href="#stash">보관함</a><a href="#supply">아이템 만들기</a><a href="#cube">레시피 사전</a><a href="#qol">편의 기능</a><a href="#pvp">PK</a><a href="#save">저장·복구</a><a href="#safety">문제 해결</a>
+    </div>
+  </nav>
+
+  <main class="layout">
+    <section id="overview">
+      <h2>처음 보는 사람을 위한 빠른 시작</h2>
+      <div class="metrics">
+        <div class="metric"><strong>99</strong><span>생성 캐릭터 레벨</span></div>
+        <div class="metric"><strong>12,500,000</strong><span>첫 공유 보관함 총 골드</span></div>
+        <div class="metric"><strong>91 × 99</strong><span>고급 보관함 재료 스택</span></div>
+        <div class="metric"><strong>1 / 1 / 80 / 18%</strong><span>유니크·세트·레어·매직 도박</span></div>
+      </div>
+      <ol class="steps searchable" data-searchable>
+        <li><b>설정 및 복구</b> 탭에서 서버 정보와 D2R 경로, D2RLoader ZIP을 저장하고 <b>설치 / 복구</b>를 한 번 실행합니다.</li>
+        <li><b>캐릭터 플레이</b> 탭에서 99레벨 캐릭터를 만들고 선택한 뒤 <b>선택 캐릭터 플레이</b>를 누릅니다.</li>
+        <li>게임에서는 Online이 아니라 <b>TCP/IP</b>만 사용합니다. 혼자 세팅할 때는 게임 방 만들기를 선택합니다.</li>
+        <li>아카라에게 선택 카드·작업석을 사고, 큐브에서 장비·참·크래프트를 반복 생성합니다.</li>
+        <li>게임을 정상 종료하고 런처의 <b>리비전 저장 완료</b> 로그까지 확인합니다.</li>
+      </ol>
+      <div class="grid">
+        <article class="card searchable" data-searchable><h3>중앙 저장</h3><p>캐릭터와 같은 계정의 소프트코어 공유 보관함 전체를 PostgreSQL 서버 프로필로 체크아웃·체크인합니다. 계정이 다른 <b>ht</b>와 <b>jm</b>의 캐릭터·보관함은 서로 섞이지 않습니다.</p></article>
+        <article class="card searchable" data-searchable><h3>인게임 보급</h3><p>런처 아이템 편집기는 없습니다. 도박, 상인이 파는 선택 카드, 호라드림의 함을 이용해 게임 안에서 장비를 준비합니다.</p></article>
+        <article class="card searchable" data-searchable><h3>TCP/IP PK</h3><p>인증·캐릭터 서버는 TCP <b>15570</b>, 인터넷 게임 중계는 TCP <b>15571</b>을 씁니다. D2R 내부 포트 <b>4000</b>은 런처가 자동 중계합니다.</p></article>
+      </div>
+      <p class="warn info" style="margin-top:14px"><b>이 서버만 설치하면 게임이 생기는 구조가 아닙니다.</b> 플레이 PC마다 정식 Diablo II: Resurrected 설치와 본인이 이용할 수 있는 게임 라이선스가 필요합니다. 워락을 만들려면 해당 DLC 이용 권한도 필요합니다.</p>
+    </section>
+
+    <section id="start">
+      <h2>처음 설치부터 플레이까지</h2>
+      <h3>1. 준비물</h3>
+      <ul class="steps">
+        <li>Windows 플레이 PC, 정식 D2R <b>3.2.92777</b> 설치, 정만서버 런처 <code>정만서버.exe</code></li>
+        <li>검증된 원본 <code>D2RLoader-1.0.1-beta.zip</code>. ZIP은 정만서버 배포본에 포함되지 않으므로 PC마다 따로 준비합니다.</li>
+        <li>관리자에게 받은 <b>장치 ID</b>와 <b>장치 토큰</b>. 토큰은 비밀번호이므로 채팅·가이드·스크린샷에 공개하지 않습니다.</li>
+      </ul>
+
+      <h3 style="margin-top:24px">2. 런처 설정</h3>
+      <ol class="steps">
+        <li><code>정만서버.exe</code>를 실행하고 <b>설정</b> 탭을 엽니다.</li>
+        <li>외부 접속은 서버 주소 <code>118.216.89.185</code>, 포트 <code>15570</code>, <b>TLS 사용</b>을 입력합니다. 같은 LAN에서만 시험할 때는 <code>192.168.0.10:15570</code>을 쓸 수 있습니다.</li>
+        <li>서버 인증서 SHA-256에 <code>60ABE0942C2D7CCB45461B623B49DC9FDC5607FB275AE6118D7F593274FEDA3A</code>을 입력합니다.</li>
+        <li>자신의 장치 ID와 토큰을 입력하고 <b>연결 시험</b>을 누릅니다. 계정 이름과 캐릭터 목록이 나오면 인증 성공입니다.</li>
+        <li>D2R 설치 폴더와 원본 <code>D2RLoader-1.0.1-beta.zip</code>을 지정합니다.</li>
+        <li><b>화면 모드</b>에서 전체 화면 또는 창 모드를 선택합니다. 창 모드라면 원하는 해상도도 선택합니다.</li>
+        <li>Battle.net, Agent, D2R, D2RLoader를 모두 종료한 뒤 <b>D2RLoader 설치/복구</b>를 누릅니다. 로더 제한 설정과 정만서버 모드 18개 파일이 함께 설치됩니다.</li>
+        <li><b>설치 검증</b>에서 D2R·로더·모드가 모두 유효한지 확인한 뒤 <b>설정 저장</b>을 누릅니다.</li>
+      </ol>
+      <p class="warn info"><b>화면 설정:</b> 창 모드는 <code>1280×720</code>, <code>1366×768</code>, <code>1600×900</code>, <code>1920×1080</code>, <code>1920×1200</code>, <code>2560×1080</code>, <code>2560×1440</code>, <code>2560×1600</code>, <code>3440×1440</code>, <code>3840×2160</code> 중에서 선택합니다. 전체 화면은 D2R의 동작에 따라 Windows 바탕화면 해상도를 사용합니다. 선택값은 정만서버 전용 <code>Settings.json</code>에만 기록되며 기존의 다른 그래픽 옵션은 보존됩니다.</p>
+      <p class="warn">설치 중 “D2RLoader 원본 ZIP을 찾을 수 없습니다”가 나오면 설정 탭에서 ZIP을 다시 직접 선택하세요. 폴더를 지정하는 것이 아니라 확장자가 <code>.zip</code>인 원본 파일을 지정해야 합니다.</p>
+
+      <h3 style="margin-top:24px">3. 캐릭터 만들기</h3>
+      <ol class="steps">
+        <li><b>플레이</b> 탭에서 <b>새로고침</b>을 눌러 서버에 연결합니다.</li>
+        <li><b>신규 캐릭터</b>를 누르고 이름과 직업을 고릅니다. 생성 프리셋은 하나뿐이며 언제나 99레벨 완성 캐릭터입니다.</li>
+        <li>목록에 새 캐릭터가 보이면 선택합니다. 첫 캐릭터를 만들 때 그 계정 전용 공유 보관함도 함께 만들어집니다.</li>
+      </ol>
+
+      <h3 style="margin-top:24px">4. 혼자 파밍·세팅하기</h3>
+      <ol class="steps">
+        <li>모든 Battle.net·D2R 관련 프로세스를 종료합니다.</li>
+        <li>플레이 탭에서 캐릭터를 선택하고 <b>선택 캐릭터 혼자 플레이</b>를 누릅니다.</li>
+        <li>런처가 계정의 모든 캐릭터와 공유 보관함을 서버에서 내려받고 D2RLoader를 엽니다.</li>
+        <li>D2R에서는 <b>TCP/IP</b> 화면만 사용합니다. 런처에서 선택한 것과 같은 서버 캐릭터를 골라 게임을 만듭니다. <b>Online 탭은 열지 않습니다.</b></li>
+        <li>게임 안에서 도박·선택 카드·큐브식으로 세팅합니다.</li>
+        <li>끝나면 메뉴의 <b>저장 후 종료</b>로 게임을 닫고, 런처 로그에 <b>프로필 리비전 … 저장 완료</b>가 나올 때까지 런처를 닫지 않습니다.</li>
+      </ol>
+      <p class="warn info">화면 밝기 같은 초기 설정은 기본 D2R의 <code>Settings.json</code>을 정만서버 전용 저장 폴더로 가져오고 이후 사용자가 바꾼 값을 유지합니다. 계속 초기 설정이 뜨면 D2R과 로더를 종료하고 설치/복구를 한 번 실행하세요.</p>
+    </section>
+
+    <section id="character">
+      <h2>서버 전용 캐릭터: 정확한 생성값</h2>
+      <div class="metrics">
+        <div class="metric"><strong>8</strong><span>계정당 최대 캐릭터</span></div>
+        <div class="metric"><strong>2–15자</strong><span>캐릭터 이름 길이</span></div>
+        <div class="metric"><strong>505 / 110</strong><span>미사용 스탯 / 스킬</span></div>
+        <div class="metric"><strong>3,520,485,254</strong><span>99레벨 경험치 저장값</span></div>
+      </div>
+      <p>이름은 글자로 시작하며 글자·숫자·<code>-</code>·<code>_</code>를 쓸 수 있습니다. 지원 직업은 아마존, 원소술사, 강령술사, 성기사, 야만용사, 드루이드, 암살자, 워락 8개입니다. 모든 직업은 고급 보관함을 사용할 수 있도록 Reign of the Warlock 저장 형식으로 생성되며, 직업 자체는 사용자가 고른 직업 그대로 유지됩니다. 플레이 PC에는 DLC가 설치되어 있어야 합니다.</p>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead><tr><th>직업</th><th>힘</th><th>민첩</th><th>활력</th><th>마력</th><th>맨몸 생명력</th><th>맨몸 마나</th><th>맨몸 지구력</th></tr></thead>
+          <tbody>
+            <tr class="searchable" data-searchable><td>아마존</td><td>20</td><td>25</td><td>20</td><td>15</td><td>306</td><td>162</td><td>182</td></tr>
+            <tr class="searchable" data-searchable><td>원소술사</td><td>10</td><td>25</td><td>10</td><td>35</td><td>198</td><td>231</td><td>172</td></tr>
+            <tr class="searchable" data-searchable><td>강령술사</td><td>15</td><td>25</td><td>15</td><td>25</td><td>252</td><td>221</td><td>177</td></tr>
+            <tr class="searchable" data-searchable><td>성기사</td><td>25</td><td>20</td><td>25</td><td>15</td><td>311</td><td>162</td><td>187</td></tr>
+            <tr class="searchable" data-searchable><td>야만용사</td><td>30</td><td>20</td><td>25</td><td>10</td><td>311</td><td>108</td><td>190</td></tr>
+            <tr class="searchable" data-searchable><td>드루이드</td><td>15</td><td>20</td><td>25</td><td>20</td><td>262</td><td>216</td><td>182</td></tr>
+            <tr class="searchable" data-searchable><td>암살자</td><td>20</td><td>20</td><td>20</td><td>25</td><td>306</td><td>172</td><td>217.5</td></tr>
+            <tr class="searchable" data-searchable><td>워락</td><td>15</td><td>20</td><td>25</td><td>20</td><td>262</td><td>216</td><td>184</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subtle" style="margin-top:9px">표의 힘·민첩·활력·마력은 직업 기본값입니다. 여기에 미사용 스탯 505를 원하는 대로 배분합니다. 생명력에는 세 난이도의 황금 새 보상 +60이 포함되고 장비 보너스는 포함되지 않습니다.</p>
+
+      <details class="searchable" data-searchable open>
+        <summary>완료 상태와 영구 퀘스트 보상</summary>
+        <ul>
+          <li>보통·악몽·지옥 3개 난이도 개방 및 모든 퀘스트의 보상 획득 플래그 적용</li>
+          <li>각 난이도 웨이포인트 39개, 총 <b>117개</b> 활성화</li>
+          <li>각 난이도 NPC 34명의 퀘스트 소개·일반 소개 상태 적용</li>
+          <li>황금 새: 난이도당 생명력 +20, 합계 <b>+60</b></li>
+          <li>얼음 감옥의 안야 보상: 난이도당 모든 저항 +10, 합계 <b>+30</b>. 장비·참이 없는 헬 난이도 표시값은 <b>-70</b></li>
+          <li>미사용 스탯 <b>505</b> = 레벨업 490 + 람 에센의 고서 15</li>
+          <li>미사용 스킬 <b>110</b> = 레벨업 98 + 세 난이도 퀘스트 보상 12</li>
+          <li>호라드림의 함 1개가 인벤토리 왼쪽 위에 지급되며 모든 30개 직업 스킬은 0에서 직접 배분</li>
+        </ul>
+      </details>
+      <p class="warn">기존 캐릭터는 새 생성 정책으로 자동 덮어쓰지 않습니다. 스탯 초기화는 배분한 주 능력치만 기본값으로 돌려 환급하며 캐릭터·장비·창고를 새로 만들지 않습니다.</p>
+    </section>
+
+    <section id="stash">
+      <h2>공유 보관함과 재료</h2>
+      <p>첫 캐릭터 생성 시 소프트코어 공유 보관함 <code>ModernSharedStashSoftCoreV2.d2i</code>가 만들어집니다. <b>같은 서버 계정의 캐릭터끼리만</b> 공유하고, 친구의 다른 계정 보관함과는 분리됩니다.</p>
+      <div class="grid">
+        <article class="card searchable" data-searchable><h3>일반 탭 5개</h3><p>각 탭 <b>2,500,000</b> 골드, 합계 <b>12,500,000</b> 골드. D2R 저장 형식의 탭당 최대값입니다.</p></article>
+        <article class="card searchable" data-searchable><h3>고급 재료 탭 1개</h3><p>게임 데이터에서 <code>AdvancedStashStackable=1</code>인 전체 <b>91종</b>을 각각 D2R의 실제 최대값 <b>99개</b>로 지급합니다.</p></article>
+        <article class="card searchable" data-searchable><h3>연대기 탭 1개</h3><p>현재 DLC 보관함 형식 호환을 위해 빈 Chronicle 탭을 유지합니다. 일반 아이템 탭으로 쓰지 않습니다.</p></article>
+      </div>
+      <p class="warn info" style="margin-top:14px">새 캐릭터를 추가 생성할 때마다 기존 보관함의 다른 아이템은 보존하고 아래 91개 스택을 다시 99로 보충합니다. 즉 사용한 재료는 새 캐릭터 생성 시 최대치로 재충전됩니다. 스택을 클릭하면 필요한 재료를 캐릭터 소지품으로 꺼내 사용할 수 있습니다.</p>
+
+      <details class="searchable" data-searchable>
+        <summary>91종 전체 목록과 수량</summary>
+        <ul>
+          <li><b>활력 물약 2종 × 99</b>: 활력 물약(Rejuvenation Potion), 대량의 활력 물약(Full Rejuvenation Potion)</li>
+          <li><b>보석·해골 35종 × 99</b>: 자수정·토파즈·사파이어·에메랄드·루비·다이아몬드·해골 7계열 각각 조각난/흠집 난/일반/상급/최상급 5단계</li>
+          <li><b>룬 33종 × 99</b>: 엘, 엘드, 티르, 네프, 에드, 아이드, 탈, 랄, 오르트, 주울, 앰, 솔, 샤엘, 돌, 헬, 이오, 룸, 코, 팔, 렘, 풀, 우움, 말, 이스트, 굴, 벡스, 오움, 로, 수르, 베르, 자, 참, 조드</li>
+          <li><b>공포의 열쇠 3종 × 99</b>: 공포의 열쇠, 증오의 열쇠, 파괴의 열쇠</li>
+          <li><b>우버 장기 3종 × 99</b>: 디아블로의 뿔, 바알의 눈, 메피스토의 뇌</li>
+          <li><b>면죄 재료 5종 × 99</b>: 면죄의 징표, 고통의 일그러진 정수, 증오의 강렬한 정수, 공포의 불타는 정수, 파괴의 부패한 정수</li>
+          <li><b>월드스톤 조각 5종 × 99</b>: 서부, 동부, 남부, 심층, 북부 월드스톤 조각</li>
+          <li><b>고대 우버 소환 재료 5종 × 99</b>: 액트 1·2·3·4·5 소환 재료</li>
+        </ul>
+        <p class="subtle">합계: 2 + 35 + 33 + 3 + 3 + 5 + 5 + 5 = <b>91종</b>.</p>
+      </details>
+
+      <details class="searchable" data-searchable>
+        <summary>애니참·횃불·기드참을 집을 수 없을 때</summary>
+        <p><b>Gheed's Fortune, Annihilus, Hellfire Torch</b>는 최신 원본의 서로 다른 단일 소지 그룹(<code>1001</code>, <code>1002</code>, <code>1003</code>)을 유지합니다. 따라서 같은 종류는 1개만 들 수 있지만 기드참·애니참·횃불은 각각 1개씩 동시에 소지할 수 있습니다. 횃불 직업 기술은 아마존부터 워락까지 8직업 전체에서 결정됩니다. 일반 유니크는 이 제한을 해제해 반복 생성할 수 있습니다.</p>
+      </details>
+    </section>
+
+    <section id="supply">
+      <h2>아이템 보급소와 도박</h2>
+      <div class="metrics">
+        <div class="metric"><strong>410</strong><span>정확 선택 유니크</span></div>
+        <div class="metric"><strong>140</strong><span>정확 선택 세트</span></div>
+        <div class="metric"><strong>508</strong><span>일반·고급·매직·에테리얼 베이스</span></div>
+        <div class="metric"><strong>117</strong><span>재료 71 + 참 선택 46</span></div>
+      </div>
+      <p>퀘스트 전용 유니크 6종은 제외합니다. 선택 카드는 총 <b>1,175종</b>(정확 장비 550 + 베이스 508 + 재료 71 + 참 46)이며 가격은 각 <b>1골드</b>입니다. 베이스는 무기 8분류와 방어구 7분류, 참은 8직업 스킬참과 인기 스몰참·라지참으로 나뉩니다. 각 분류의 첫 카드만 상점에 나오고 나머지는 큐브에서 앞뒤로 이동합니다.</p>
+      <p class="warn info"><b>아카라의 선택 항목은 일반 판매품이 아니라 재사용 카드·작업석입니다.</b> 55개 분류의 첫 카드와 베이스 5종·참 옵션 7종·빠른 크래프트 1종·소켓 6종 작업석, 합계 <b>74개</b>가 진열됩니다. 카드와 비소모 작업석은 조합 뒤 그대로 돌아옵니다.</p>
+
+      <h3>도박으로 미확인 옵션 굴리기</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead><tr><th>결과 품질</th><th>내부 가중치</th><th>최종 확률</th></tr></thead>
+          <tbody>
+            <tr class="searchable" data-searchable><td>유니크</td><td>1,000 / 100,000</td><td><b>1%</b></td></tr>
+            <tr class="searchable" data-searchable><td>세트</td><td>1,000 / 100,000</td><td><b>1%</b></td></tr>
+            <tr class="searchable" data-searchable><td>레어</td><td>80,000 / 100,000</td><td><b>80%</b></td></tr>
+            <tr class="searchable" data-searchable><td>매직</td><td>18,000 / 100,000</td><td><b>18%</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ol class="steps">
+        <li>기드 같은 도박 상인의 <b>도박</b> 화면을 엽니다.</li>
+        <li>원하는 베이스가 없으면 창을 닫았다 다시 열어 목록을 갱신합니다.</li>
+        <li>구매하면 원본 도박 동작처럼 <b>미확인</b> 상태로 나오며 위 확률로 품질이 결정됩니다.</li>
+      </ol>
+      <p class="warn info"><b>상급 옵션 편향:</b> 새 유니크·세트·룬워드·큐브 제작식의 숫자 가변 수치와 베이스 방어력은 원래 범위 상위 25%에서만 결정됩니다. 마라의 만화경 모든 저항 20~30은 <b>28~30</b>, 소집의 전투 명령 1~6은 <b>5~6</b>, 슬픔 추가 피해 340~400은 <b>385~400</b>으로 좁아집니다. 음수 페널티는 0에 가까운 값이 좋은 것으로 계산하여 원소 파괴참 저항 -90~-70은 <b>-75~-70</b>, 뼈의 분쇄 물리 피해 페널티 -20~-10은 <b>-12~-10</b>이 됩니다. 베이스 방어력도 같은 기준을 적용하여 더스크 슈라우드 361~467은 <b>441~467</b>이 됩니다. 매직·레어 접사와 직업 전용 자동 옵션의 가변 수치는 더 강하게 <b>상위 10%</b>로 제한하고, 접사 레벨 0~19 <b>×1</b>, 20~39 <b>×3</b>, 40~59 <b>×6</b>, 60~79 <b>×10</b>, 80 이상 <b>×15</b> 가중을 적용합니다. 참에서 자주 쓰는 생명력·패힛·달리기·힘·민첩·매찬 접미사는 이 값에 다시 <b>×8</b>을 적용합니다. 고정 수치, 발동 확률·기술 레벨, 횃불 직업 ID 같은 구조화 필드, 시각 효과, 요구 레벨은 유지합니다. 원본 대비 <b>1,851개</b> 가변 최솟값을 자동 감사했고 속성 코드·파라미터·예상 밖 최대값 변경은 0개입니다. 스킬 탭 ID도 0~23 전체를 검사하여 8직업×3계열을 보존합니다. 이 규칙은 새로 생성·드롭·제작한 아이템에 적용되며 기존 아이템은 바뀌지 않습니다.</p>
+      <p class="warn info">대상 베이스의 데이터 비용과 도박 비용 필드는 <b>1골드</b>입니다. 0골드는 반지·목걸이·주얼 거래 검증이 실패해 사용하지 않습니다. 무기·방어구는 게임 엔진이 캐릭터 레벨 기반 가격을 더 계산할 수 있으므로 화면 표시가 1골드보다 높을 수 있습니다.</p>
+
+      <h3 style="margin-top:24px">기드참으로 가격 99% 할인하기</h3>
+      <ol class="steps">
+        <li>아카라의 <b>일반 상점</b>에서 초록색 <b>유니크 선택: 기드의 행운</b> 카드를 찾습니다.</li>
+        <li>다른 이름이면 카드 + 마을 차원문의 두루마리는 다음, 카드 + 감별의 두루마리는 이전 항목입니다.</li>
+        <li>Gheed's Fortune 카드 + 열쇠를 큐브에서 변환합니다.</li>
+        <li>생성된 기드의 행운을 캐릭터 인벤토리에 두면 상점·수리·도박 가격 감소 옵션이 정확히 <b>99%</b> 적용됩니다.</li>
+      </ol>
+      <p>모드 적용 후 몬스터가 새로 드롭한 기드참에도 99%가 붙습니다. 기존에 이미 생성된 참은 수치가 갱신되지 않을 수 있으므로 새로 획득하는 것이 확실합니다. 도박 카탈로그 대상 레벨은 99레벨 캐릭터가 모두 굴릴 수 있도록 최대 <b>85</b>로 제한했습니다. 일반 부적 3종은 도박에서 제외하지만 유니크 주얼은 포함합니다.</p>
+
+      <h3 style="margin-top:24px">아카라 선택 카드 전체 분류</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead><tr><th>상인</th><th>분류</th><th>카드 수</th><th>처음 보이는 선택</th></tr></thead>
+          <tbody>
+            <tr class="searchable" data-searchable><td rowspan="55">아카라</td><td>유니크 검</td><td>36</td><td>Azurewrath</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 도끼</td><td>31</td><td>Bladebone</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 둔기·홀</td><td>35</td><td>Baezil's Vortex</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 활·석궁</td><td>29</td><td>Blastbark</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 창·투창</td><td>32</td><td>Arioc's Needle</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 단검·투척</td><td>14</td><td>Blackbog's Sharp</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 지팡이·완드·오브</td><td>25</td><td>Arm of King Leoric</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 직업 전용 무기</td><td>10</td><td>Bloodraven's Charge</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 검</td><td>42</td><td>Ancient Sword</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 도끼</td><td>36</td><td>Ancient Axe</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 둔기·홀</td><td>33</td><td>Barbed Club</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 활·석궁</td><td>36</td><td>Arbalest</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 창·투창</td><td>48</td><td>Balrog Spear</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 단검·투척</td><td>18</td><td>Balanced Knife</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 지팡이·완드·오브</td><td>42</td><td>Archon Staff</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 직업 전용 무기</td><td>36</td><td>Ashwood Bow</td></tr>
+
+            <tr class="searchable" data-searchable><td>유니크 갑옷</td><td>37</td><td>Arkaine's Valor</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 투구·서클릿</td><td>27</td><td>Andariel's Visage</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 방패</td><td>22</td><td>Blackoak Shield</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 장갑</td><td>13</td><td>Bloodfist</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 신발</td><td>14</td><td>Goblin Toe</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 벨트</td><td>14</td><td>Arachnid Mesh</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 직업 전용 방어구</td><td>18</td><td>Alma Negra</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 반지</td><td>11</td><td>Bul Katho's Wedding Band</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 목걸이</td><td>13</td><td>Atma's Scarab</td></tr>
+            <tr class="searchable" data-searchable><td>유니크 부적·보석</td><td>29</td><td>Gheed's Fortune</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 갑옷</td><td>45</td><td>Ancient Armor</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 투구·서클릿</td><td>28</td><td>Armet</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 방패</td><td>24</td><td>Aegis</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 장갑</td><td>15</td><td>Battle Gauntlets</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 신발</td><td>15</td><td>Battle Boots</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 벨트</td><td>15</td><td>Battle Belt</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 직업 전용 방어구</td><td>75</td><td>Aerin Shield</td></tr>
+            <tr class="searchable" data-searchable><td>참과 주얼</td><td>3</td><td>Jewel</td></tr>
+
+            <tr class="searchable" data-searchable><td>세트 무기</td><td>27</td><td>Aldur's Gauntlet</td></tr>
+            <tr class="searchable" data-searchable><td>세트 갑옷</td><td>26</td><td>Aldur's Deception</td></tr>
+            <tr class="searchable" data-searchable><td>세트 투구·서클릿</td><td>23</td><td>Arcanna's Head</td></tr>
+            <tr class="searchable" data-searchable><td>세트 방패</td><td>8</td><td>Civerb's Ward</td></tr>
+            <tr class="searchable" data-searchable><td>세트 장갑</td><td>13</td><td>Arctic Mitts</td></tr>
+            <tr class="searchable" data-searchable><td>세트 신발</td><td>12</td><td>Aldur's Advance</td></tr>
+            <tr class="searchable" data-searchable><td>세트 벨트</td><td>15</td><td>Arctic Binding</td></tr>
+            <tr class="searchable" data-searchable><td>세트 직업 전용 방어구</td><td>5</td><td>Aldur's Stony Gaze</td></tr>
+            <tr class="searchable" data-searchable><td>세트 반지·목걸이</td><td>11</td><td>Angelic Halo</td></tr>
+            <tr class="searchable" data-searchable><td>룬 재료</td><td>33</td><td>El Rune</td></tr>
+            <tr class="searchable" data-searchable><td>보석 재료</td><td>35</td><td>Chipped Sapphire</td></tr>
+            <tr class="searchable" data-searchable><td>아마존 스킬참</td><td>3</td><td>활·쇠뇌 +1</td></tr>
+            <tr class="searchable" data-searchable><td>원소술사 스킬참</td><td>3</td><td>화염 +1</td></tr>
+            <tr class="searchable" data-searchable><td>강령술사 스킬참</td><td>3</td><td>저주 +1</td></tr>
+            <tr class="searchable" data-searchable><td>성기사 스킬참</td><td>3</td><td>전투 +1</td></tr>
+            <tr class="searchable" data-searchable><td>야만용사 스킬참</td><td>3</td><td>숙련 +1</td></tr>
+            <tr class="searchable" data-searchable><td>드루이드 스킬참</td><td>3</td><td>소환 +1</td></tr>
+            <tr class="searchable" data-searchable><td>암살자 스킬참</td><td>3</td><td>덫 +1</td></tr>
+            <tr class="searchable" data-searchable><td>악마술사 스킬참</td><td>3</td><td>악마 지배 +1</td></tr>
+            <tr class="searchable" data-searchable><td>인기 스몰참</td><td>11</td><td>최대 피해·명중률</td></tr>
+            <tr class="searchable" data-searchable><td>인기 라지참</td><td>11</td><td>최대 피해·명중률</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subtle" style="margin-top:9px">전체 선택 대상은 1,175장입니다. 참과 주얼 재료 분류는 작은 부적·큰 부적·주얼을 제공하고, 원하는 접사가 붙은 참은 별도 10개 참 분류에서 만듭니다. 유니크·세트·베이스·참 선택 카드는 모두 1×1 아이콘을 사용하며 생성된 실제 아이템은 원래 크기와 그래픽을 유지합니다.</p>
+      <p class="warn info"><b>무지개 자락:</b> 원본 데이터의 같은 이름 때문에 하나로 합쳐지지 않도록 `번개·냉기·화염·독` × `사망 시·레벨 상승 시`의 <b>8종</b>을 별도 카드로 표시합니다. 원하는 원소와 발동 조건이 적힌 카드를 선택해 열쇠와 조합하세요. 상급 옵션 편향 규칙으로 피해 증가와 적 저항 감소는 모두 <b>+5% / -5%</b>입니다.</p>
+    </section>
+
+    <section id="cube">
+      <h2>호라드림의 함 레시피 전체</h2>
+      <p>현재 <code>cubemain.txt</code>에는 원본 레시피 <b>227개</b>와 정만서버 추가 레시피 <b>5,839개</b>, 합계 <b>6,066개</b>가 있습니다. 원본 227개는 유지하며 아래는 추가분을 기능별로 정리한 것입니다.</p>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead><tr><th>추가 레시피 묶음</th><th>대상 수</th><th>대상당 식</th><th>레시피 수</th></tr></thead>
+          <tbody>
+            <tr class="searchable" data-searchable><td>유니크·세트 정확 선택</td><td>550</td><td>다음 + 이전 + 생성 = 3</td><td>1,650</td></tr>
+            <tr class="searchable" data-searchable><td>베이스 선택</td><td>508</td><td>다음·이전 + 3~5개 생성 모드</td><td>3,470</td></tr>
+            <tr class="searchable" data-searchable><td>재료 선택</td><td>71</td><td>다음 + 이전 + 생성 = 3</td><td>213</td></tr>
+            <tr class="searchable" data-searchable><td>스킬·스몰·라지참 선택</td><td>46</td><td>다음·이전 + 적용 가능한 옵션 모드</td><td>379</td></tr>
+            <tr class="searchable" data-searchable><td>편의 작업대</td><td>—</td><td>소켓·수리·분해·룬·보석</td><td>91</td></tr>
+            <tr class="searchable" data-searchable><td>빠른 크래프트</td><td>원본 제작식 36</td><td>재료 묶음을 작업석 1개로 대체</td><td>36</td></tr>
+            <tr><td><b>합계</b></td><td>1,175 선택 대상</td><td>—</td><td><b>5,839</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details class="searchable" data-searchable open>
+        <summary>A. 모든 선택 카드 공통 조작법</summary>
+        <div class="table-wrap" style="margin-top:12px">
+          <table class="compact">
+            <thead><tr><th>큐브에 넣는 것</th><th>결과</th><th>소모 여부</th></tr></thead>
+            <tbody>
+              <tr><td>선택 카드 + 마을 차원문의 두루마리</td><td>같은 분류의 다음 카드</td><td>카드와 두루마리 모두 반환</td></tr>
+              <tr><td>선택 카드 + 감별의 두루마리</td><td>같은 분류의 이전 카드</td><td>카드와 두루마리 모두 반환</td></tr>
+              <tr><td>유니크·세트 카드 + 열쇠</td><td>이름이 정확히 일치하는 아이템, 아이템 레벨 100</td><td>카드와 열쇠 반환</td></tr>
+              <tr><td>룬·보석·참·주얼 카드 + 열쇠</td><td>선택한 재료</td><td>카드와 열쇠 반환</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>마지막 카드에서 다음을 누르면 첫 카드로, 첫 카드에서 이전을 누르면 마지막 카드로 순환합니다. 정확한 이름 선택은 식별 상태로 생성되며, 미확인 옵션 굴림은 도박을 사용합니다.</p>
+      </details>
+
+      <details class="searchable" data-searchable open>
+        <summary>B. 베이스 카드: 일반·고급·매직·에테리얼</summary>
+        <div class="table-wrap" style="margin-top:12px">
+          <table class="compact">
+            <thead><tr><th>베이스 카드와 조합할 작업석</th><th>생성 결과</th><th>사용 범위</th></tr></thead>
+            <tbody>
+              <tr><td>일반 베이스 작업석</td><td>흰색 일반 베이스</td><td>전체 베이스</td></tr>
+              <tr><td>고급 베이스 작업석</td><td>고급(슈페리어) 베이스</td><td>전체 베이스</td></tr>
+              <tr><td>마법 크래프트 베이스 작업석</td><td>아이템 레벨 99 매직 베이스</td><td>전체 베이스, 빠른 크래프트용</td></tr>
+              <tr><td>에테리얼 베이스 작업석</td><td>흰색 에테리얼 베이스</td><td>내구도가 있는 무기·방어구</td></tr>
+              <tr><td>고급 에테리얼 작업석</td><td>고급 에테리얼 베이스</td><td>내구도가 있는 무기·방어구</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>카드와 작업석은 모두 반환되므로 원하는 옵션이 나올 때까지 무료로 다시 굴릴 수 있습니다. 활·석궁·아마존 활, 페이즈 블레이드처럼 원래 에테리얼이 될 수 없는 베이스에는 에테리얼 식 자체가 없습니다. 생성 레벨은 <b>99</b>라서 직업 전용 스태프 모드와 오토매직이 원본의 최고 레벨 후보를 사용할 수 있고, 오토매직 가변 수치는 상위 10%로 제한됩니다. 옵션 개수와 조합은 D2R 원본 생성 규칙을 유지합니다.</p>
+      </details>
+
+      <details class="searchable" data-searchable open>
+        <summary>C. 스킬참·스몰참·라지참 만들기</summary>
+        <p>스킬참은 아마존·원소술사·강령술사·성기사·야만용사·드루이드·암살자·악마술사 각각 3계열, 총 <b>24종</b>입니다. 스몰참 11종과 라지참 11종은 최대 피해·명중률, 모든/단일 저항, 마나, 독·화염·번개·냉기 피해처럼 실제 세팅에서 자주 쓰는 접두사를 고정합니다.</p>
+        <div class="table-wrap">
+          <table class="compact">
+            <thead><tr><th>옵션 작업석</th><th>스몰참</th><th>라지참</th><th>스킬 거대부적</th></tr></thead>
+            <tbody>
+              <tr><td>선호 옵션 랜덤</td><td>가중 무작위</td><td>가중 무작위</td><td>가중 무작위</td></tr>
+              <tr><td>생명력</td><td>+20</td><td>+35</td><td>+45</td></tr>
+              <tr><td>빠른 타격 회복</td><td>+5%</td><td>+8%</td><td>+12%</td></tr>
+              <tr><td>달리기·걷기 속도</td><td>+3%</td><td>+5%</td><td>+7%</td></tr>
+              <tr><td>힘 / 민첩</td><td>각 +2</td><td>각 +5</td><td>각 +6</td></tr>
+              <tr><td>마법 아이템 발견</td><td>+7%</td><td>불가</td><td>불가</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <details style="margin-top:10px">
+          <summary>스몰참·라지참 고정 접두사의 정확한 수치</summary>
+          <div class="table-wrap" style="margin-top:10px">
+            <table class="compact">
+              <thead><tr><th>접두사</th><th>스몰참</th><th>라지참</th></tr></thead>
+              <tbody>
+                <tr><td>피해·명중률</td><td>최대 피해 +3, 명중률 +19~20</td><td>최대 피해 +6, 명중률 +46~48</td></tr>
+                <tr><td>모든 저항</td><td>+5</td><td>+8</td></tr>
+                <tr><td>냉기/화염/번개/독 저항</td><td>선택 속성 +11</td><td>선택 속성 +15</td></tr>
+                <tr><td>마나</td><td>+17</td><td>+34</td></tr>
+                <tr><td>화염 피해</td><td>19~29</td><td>최소 26~27, 최대 42~43</td></tr>
+                <tr><td>번개 피해</td><td>최소 1, 최대 69~71</td><td>최소 1, 최대 87~90</td></tr>
+                <tr><td>냉기 피해</td><td>7~14, 지속 1초</td><td>15~30, 지속 1초</td></tr>
+                <tr><td>독 피해</td><td>약 175, 지속 6초</td><td>약 175, 지속 6초</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <p>고정 모드는 접두사 1개 + 접미사 1개로 매직 참의 원래 최대 접사 수 2개를 사용합니다. 모든 접사 수치는 원래 범위 상위 10%이며, 자주 쓰는 고정 접미사의 등장 가중치는 기본 상급 가중치에 추가로 ×8입니다.</p>
+      </details>
+
+      <details class="searchable" data-searchable open>
+        <summary>D. 빠른 크래프트 36종</summary>
+        <ol class="steps">
+          <li>베이스 카드 + <b>마법 크래프트 베이스 작업석</b>으로 아이템 레벨 99 매직 베이스를 만듭니다.</li>
+          <li>그 매직 아이템 + <b>빠른 크래프트 작업석</b>을 큐브에서 변환합니다.</li>
+          <li>원본 Blood·Caster·Hit Power·Safety 36개 제작식 중 베이스에 맞는 결과가 생성되고 작업석은 반환됩니다.</li>
+        </ol>
+        <p>원본의 고정 제작 옵션과 <code>plvl=50</code>, <code>ilvl=50</code> 계산을 그대로 사용합니다. 99레벨 캐릭터와 아이템 레벨 99 베이스 조합은 결과 아이템 레벨 99가 되어 원본 규칙상 무작위 접사 <b>최대 4개</b>를 붙일 수 있습니다. 접사 레벨 가중과 상위 10% 수치 편향도 동일하게 적용됩니다.</p>
+      </details>
+
+      <details class="searchable" data-searchable open>
+        <summary>E. 작업대 91개: 소켓 제거·추가·수리 31개</summary>
+        <div class="table-wrap" style="margin-top:12px">
+          <table class="compact">
+            <thead><tr><th>개수</th><th>큐브에 넣는 것</th><th>결과</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>소켓이 있는 아무 아이템 + 감별의 두루마리</td><td>아이템 본체와 옵션은 유지하고 소켓 내용물을 제거. 두루마리 반환</td></tr>
+              <tr><td>17</td><td>소켓 없는 무기 + 아카라의 1~6소켓 작업석</td><td>일반·고급·저품질은 베이스 상한 내 1~6개, 매직은 1~2개, 그 외 품질은 1개</td></tr>
+              <tr><td>11</td><td>소켓 없는 방어구 + 아카라의 1~4소켓 작업석</td><td>일반·고급·저품질은 베이스 상한 내 1~4개, 매직은 1~2개, 그 외 품질은 1개</td></tr>
+              <tr><td>1</td><td>비에테리얼 무기 + 열쇠 1개</td><td>내구도 완전 수리, 충전 기술 수량 255로 회복, 열쇠 반환</td></tr>
+              <tr><td>1</td><td>비에테리얼 방어구 + 열쇠 1개</td><td>내구도 완전 수리, 충전 기술 수량 255로 회복, 열쇠 반환</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="warn info">아카라가 1골드에 파는 <b>1소켓 작업석~6소켓 작업석</b>은 각각 하나의 비중첩 아이템이며 소켓 조합에 소모됩니다. 재료 탭의 열쇠 최소 인출량과 관계없이 원하는 수를 정확히 고를 수 있습니다. 매직은 최대 2소켓, 레어·제작·세트·유니크는 최대 1소켓으로 제한됩니다.</p>
+        <p class="warn danger"><b>소켓 제거 시 박혀 있던 룬·보석·주얼은 되돌아오지 않습니다.</b> <code>useitem,rem</code>은 장비 본체를 유지하면서 소켓 내용물을 제거하는 동작입니다. 귀중한 재료가 박힌 장비는 변환 전에 반드시 확인하세요. 소켓 추가는 소켓이 없는 무기·방어구에만 적용됩니다. 일반·고급·저품질 베이스도 <code>gemsockets</code>, 아이템 종류와 아이템 레벨 상한을 넘지 않습니다.</p>
+      </details>
+
+      <details class="searchable" data-searchable>
+        <summary>F. 룬 하향 32개: 전체 식</summary>
+        <p>각 식에 <b>상위 룬 1개 + 감별의 두루마리 1개</b>를 넣습니다. 감별의 두루마리는 반환됩니다.</p>
+        <div class="table-wrap">
+          <table class="compact">
+            <thead><tr><th>번호</th><th>입력 룬</th><th>출력</th><th>배수</th></tr></thead>
+            <tbody>
+              <tr class="searchable" data-searchable><td>02</td><td>엘드</td><td>엘</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>03</td><td>티르</td><td>엘드</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>04</td><td>네프</td><td>티르</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>05</td><td>에드</td><td>네프</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>06</td><td>아이드</td><td>에드</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>07</td><td>탈</td><td>아이드</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>08</td><td>랄</td><td>탈</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>09</td><td>오르트</td><td>랄</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>10</td><td>주울</td><td>오르트</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>11</td><td>앰</td><td>주울</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>12</td><td>솔</td><td>앰</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>13</td><td>샤엘</td><td>솔</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>14</td><td>돌</td><td>샤엘</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>15</td><td>헬</td><td>돌</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>16</td><td>이오</td><td>헬</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>17</td><td>룸</td><td>이오</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>18</td><td>코</td><td>룸</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>19</td><td>팔</td><td>코</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>20</td><td>렘</td><td>팔</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>21</td><td>풀</td><td>렘</td><td>3개</td></tr>
+              <tr class="searchable" data-searchable><td>22</td><td>우움</td><td>풀</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>23</td><td>말</td><td>우움</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>24</td><td>이스트</td><td>말</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>25</td><td>굴</td><td>이스트</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>26</td><td>벡스</td><td>굴</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>27</td><td>오움</td><td>벡스</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>28</td><td>로</td><td>오움</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>29</td><td>수르</td><td>로</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>30</td><td>베르</td><td>수르</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>31</td><td>자</td><td>베르</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>32</td><td>참</td><td>자</td><td>2개</td></tr>
+              <tr class="searchable" data-searchable><td>33</td><td>조드</td><td>참</td><td>2개</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="subtle">정확한 범위: 엘드(02)~풀(21)는 직전 룬 3개, 우움(22)~조드(33)는 직전 룬 2개입니다.</p>
+      </details>
+
+      <details class="searchable" data-searchable>
+        <summary>G. 보석 하향 28개: 전체 식</summary>
+        <p>각 단계마다 <b>상위 보석 1개 + 감별의 두루마리</b> → 바로 아래 등급 <b>3개</b>이며 두루마리는 반환됩니다. 7계열 × 4단계 = 28개입니다.</p>
+        <div class="table-wrap">
+          <table class="compact">
+            <thead><tr><th>계열</th><th>4개 하향식</th></tr></thead>
+            <tbody>
+              <tr class="searchable" data-searchable><td>자수정</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+              <tr class="searchable" data-searchable><td>토파즈</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+              <tr class="searchable" data-searchable><td>사파이어</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+              <tr class="searchable" data-searchable><td>에메랄드</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+              <tr class="searchable" data-searchable><td>루비</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+              <tr class="searchable" data-searchable><td>다이아몬드</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+              <tr class="searchable" data-searchable><td>해골</td><td>최상급 → 상급 ×3 · 상급 → 일반 ×3 · 일반 → 흠집 난 ×3 · 흠집 난 → 조각난 ×3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section id="qol">
+      <h2>적용된 편의 기능 전체</h2>
+      <div class="grid two">
+        <article class="card searchable" data-searchable>
+          <h3>아이템 레벨 표시</h3>
+          <p>방어구 데이터 <b>218/218행</b>, 무기 <b>301/307행</b>, 기타 6종에 <code>ShowLevel=1</code>을 적용합니다. 제외된 무기 6행은 독·폭발 투척 물약입니다. 기타 6종은 반지, 목걸이, 작은·큰·거대 부적, 주얼입니다.</p>
+        </article>
+        <article class="card searchable" data-searchable>
+          <h3>전체 자동지도</h3>
+          <p>유효 레벨 프리셋 <b>1,092개</b>에 <code>AutoMap=1</code>을 적용합니다. 구역에 진입하면 탐색 전에도 전체 지도가 공개되며 <kbd>Tab</kbd>으로 표시합니다. 외부 오버레이나 메모리 패치는 사용하지 않습니다.</p>
+        </article>
+        <article class="card searchable" data-searchable>
+          <h3>휴대 수량</h3>
+          <ul><li>마을 차원문의 고서: <b>100</b></li><li>감별의 고서: <b>100</b></li><li>열쇠: <b>50</b></li><li>화살: <b>500</b></li><li>쇠뇌용 화살: <b>500</b></li></ul>
+        </article>
+        <article class="card searchable" data-searchable>
+          <h3>전리품 필터</h3>
+          <p>유니크·세트, 모든 룬, 상급·최상급 보석, 참·주얼, 소켓/에테리얼 엘리트 베이스, 열쇠·면죄 재료를 표시합니다. 기본 상태에서 숨기는 아이템은 없습니다.</p>
+        </article>
+        <article class="card searchable" data-searchable>
+          <h3>격리된 로더 설정</h3>
+          <p>기본 모드 <code>JMServer</code>, TCP/IP 버튼 켬, 재료 한도 99. 전역 확장·모드 확장·개발자 콘솔·시작 충돌 감시·크래시 덤프는 모두 끕니다.</p>
+        </article>
+      </div>
+
+      <details class="searchable" data-searchable>
+        <summary>전리품 필터 8개 규칙의 정확한 상태</summary>
+        <ol>
+          <li><b>켜짐</b> — 유니크와 세트: 일반·익셉셔널·엘리트 품질</li>
+          <li><b>켜짐</b> — 고급 룬: 렘(r20)~조드(r33), 14종</li>
+          <li><b>켜짐</b> — 모든 룬: 엘(r01)~조드(r33), 33종</li>
+          <li><b>켜짐</b> — 상급·최상급 보석: 7계열 × 2단계, 14종</li>
+          <li><b>켜짐</b> — 작은·큰·거대 부적과 주얼, 모든 희귀도</li>
+          <li><b>켜짐</b> — 소켓 또는 에테리얼 엘리트 일반·고급 무기/방어구</li>
+          <li><b>켜짐</b> — 공포·증오·파괴의 열쇠와 면죄의 4개 정수·면죄의 징표, 8종</li>
+          <li><b>꺼짐</b> — 하급 생명력·마나 물약 8종 숨기기. 사용자가 원할 때만 켭니다.</li>
+        </ol>
+        <p>사용법: 런처 설정에서 <b>전리품 필터 복사</b> → 게임의 전리품 필터 가져오기 화면 → <kbd>Ctrl</kbd>+<kbd>V</kbd>.</p>
+      </details>
+
+      <details class="searchable" data-searchable>
+        <summary>버전·무결성 고정값</summary>
+        <ul>
+          <li>D2R: <code>3.2.92777</code></li>
+          <li>D2RLoader: <code>1.0.1-beta</code></li>
+          <li>D2RLoader ZIP SHA-256: <code>989D1D30F54324DAF3C68C8F28E25B329CBCA7C77E7C87C7E0EBE4B0F75F3B9F</code></li>
+          <li>D2RLoader.exe SHA-256: <code>0FE9C136673BD6F5EC53A062A1A9782DA2B18E6C65B3BFCA8460EE2D93A96A6B</code></li>
+          <li>D2RCore.dll SHA-256: <code>151242286E64A0A98502726571646809B562D4A0B39A45EEE243E0EA200AEA76</code></li>
+          <li>카탈로그 원본 리비전: <code>cb27a8f574b873807e15cf9613d04d655cabdb60</code></li>
+          <li>설치되는 정만서버 모드 파일: 18개. 실행 전 파일별 SHA-256을 검사하며 하나라도 다르면 실행을 거부합니다.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section id="pvp">
+      <h2>두 사람이 PK하는 방법</h2>
+      <div class="grid two">
+        <article class="card searchable" data-searchable>
+          <span class="number">HOST</span><h3>방장</h3>
+          <ol>
+            <li>플레이 탭에서 사용할 캐릭터를 고릅니다.</li>
+            <li><b>PK 방 만들기</b>를 누르고, 친구가 접속할 수 있는 방장 PC의 공인 IPv4를 입력합니다.</li>
+            <li>런처가 방장 PC의 <b>TCP 15571</b>을 D2R의 로컬 <b>TCP 4000</b>으로 중계합니다.</li>
+            <li>D2RLoader가 열리면 TCP/IP → <b>게임 방 만들기</b>를 선택합니다.</li>
+          </ol>
+        </article>
+        <article class="card searchable" data-searchable>
+          <span class="number">GUEST</span><h3>참가자</h3>
+          <ol>
+            <li>플레이 탭에서 <b>방 목록 새로고침</b>을 누릅니다.</li>
+            <li>캐릭터와 친구의 방을 선택하고 <b>선택 방 참가</b>를 누릅니다.</li>
+            <li>런처가 로컬 <b>127.0.0.1:4000</b>을 방장 공인 주소의 <b>15571</b>로 중계합니다.</li>
+            <li>D2R에서 TCP/IP → <b>게임 참가</b>를 누르고 주소에 <code>127.0.0.1</code>을 붙여 넣습니다.</li>
+          </ol>
+        </article>
+      </div>
+      <div class="table-wrap" style="margin-top:16px">
+        <table class="compact">
+          <thead><tr><th>포트</th><th>위치</th><th>용도</th><th>누가 열어야 하나</th></tr></thead>
+          <tbody>
+            <tr class="searchable" data-searchable><td>TCP 15570</td><td>정만서버 PC</td><td>TLS 인증, 캐릭터·보관함, 방 목록</td><td>서버 공유기에서 192.168.0.10으로 포워딩</td></tr>
+            <tr class="searchable" data-searchable><td>TCP 15571</td><td>그날 방장인 플레이 PC</td><td>인터넷 D2R 게임 트래픽</td><td>방장 공유기에서 방장 PC로 포워딩</td></tr>
+            <tr class="searchable" data-searchable><td>TCP 4000</td><td>각 플레이 PC 내부</td><td>D2R 원래 TCP/IP 포트</td><td>외부에 열지 않음. 런처가 자동 중계</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subtle" style="margin-top:9px">PK 방 정원은 2명입니다. 방 목록 임대는 3분이며 플레이 중 40초 간격의 런처 하트비트가 방과 프로필 임대를 갱신합니다. 호스트가 나가면 방은 닫히고 참가자가 나가면 두 번째 자리가 다시 열립니다.</p>
+    </section>
+
+    <section id="save">
+      <h2>서버 저장, 체크아웃과 복구</h2>
+      <div class="grid">
+        <article class="card searchable" data-searchable><h3>시작할 때</h3><p>선택한 캐릭터 하나만이 아니라 계정의 등록 캐릭터 전부와 공유 보관함을 하나의 프로필로 내려받습니다. 서버 임대 시간은 <b>2분</b>, 게임 중 갱신 간격은 <b>40초</b>입니다.</p></article>
+        <article class="card searchable" data-searchable><h3>게임 중</h3><p>전용 저장 경로는 <code>%USERPROFILE%\Saved Games\Diablo II Resurrected\Mods\JMServer</code>입니다. 같은 계정 프로필은 동시에 두 장치에서 열 수 없습니다.</p></article>
+        <article class="card searchable" data-searchable><h3>종료할 때</h3><p>D2RLoader와 D2R 프로세스가 모두 끝난 뒤 5초를 기다려 파일을 수집하고 서버에 새 리비전으로 저장합니다. 성공하면 로컬 체크아웃 파일을 지웁니다.</p></article>
+      </div>
+      <h3 style="margin-top:24px">정상 종료 순서</h3>
+      <ol class="steps">
+        <li>D2R 메뉴에서 저장 후 종료합니다.</li>
+        <li>D2R과 D2RLoader 창이 모두 닫혔는지 확인합니다.</li>
+        <li>런처 로그에서 <b>게임 프로필을 정만서버에 저장하는 중</b> 다음 <b>프로필 리비전 … 저장 완료</b>를 확인합니다.</li>
+        <li>저장 완료 후에 런처를 닫습니다.</li>
+      </ol>
+      <h3 style="margin-top:24px">충돌·인터넷 끊김 뒤 복구</h3>
+      <ol class="steps">
+        <li><b>복구 필요</b>가 보이면 새 게임을 시작하지 않습니다.</li>
+        <li>Battle.net, Agent, D2R, D2RLoader를 모두 종료합니다.</li>
+        <li>런처의 <b>복구 체크인</b>을 누릅니다.</li>
+        <li><b>프로필 리비전 … 복구 완료</b>를 확인한 뒤 새로고침하고 플레이합니다.</li>
+      </ol>
+      <p class="warn danger">전용 저장 폴더를 직접 삭제하거나 다른 세이브를 덮어쓰지 마세요. 기존 로컬 전용 세이브와 게임 중 새로 생긴 미등록 캐릭터는 삭제하지 않고 <code>%LOCALAPPDATA%\JM Server\quarantine</code>으로 격리됩니다.</p>
+    </section>
+
+    <section id="safety">
+      <h2>안전 범위와 문제 해결</h2>
+      <ul>
+        <li>정만서버는 Battle.net 계정·온라인 캐릭터·프로토콜을 읽거나 수정하지 않습니다. 저장 경로도 <code>Mods\JMServer</code>로 분리합니다.</li>
+        <li>D2RLoader 실행 중에는 <b>Online 탭에 접속하지 않고 TCP/IP만</b> 사용합니다.</li>
+        <li>메모리 패치, 개발자 콘솔, 전역 확장, 모드 확장을 사용하지 않습니다.</li>
+        <li>D2R·D2RLoader·모드 해시가 고정값과 다르면 런처가 실행을 거부합니다.</li>
+        <li>제3자 로더 사용의 위험을 0으로 보장할 수는 없습니다. 정만서버 전용 세이브를 Battle.net이나 일반 오프라인 저장과 섞지 마세요.</li>
+      </ul>
+
+      <details class="searchable" data-searchable><summary>상점 카드가 두루마리처럼 보이거나 아이콘·칸 크기가 틀립니다.</summary><p>D2R과 D2RLoader를 완전히 종료하고 설정의 <b>D2RLoader 설치/복구</b>, 이어서 <b>설치 검증</b>을 실행하세요. 선택 카드 문자열·HD 아이콘 매핑·엑셀 데이터가 같은 패키지여야 합니다.</p></details>
+      <details class="searchable" data-searchable><summary>반지·주얼을 사면 “방금 거래되었습니다”만 나오고 구매되지 않습니다.</summary><p>예전 0골드 데이터나 서로 다른 모드 파일이 남은 증상일 수 있습니다. 최신 설치/복구로 모든 18개 모드 파일을 교체하고 검증하세요. 현재 선택 카드는 1골드이며 대상 베이스 비용도 1로 설정되어 있습니다.</p></details>
+      <details class="searchable" data-searchable><summary>도박 가격이 아직 비쌉니다.</summary><p>아카라 일반 상점의 <b>유니크 선택: 기드의 행운</b> 카드를 찾아 카드+열쇠로 새 기드참을 만들고 <b>캐릭터 인벤토리</b>에 두세요. 할인은 정확히 99%입니다. 데이터 비용 1골드와 별개로 엔진의 레벨 기반 가격 계산이 있으므로 기드참 없이 표시가 높을 수 있습니다.</p></details>
+      <details class="searchable" data-searchable><summary>공유 보관함의 횃불·애니참·기드참이 집히지 않습니다.</summary><p>선택 캐릭터가 <b>같은 종류</b>를 이미 가지고 있는지 인벤토리와 큐브를 확인하세요. 같은 종류는 1개만 들 수 있지만 횃불·애니참·기드참은 각각 1개씩 동시에 들 수 있습니다. 다른 캐릭터로 확인해도 안 되면 관리자가 <code>inspect-unique-charms &lt;계정명&gt;</code>으로 위치를 진단할 수 있습니다. 보관함 자체가 손상된 경우에는 계정을 체크인한 뒤 <code>reset-shared-stash &lt;계정명&gt;</code>을 실행합니다. 이전 전체 프로필은 서버 버전 기록에 보존하고, 일반 5탭은 비우며 각 탭 골드 250만과 고급 재료 91종×99개만 다시 만듭니다.</p></details>
+      <details class="searchable" data-searchable><summary>armor.txt 또는 다른 모드 파일이 바뀌었다고 나옵니다.</summary><p>게임과 로더를 종료하고 설치/복구를 다시 실행하세요. 다른 모드 관리자가 같은 <code>mods\JMServer</code> 파일을 덮어쓰면 해시 검증이 실패합니다. 정만서버 설치 뒤 다른 모드를 합치지 마세요.</p></details>
+      <details class="searchable" data-searchable><summary>서버에는 연결되지만 PK 참가가 안 됩니다.</summary><p>인증 서버 TCP 15570과 게임 포트 TCP 15571은 별개입니다. 방장 공유기에서 TCP 15571을 실제 방장 PC로 전달하고 Windows 방화벽도 허용해야 합니다. 참가자는 D2R에 공인 IP가 아니라 런처가 복사한 <code>127.0.0.1</code>을 입력합니다.</p></details>
+      <details class="searchable" data-searchable><summary>프로필 사용 중 또는 복구 필요가 표시됩니다.</summary><p>다른 PC에서 같은 계정을 실행 중인지 확인합니다. 정상 실행 중인 프로필 임대는 2분이고 40초마다 갱신됩니다. 비정상 종료한 PC에 로컬 복구 파일이 있으면 그 PC에서 먼저 복구 체크인을 완료하세요.</p></details>
+      <details class="searchable" data-searchable><summary><code>CharacterLeaseInvalid</code>: Profile lease is no longer valid.</summary><p>체크아웃 이후 서버 프로필이 관리자 복구 등으로 이미 갱신된 상태입니다. 최신 런처의 <b>복구 체크인</b>을 다시 누르면 오래된 로컬 파일을 서버에 덮어쓰지 않고 <code>%LOCALAPPDATA%\JM Server\quarantine</code>에 격리 백업한 뒤 복구 대기 상태를 해제합니다. 이후 캐릭터를 다시 선택하면 서버의 최신 프로필을 내려받습니다.</p></details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="layout">정만서버 통합 사용 가이드 · D2R 3.2.92777 · D2RLoader 1.0.1-beta · 프로토콜 v6 · 문서 기준 2026-08-12</div>
+  </footer>
+
+  <script>
+    (() => {
+      const input = document.getElementById('guideSearch');
+      const status = document.getElementById('searchStatus');
+      const items = Array.from(document.querySelectorAll('[data-searchable]'));
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLocaleLowerCase('ko-KR');
+        let matches = 0;
+        for (const item of items) {
+          const matched = !query || item.textContent.toLocaleLowerCase('ko-KR').includes(query);
+          item.classList.toggle('search-hidden', !matched);
+          if (query && matched) {
+            matches++;
+            if (item.tagName === 'DETAILS') item.open = true;
+          }
+        }
+        status.textContent = query
+          ? `“${input.value.trim()}” 검색 결과 ${matches}개`
+          : '레시피·상인·재료·문제 해결 항목을 검색할 수 있습니다.';
+      });
+    })();
+  </script>
+</body>
+</html>

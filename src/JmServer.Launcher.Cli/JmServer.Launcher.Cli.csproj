@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>정만서버</AssemblyName>
+    <RootNamespace>JmServer.Launcher.Cli</RootNamespace>
+    <Product>정만서버</Product>
+    <Description>정만서버 Windows 런처</Description>
+    <ApplicationIcon>..\..\assets\branding\jm.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JmServer.Contracts\JmServer.Contracts.csproj" />
+    <ProjectReference Include="..\JmServer.GameIntegration\JmServer.GameIntegration.csproj" />
+    <ProjectReference Include="..\JmServer.Launcher\JmServer.Launcher.csproj" />
+    <ProjectReference Include="..\JmServer.Protocol\JmServer.Protocol.csproj" />
+  </ItemGroup>
+</Project>
