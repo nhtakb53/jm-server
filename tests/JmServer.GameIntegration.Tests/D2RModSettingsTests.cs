@@ -6,6 +6,149 @@ namespace JmServer.GameIntegration.Tests;
 public sealed class D2RModSettingsTests
 {
     [Fact]
+    public async Task GameSessionCapturesChangesAndRestoresOriginalBaseSettings()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-session-test-" + Guid.NewGuid().ToString("N"));
+        var baseDirectory = Path.Combine(root, "base");
+        var modDirectory = Path.Combine(root, "mod");
+        var sessionDirectory = Path.Combine(root, "session");
+        Directory.CreateDirectory(baseDirectory);
+        Directory.CreateDirectory(modDirectory);
+        var basePath = Path.Combine(baseDirectory, "Settings.json");
+        var modPath = Path.Combine(modDirectory, "Settings.json");
+        try
+        {
+            await File.WriteAllTextAsync(basePath, """{"Gamma":100}""");
+            await File.WriteAllTextAsync(modPath, """{"Gamma":200}""");
+
+            var session = await D2RSettingsSession.BeginAsync(
+                baseDirectory,
+                modDirectory,
+                sessionDirectory);
+            Assert.Equal("""{"Gamma":200}""", await File.ReadAllTextAsync(basePath));
+
+            await File.WriteAllTextAsync(basePath, """{"Gamma":333}""");
+            await session.CompleteAsync();
+
+            Assert.Equal("""{"Gamma":333}""", await File.ReadAllTextAsync(modPath));
+            Assert.Equal("""{"Gamma":100}""", await File.ReadAllTextAsync(basePath));
+            Assert.False(Directory.Exists(sessionDirectory));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task InterruptedGameSessionIsRecoveredOnNextLaunch()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-recovery-test-" + Guid.NewGuid().ToString("N"));
+        var baseDirectory = Path.Combine(root, "base");
+        var modDirectory = Path.Combine(root, "mod");
+        var sessionDirectory = Path.Combine(root, "session");
+        Directory.CreateDirectory(baseDirectory);
+        Directory.CreateDirectory(modDirectory);
+        var basePath = Path.Combine(baseDirectory, "Settings.json");
+        var modPath = Path.Combine(modDirectory, "Settings.json");
+        try
+        {
+            await File.WriteAllTextAsync(basePath, """{"Quick Cast Enabled":0}""");
+            await File.WriteAllTextAsync(modPath, """{"Quick Cast Enabled":1}""");
+            _ = await D2RSettingsSession.BeginAsync(
+                baseDirectory,
+                modDirectory,
+                sessionDirectory);
+            await File.WriteAllTextAsync(basePath, """{"Quick Cast Enabled":2}""");
+
+            await D2RSettingsSession.RecoverInterruptedAsync(
+                baseDirectory,
+                modDirectory,
+                sessionDirectory);
+
+            Assert.Equal("""{"Quick Cast Enabled":2}""", await File.ReadAllTextAsync(modPath));
+            Assert.Equal("""{"Quick Cast Enabled":0}""", await File.ReadAllTextAsync(basePath));
+            Assert.False(Directory.Exists(sessionDirectory));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task GameSessionRemovesTemporaryBaseSettingsWhenNoOriginalExisted()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-new-base-test-" + Guid.NewGuid().ToString("N"));
+        var baseDirectory = Path.Combine(root, "base");
+        var modDirectory = Path.Combine(root, "mod");
+        var sessionDirectory = Path.Combine(root, "session");
+        Directory.CreateDirectory(modDirectory);
+        var basePath = Path.Combine(baseDirectory, "Settings.json");
+        var modPath = Path.Combine(modDirectory, "Settings.json");
+        try
+        {
+            await File.WriteAllTextAsync(modPath, """{"Sound Volume":100}""");
+
+            var session = await D2RSettingsSession.BeginAsync(
+                baseDirectory,
+                modDirectory,
+                sessionDirectory);
+            await File.WriteAllTextAsync(basePath, """{"Sound Volume":50}""");
+            await session.CompleteAsync();
+
+            Assert.Equal("""{"Sound Volume":50}""", await File.ReadAllTextAsync(modPath));
+            Assert.False(File.Exists(basePath));
+            Assert.False(Directory.Exists(sessionDirectory));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task GameSessionRestoresOriginalWhenD2RRemovesActiveSettings()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-removed-test-" + Guid.NewGuid().ToString("N"));
+        var baseDirectory = Path.Combine(root, "base");
+        var modDirectory = Path.Combine(root, "mod");
+        var sessionDirectory = Path.Combine(root, "session");
+        Directory.CreateDirectory(baseDirectory);
+        Directory.CreateDirectory(modDirectory);
+        var basePath = Path.Combine(baseDirectory, "Settings.json");
+        var modPath = Path.Combine(modDirectory, "Settings.json");
+        try
+        {
+            await File.WriteAllTextAsync(basePath, """{"Gamma":100}""");
+            await File.WriteAllTextAsync(modPath, """{"Gamma":200}""");
+
+            var session = await D2RSettingsSession.BeginAsync(
+                baseDirectory,
+                modDirectory,
+                sessionDirectory);
+            File.Delete(basePath);
+            await session.CompleteAsync();
+
+            Assert.Equal("""{"Gamma":200}""", await File.ReadAllTextAsync(modPath));
+            Assert.Equal("""{"Gamma":100}""", await File.ReadAllTextAsync(basePath));
+            Assert.False(Directory.Exists(sessionDirectory));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public void HasLocalSettings_DetectsOnlyTheModSettingsFile()
     {
         var root = Path.Combine(
