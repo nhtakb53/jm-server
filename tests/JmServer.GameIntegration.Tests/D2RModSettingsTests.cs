@@ -6,28 +6,7 @@ namespace JmServer.GameIntegration.Tests;
 public sealed class D2RModSettingsTests
 {
     [Fact]
-    public void HasLocalSettings_DetectsOnlyTheModSettingsFile()
-    {
-        var root = Path.Combine(
-            Path.GetTempPath(),
-            "jm-settings-exists-test-" + Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(root);
-        try
-        {
-            Assert.False(D2RModSettings.HasLocalSettings(root));
-
-            File.WriteAllText(Path.Combine(root, "Settings.json"), "{}");
-
-            Assert.True(D2RModSettings.HasLocalSettings(root));
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
-    }
-
-    [Fact]
-    public async Task ExistingModSettingsKeepUserValuesAndGainFirstRunMarkers()
+    public async Task ExistingModSettingsAreNotRewrittenWithoutDisplayOverride()
     {
         var root = Path.Combine(Path.GetTempPath(), "jm-settings-test-" + Guid.NewGuid().ToString("N"));
         var source = Path.Combine(root, "base");
@@ -39,20 +18,18 @@ public sealed class D2RModSettingsTests
             await File.WriteAllTextAsync(
                 Path.Combine(source, "Settings.json"),
                 """{"First Time":1,"Tutorial":3,"Help Menu":1,"Gamma":155,"VSync":1,"Quick Cast Enabled":0}""");
+            var settingsText =
+                """{"Gamma":222,"VSync":0,"Quick Cast Enabled":1,"Auto Party Invite":0}""";
             await File.WriteAllTextAsync(
                 Path.Combine(target, "Settings.json"),
-                """{"Gamma":222,"VSync":0,"Quick Cast Enabled":1}""");
+                settingsText);
+            var settingsPath = Path.Combine(target, "Settings.json");
+            var writeTime = File.GetLastWriteTimeUtc(settingsPath);
 
             await D2RModSettings.EnsureInitializedAsync(source, target);
 
-            var settings = JsonNode.Parse(await File.ReadAllTextAsync(
-                Path.Combine(target, "Settings.json")))!.AsObject();
-            Assert.Equal(222, settings["Gamma"]!.GetValue<int>());
-            Assert.Equal(0, settings["VSync"]!.GetValue<int>());
-            Assert.Equal(1, settings["Quick Cast Enabled"]!.GetValue<int>());
-            Assert.Equal(1, settings["First Time"]!.GetValue<int>());
-            Assert.Equal(3, settings["Tutorial"]!.GetValue<int>());
-            Assert.Equal(1, settings["Help Menu"]!.GetValue<int>());
+            Assert.Equal(settingsText, await File.ReadAllTextAsync(settingsPath));
+            Assert.Equal(writeTime, File.GetLastWriteTimeUtc(settingsPath));
         }
         finally
         {
@@ -89,6 +66,41 @@ public sealed class D2RModSettingsTests
             var settings = JsonNode.Parse(await File.ReadAllTextAsync(targetPath))!.AsObject();
             Assert.Equal(1, settings["Quick Cast Enabled"]!.GetValue<int>());
             Assert.Equal(1, settings["Auto Party Invite"]!.GetValue<int>());
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task MatchingLauncherDisplaySettingsDoNotRewriteLocalSettings()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-display-match-test-" + Guid.NewGuid().ToString("N"));
+        var source = Path.Combine(root, "base");
+        var target = Path.Combine(root, "mod");
+        Directory.CreateDirectory(source);
+        Directory.CreateDirectory(target);
+        var targetPath = Path.Combine(target, "Settings.json");
+        var settingsText =
+            """{"Window Mode":0,"Screen Resolution (Windowed)":"1920x1080","Item Name Display":1,"Auto Party Invite":0,"Display Active Skill Bindings":1}""";
+        try
+        {
+            await File.WriteAllTextAsync(targetPath, settingsText);
+            var writeTime = File.GetLastWriteTimeUtc(targetPath);
+
+            await D2RModSettings.EnsureInitializedAsync(
+                source,
+                target,
+                displaySettings: new D2RDisplaySettings(
+                    D2RWindowMode.Windowed,
+                    1920,
+                    1080));
+
+            Assert.Equal(settingsText, await File.ReadAllTextAsync(targetPath));
+            Assert.Equal(writeTime, File.GetLastWriteTimeUtc(targetPath));
         }
         finally
         {
@@ -176,73 +188,4 @@ public sealed class D2RModSettingsTests
         Assert.Throws<ArgumentOutOfRangeException>(settings.Validate);
     }
 
-    [Fact]
-    public async Task SyncedSettingsAreValidatedAndInstalledExactly()
-    {
-        var root = Path.Combine(
-            Path.GetTempPath(),
-            "jm-settings-sync-test-" + Guid.NewGuid().ToString("N"));
-        var settings = """{"Gamma":241,"VSync":0,"Sound Volume":77}"""u8.ToArray();
-        try
-        {
-            await D2RModSettings.InstallSyncedAsync(settings, root);
-
-            var saved = await D2RModSettings.ReadForSyncAsync(root);
-            Assert.Equal(settings, saved);
-        }
-        finally
-        {
-            if (Directory.Exists(root))
-            {
-                Directory.Delete(root, recursive: true);
-            }
-        }
-    }
-
-    [Fact]
-    public async Task ExistingLocalSettingsCanBeKeptInsteadOfOverwrittenByServerBackup()
-    {
-        var root = Path.Combine(
-            Path.GetTempPath(),
-            "jm-settings-local-precedence-test-" + Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(root);
-        var localPath = Path.Combine(root, "Settings.json");
-        try
-        {
-            await File.WriteAllTextAsync(localPath, """{"Quick Cast Enabled":1}""");
-
-            Assert.True(D2RModSettings.HasLocalSettings(root));
-
-            var saved = await D2RModSettings.ReadForSyncAsync(root);
-            Assert.Equal("""{"Quick Cast Enabled":1}"""u8.ToArray(), saved);
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
-    }
-
-    [Theory]
-    [InlineData("[]")]
-    [InlineData("invalid")]
-    public async Task InvalidSyncedSettingsAreRejected(string value)
-    {
-        var root = Path.Combine(
-            Path.GetTempPath(),
-            "jm-settings-sync-invalid-test-" + Guid.NewGuid().ToString("N"));
-        try
-        {
-            await Assert.ThrowsAsync<InvalidDataException>(() =>
-                D2RModSettings.InstallSyncedAsync(
-                    System.Text.Encoding.UTF8.GetBytes(value),
-                    root));
-        }
-        finally
-        {
-            if (Directory.Exists(root))
-            {
-                Directory.Delete(root, recursive: true);
-            }
-        }
-    }
 }

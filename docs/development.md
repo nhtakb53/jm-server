@@ -30,9 +30,7 @@ dotnet run --project src/JmServer.Server
 
 마이그레이션 `002_account_vaults`는 기존 `characters.save_data`를 계정 프로필 파일로 승격합니다. 이후 플레이 체크인은 캐릭터, 보조 파일, 공유 창고를 하나의 계정 리비전으로 저장합니다.
 
-마이그레이션 `004_device_settings`는 D2R `Settings.json`을 계정·장치별로 저장합니다. 프로토콜 v7의 get/put 요청은 최대 256 KiB의 JSON 객체와 SHA-256을 검증하며, 같은 내용의 재업로드는 리비전을 올리지 않습니다. `modinfo.json`의 `savepath: JMServer/`가 D2R 설정을 모드 폴더에 직접 분리하므로 기본 저장 폴더의 `Settings.json`은 건드리지 않습니다. 플레이 시작 시 로컬 파일이 있으면 로컬을 우선하고, 없을 때만 서버 백업을 설치합니다. 이 데이터는 캐릭터 프로필 체크인과 분리되어 설정 저장 실패가 세이브 회수를 막지 않습니다.
-
-개발·복구 점검에서는 CLI의 `settings-push`로 현재 장치 설정을 올리고 `settings-pull`로 서버 저장본을 내려받을 수 있습니다. 일반 사용자는 별도 명령 없이 플레이 시작·종료 흐름에서 자동 동기화됩니다.
+마이그레이션 `004_device_settings`와 프로토콜 v7의 장치 설정 요청은 이전 배포본 호환을 위해 서버에 남아 있지만 현재 런처와 CLI에서는 사용하지 않습니다. `modinfo.json`의 `savepath: JMServer/`가 D2R 설정을 모드 폴더에 직접 분리하며, 게임플레이·그래픽·소리 설정은 각 PC 로컬에만 유지합니다. 기본 저장 폴더의 `Settings.json`은 건드리지 않습니다.
 
 ## 클라이언트
 

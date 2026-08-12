@@ -365,20 +365,6 @@ public sealed class LauncherService
                 profile.DeviceId,
                 profile.Token,
                 connectTimeout.Token);
-            var settingsDownload = await DeviceSettingsSynchronizer.DownloadAsync(
-                connection,
-                installLocally: !D2RModSettings.HasLocalSettings(),
-                cancellationToken: connectTimeout.Token);
-            Report(
-                progress,
-                settingsDownload.Downloaded
-                    ? $"개인 설정을 서버에서 불러왔습니다. (리비전 {settingsDownload.Revision})"
-                    : settingsDownload.ServerCopyExists
-                        ? "현재 PC의 개인 설정을 유지합니다. 게임 종료 후 서버 저장본도 갱신됩니다."
-                        : "서버에 저장된 개인 설정이 없어 현재 PC 설정을 사용합니다.",
-                settingsDownload.Downloaded
-                    ? LauncherProgressKind.Success
-                    : LauncherProgressKind.Information);
             var characters = await connection.ListCharactersAsync(connectTimeout.Token);
             var summary = characters.Characters.SingleOrDefault(
                               character => character.CharacterId == characterId)
@@ -503,10 +489,6 @@ public sealed class LauncherService
 
             File.Delete(ProfileLeaseFile.Path);
             ProfileDirectoryManager.RemoveCheckedInProfile();
-            await TryUploadDeviceSettingsAsync(
-                connection,
-                progress,
-                CancellationToken.None);
             Report(
                 progress,
                 $"프로필 리비전 {checkin.Revision} 저장을 완료했습니다.",
@@ -616,10 +598,6 @@ public sealed class LauncherService
         }
         File.Delete(ProfileLeaseFile.Path);
         ProfileDirectoryManager.RemoveCheckedInProfile();
-        await TryUploadDeviceSettingsAsync(
-            connection,
-            progress,
-            CancellationToken.None);
 
         var message = $"프로필 리비전 {result.Revision} 복구를 완료했습니다.";
         Report(progress, message, LauncherProgressKind.Success);
@@ -684,42 +662,6 @@ public sealed class LauncherService
                 sha256Hex),
             bundleData,
             cancellationToken);
-    }
-
-    private static async Task TryUploadDeviceSettingsAsync(
-        LauncherConnection connection,
-        IProgress<LauncherProgress>? progress,
-        CancellationToken cancellationToken)
-    {
-        try
-        {
-            using var timeout = CreateTimeout(cancellationToken, TimeSpan.FromSeconds(15));
-            var upload = await DeviceSettingsSynchronizer.UploadAsync(
-                connection,
-                timeout.Token);
-            if (upload.Uploaded)
-            {
-                Report(
-                    progress,
-                    $"개인 설정을 서버에 저장했습니다. (리비전 {upload.Revision})",
-                    LauncherProgressKind.Success);
-            }
-        }
-        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-        {
-            Report(
-                progress,
-                "개인 설정 서버 저장 시간이 초과되었습니다. 캐릭터 저장은 계속 진행합니다.",
-                LauncherProgressKind.Warning);
-        }
-        catch (Exception exception) when (exception is not OperationCanceledException)
-        {
-            Report(
-                progress,
-                "개인 설정을 서버에 저장하지 못했습니다. 캐릭터 저장은 계속 진행합니다. " +
-                exception.Message,
-                LauncherProgressKind.Warning);
-        }
     }
 
     private static void Report(

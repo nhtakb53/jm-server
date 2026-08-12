@@ -208,32 +208,6 @@ try
 
     switch (args[0])
     {
-        case "settings-pull" when args.Length == 1:
-            {
-                var result = await DeviceSettingsSynchronizer.DownloadAsync(
-                    connection,
-                    cancellation.Token);
-                Console.WriteLine(
-                    result.Downloaded
-                        ? $"Downloaded device settings revision {result.Revision}."
-                        : "No device settings are stored for this device.");
-                return 0;
-            }
-
-        case "settings-push" when args.Length == 1:
-            {
-                await D2RModSettings.EnsureInitializedAsync(
-                    cancellationToken: cancellation.Token);
-                var result = await DeviceSettingsSynchronizer.UploadAsync(
-                    connection,
-                    cancellation.Token);
-                Console.WriteLine(
-                    result.Uploaded
-                        ? $"Uploaded device settings revision {result.Revision}."
-                        : "No local device settings are available to upload.");
-                return result.Uploaded ? 0 : 1;
-            }
-
         case "list" when args.Length == 1:
             {
                 var result = await connection.ListCharactersAsync(cancellation.Token);
@@ -441,13 +415,6 @@ static async Task<int> PlayAsync(
                 deviceId,
                 token,
                 connectCancellation.Token);
-            var settingsDownload = await DeviceSettingsSynchronizer.DownloadAsync(
-                connection,
-                connectCancellation.Token);
-            Console.WriteLine(
-                settingsDownload.Downloaded
-                    ? $"Downloaded device settings revision {settingsDownload.Revision}."
-                    : "No device settings are stored on the server; using the current local settings.");
             var characters = await connection.ListCharactersAsync(connectCancellation.Token);
             var summary = characters.Characters.SingleOrDefault(
                               character => character.CharacterId == characterId)
@@ -543,7 +510,6 @@ static async Task<int> PlayAsync(
 
         File.Delete(ProfileLeaseFile.Path);
         ProfileDirectoryManager.RemoveCheckedInProfile();
-        await TryUploadDeviceSettingsAsync(connection, CancellationToken.None);
         Console.WriteLine(
             $"Checked in profile revision {checkin.Revision}; local 정만서버 character and stash files were removed.");
         return 0;
@@ -604,7 +570,6 @@ static async Task<int> RecoverProfileAsync(ClientProfile? storedProfile)
     }
     File.Delete(ProfileLeaseFile.Path);
     ProfileDirectoryManager.RemoveCheckedInProfile();
-    await TryUploadDeviceSettingsAsync(connection, CancellationToken.None);
     Console.WriteLine($"Recovered and checked in profile revision {result.Revision}.");
     if (collected.QuarantineDirectory is not null)
     {
@@ -646,33 +611,6 @@ static async Task<CheckinProfileResponse> CheckinProfileAsync(
         cancellationToken);
 }
 
-static async Task TryUploadDeviceSettingsAsync(
-    LauncherConnection connection,
-    CancellationToken cancellationToken)
-{
-    try
-    {
-        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        timeout.CancelAfter(TimeSpan.FromSeconds(15));
-        var upload = await DeviceSettingsSynchronizer.UploadAsync(connection, timeout.Token);
-        if (upload.Uploaded)
-        {
-            Console.WriteLine($"Uploaded device settings revision {upload.Revision}.");
-        }
-    }
-    catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-    {
-        Console.Error.WriteLine(
-            "WARNING: Device settings upload timed out; profile check-in will continue.");
-    }
-    catch (Exception exception) when (exception is not OperationCanceledException)
-    {
-        Console.Error.WriteLine(
-            "WARNING: Device settings upload failed; profile check-in will continue. " +
-            exception.Message);
-    }
-}
-
 static (Guid DeviceId, string Token) ReadDeviceCredentials(ClientProfile? profile)
 {
     var deviceIdText = Environment.GetEnvironmentVariable("JM_DEVICE_ID") ??
@@ -691,8 +629,6 @@ static void PrintUsage()
     Console.Error.WriteLine("정만서버");
     Console.Error.WriteLine("  save-profile        (imports JM_* environment variables into Windows DPAPI)");
     Console.Error.WriteLine("  profile-status");
-    Console.Error.WriteLine("  settings-pull");
-    Console.Error.WriteLine("  settings-push");
     Console.Error.WriteLine("  set-endpoint <server-host> <server-port>");
     Console.Error.WriteLine("  probe");
     Console.Error.WriteLine("  inspect-save <save-path>");
