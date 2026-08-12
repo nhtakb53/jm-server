@@ -10,6 +10,8 @@ public sealed class ProfileBundleCodecTests
     [InlineData("Hero.ma2")]
     [InlineData("Hero.ma3")]
     [InlineData("Hero.map")]
+    [InlineData("Hero.keyo")]
+    [InlineData("Hero.ctlo")]
     public void AutomapCompanionFilesAreManaged(string fileName)
     {
         Assert.True(ProfileSavePolicy.IsManagedFileName(fileName));

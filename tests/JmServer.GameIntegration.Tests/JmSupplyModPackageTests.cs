@@ -110,7 +110,51 @@ public sealed partial class JmSupplyModPackageTests
             Assert.Equal(1_194, JmSupplyModPackage.Manifest.CustomItemCount);
             Assert.Equal(91, JmSupplyModPackage.Manifest.WorkbenchRecipeCount);
             Assert.Equal(36, JmSupplyModPackage.Manifest.QuickCraftRecipeCount);
-            Assert.Equal(22, JmSupplyModPackage.Manifest.Files.Count);
+            Assert.Equal(247, JmSupplyModPackage.Manifest.Files.Count);
+            var selectorSprites = JmSupplyModPackage.Manifest.Files
+                .Where(file => file.RelativePath.EndsWith(".sprite", StringComparison.Ordinal))
+                .ToArray();
+            var selectorDefinitions = JmSupplyModPackage.Manifest.Files
+                .Where(file => file.RelativePath.StartsWith(
+                        "data/hd/items/misc/jm_selectors/",
+                        StringComparison.Ordinal) &&
+                    file.RelativePath.EndsWith(".json", StringComparison.Ordinal))
+                .ToArray();
+            Assert.Equal(152, selectorSprites.Length);
+            Assert.Equal(76, selectorDefinitions.Length);
+
+            foreach (var selectorSprite in selectorSprites)
+            {
+                var spritePath = Path.Combine(
+                    temporaryDirectory,
+                    selectorSprite.RelativePath.Replace('/', Path.DirectorySeparatorChar));
+                var sprite = File.ReadAllBytes(spritePath);
+                var expectedSize = selectorSprite.RelativePath.EndsWith(
+                    ".lowend.sprite",
+                    StringComparison.Ordinal)
+                    ? 49
+                    : 98;
+                Assert.Equal("SpA1", System.Text.Encoding.ASCII.GetString(sprite, 0, 4));
+                Assert.Equal(31, BitConverter.ToUInt16(sprite, 4));
+                Assert.Equal(expectedSize, BitConverter.ToInt32(sprite, 8));
+                Assert.Equal(expectedSize, BitConverter.ToInt32(sprite, 12));
+                Assert.Equal(40 + (expectedSize * expectedSize * 4), sprite.Length);
+            }
+
+            foreach (var selectorDefinition in selectorDefinitions)
+            {
+                var definitionPath = Path.Combine(
+                    temporaryDirectory,
+                    selectorDefinition.RelativePath.Replace('/', Path.DirectorySeparatorChar));
+                using var definition = System.Text.Json.JsonDocument.Parse(
+                    await File.ReadAllTextAsync(definitionPath));
+                Assert.Equal(
+                    "UnitDefinition",
+                    definition.RootElement.GetProperty("type").GetString());
+                Assert.Equal(
+                    Path.GetFileNameWithoutExtension(selectorDefinition.RelativePath),
+                    definition.RootElement.GetProperty("name").GetString());
+            }
             Assert.Contains(
                 JmSupplyModPackage.Manifest.Files,
                 file => file.RelativePath ==
@@ -687,13 +731,19 @@ public sealed partial class JmSupplyModPackageTests
             {
                 Assert.Equal("1", misc.Get(row, "invwidth"));
                 Assert.Equal("1", misc.Get(row, "invheight"));
-                Assert.Equal(
-                    uniqueSwordSelectorCodes.Contains(misc.Get(row, "code"))
-                        ? InGameSupplyModBuilder.UniqueSwordSelectorAsset
-                        : misc.Get(row, "code")[0] == '5'
-                        ? "gem/perfect_topaz"
-                        : "gem/perfect_emerald",
-                    hdItemAssets[misc.Get(row, "code")]);
+                var asset = hdItemAssets[misc.Get(row, "code")];
+                Assert.StartsWith(InGameSupplyModBuilder.SelectorAssetRoot, asset);
+                Assert.Contains(
+                    JmSupplyModPackage.Manifest.Files,
+                    file => file.RelativePath ==
+                            $"data/hd/global/ui/items/misc/{asset}.sprite");
+                Assert.Contains(
+                    JmSupplyModPackage.Manifest.Files,
+                    file => file.RelativePath ==
+                            $"data/hd/global/ui/items/misc/{asset}.lowend.sprite");
+                Assert.Contains(
+                    JmSupplyModPackage.Manifest.Files,
+                    file => file.RelativePath == $"data/hd/items/misc/{asset}.json");
             });
 
             var visualTargetItems = armor.Rows.Select(row => (armor, row))
@@ -711,7 +761,9 @@ public sealed partial class JmSupplyModPackageTests
                 Assert.Equal("1", misc.Get(selector, "invheight"));
                 Assert.Equal("invgswe", misc.Get(selector, "invfile"));
                 Assert.Equal("flpgsw", misc.Get(selector, "flippyfile"));
-                Assert.Equal("gem/perfect_diamond", hdItemAssets[selectorCode]);
+                Assert.StartsWith(
+                    InGameSupplyModBuilder.SelectorAssetRoot + "base_",
+                    hdItemAssets[selectorCode]);
             });
             Assert.All(materialSelectors, selector =>
             {
@@ -729,7 +781,9 @@ public sealed partial class JmSupplyModPackageTests
                 Assert.Equal(target.Item1.Get(target.row, "invheight"), misc.Get(selector, "invheight"));
                 Assert.Equal(target.Item1.Get(target.row, "invfile"), misc.Get(selector, "invfile"));
                 Assert.Equal(target.Item1.Get(target.row, "flippyfile"), misc.Get(selector, "flippyfile"));
-                Assert.Equal(hdItemAssets[targetCode], hdItemAssets[selectorCode]);
+                Assert.StartsWith(
+                    InGameSupplyModBuilder.SelectorAssetRoot + "materials_",
+                    hdItemAssets[selectorCode]);
             });
 
             var baseModeTokenCodes = workstoneTokens

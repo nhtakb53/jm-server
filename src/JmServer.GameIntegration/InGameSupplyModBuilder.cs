@@ -25,19 +25,99 @@ public static class InGameSupplyModBuilder
     public const int ProjectileStackSize = 500;
     public const int FullAutomapPresetCount = 1_092;
     public const string SelectorVendor = "Akara";
-    internal const string UniqueSwordSelectorAsset = "jm_selectors/unique_sword";
+    internal const string SelectorAssetRoot = "jm_selectors/";
+    internal const string UniqueSwordSelectorAsset = SelectorAssetRoot + "unique_sword";
     // D2R's shipped tables stay below 30,000. Established total-conversion mods use the
     // 50,000 range for custom strings; values in the 60,000 range are not resolved by the
     // current 3.2 client and fall back to an unrelated base-item string.
     public const int FirstCustomStringId = 50_000;
     private const int MaximumCatalogLevel = 85;
 
-    private static readonly string[] StaticHdSelectorAssets =
-    [
-        "data/hd/global/ui/items/misc/jm_selectors/unique_sword.sprite",
-        "data/hd/global/ui/items/misc/jm_selectors/unique_sword.lowend.sprite",
-        "data/hd/items/misc/jm_selectors/unique_sword.json"
-    ];
+    private static readonly IReadOnlyDictionary<string, string> CategorySelectorAssets =
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["unique-sword"] = "unique_sword",
+            ["unique-axe"] = "unique_axe",
+            ["unique-blunt"] = "unique_blunt",
+            ["unique-bow"] = "unique_bow",
+            ["unique-pole"] = "unique_pole",
+            ["unique-dagger"] = "unique_dagger",
+            ["unique-caster"] = "unique_caster",
+            ["unique-class-weapon"] = "unique_class_weapon",
+            ["unique-body"] = "unique_body",
+            ["unique-helm"] = "unique_helm",
+            ["unique-shield"] = "unique_shield",
+            ["unique-gloves"] = "unique_gloves",
+            ["unique-boots"] = "unique_boots",
+            ["unique-belts"] = "unique_belts",
+            ["unique-class-armor"] = "unique_class_armor",
+            ["unique-rings"] = "unique_rings",
+            ["unique-amulets"] = "unique_amulets",
+            ["unique-charms"] = "unique_charms",
+            ["unique-other"] = "unique_other",
+            ["set-weapons"] = "set_weapons",
+            ["set-body"] = "set_body",
+            ["set-helm"] = "set_helm",
+            ["set-shield"] = "set_shield",
+            ["set-gloves"] = "set_gloves",
+            ["set-boots"] = "set_boots",
+            ["set-belts"] = "set_belts",
+            ["set-class-armor"] = "set_class_armor",
+            ["set-jewelry"] = "set_jewelry",
+            ["set-other"] = "set_other",
+            ["base-sword"] = "base_sword",
+            ["base-axe"] = "base_axe",
+            ["base-blunt"] = "base_blunt",
+            ["base-bow"] = "base_bow",
+            ["base-pole"] = "base_pole",
+            ["base-dagger"] = "base_dagger",
+            ["base-caster"] = "base_caster",
+            ["base-class-weapon"] = "base_class_weapon",
+            ["base-body"] = "base_body",
+            ["base-helm"] = "base_helm",
+            ["base-shield"] = "base_shield",
+            ["base-gloves"] = "base_gloves",
+            ["base-boots"] = "base_boots",
+            ["base-belts"] = "base_belts",
+            ["base-class-armor"] = "base_class_armor",
+            ["materials-runes"] = "materials_runes",
+            ["materials-gems"] = "materials_gems",
+            ["materials-charms"] = "materials_charms",
+            ["skill-charms-amazon"] = "skill_charms_amazon",
+            ["skill-charms-sorceress"] = "skill_charms_sorceress",
+            ["skill-charms-necromancer"] = "skill_charms_necromancer",
+            ["skill-charms-paladin"] = "skill_charms_paladin",
+            ["skill-charms-barbarian"] = "skill_charms_barbarian",
+            ["skill-charms-druid"] = "skill_charms_druid",
+            ["skill-charms-assassin"] = "skill_charms_assassin",
+            ["skill-charms-warlock"] = "skill_charms_warlock",
+            ["popular-small-charms"] = "popular_small_charms",
+            ["popular-large-charms"] = "popular_large_charms"
+        };
+
+    private static readonly IReadOnlyDictionary<BaseCreationMode, string> BaseModeSelectorAssets =
+        new Dictionary<BaseCreationMode, string>
+        {
+            [BaseCreationMode.Normal] = "base_mode_normal",
+            [BaseCreationMode.Superior] = "base_mode_superior",
+            [BaseCreationMode.Magic] = "base_mode_magic",
+            [BaseCreationMode.Ethereal] = "base_mode_ethereal",
+            [BaseCreationMode.SuperiorEthereal] = "base_mode_superior_ethereal"
+        };
+
+    private static readonly IReadOnlyDictionary<string, string> CharmBonusSelectorAssets =
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["random"] = "charm_bonus_random",
+            ["vitality"] = "charm_bonus_vitality",
+            ["fhr"] = "charm_bonus_fhr",
+            ["movement"] = "charm_bonus_movement",
+            ["strength"] = "charm_bonus_strength",
+            ["dexterity"] = "charm_bonus_dexterity",
+            ["magic-find"] = "charm_bonus_magic_find"
+        };
+
+    private static readonly string[] StaticHdSelectorAssets = CreateStaticHdSelectorAssets();
 
     private static readonly HashSet<string> OriginalSingleCarryUniqueCharms =
         new(StringComparer.OrdinalIgnoreCase)
@@ -152,8 +232,8 @@ public static class InGameSupplyModBuilder
     private static readonly IReadOnlyDictionary<string, string> GeneratedSourceHashes =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            ["items.json"] = "04587DBA465CBDCD09D129EEC83085114F37547E1233D790515473C12920A110",
-            ["item-names.json"] = "E246019C5363C02897A6D635A314801F6F88C6CB2265AAF90C35BFE339B8323D",
+            ["items.json"] = "AC97458AA515AC8C07CEF0E01AECB9AFD0CB9F4F7FDC6062A82C929DCA31599B",
+            ["item-names.json"] = "3AB46E9366AED462BCC3AC1F8D395E9BDE38DF9B07AD1426AD8C4611B57E580F",
             ["ui.json"] = "1F34E1CA4C30829F7B021382B4F200488289BC374C79EDCC104CDFE19D8D197D"
         };
 
@@ -363,7 +443,6 @@ public static class InGameSupplyModBuilder
             convenienceCategories,
             reservedSelectorCodes,
             hdItems,
-            hdItemAssets,
             itemNameStrings,
             itemNameLocalizationIndex,
             baseModeTokens,
@@ -1606,11 +1685,7 @@ public static class InGameSupplyModBuilder
                 AddHdItemMapping(
                     hdItems,
                     selector.Code,
-                    category.Key == "unique-sword"
-                        ? UniqueSwordSelectorAsset
-                        : selector.Target.Quality == SupplyQuality.Unique
-                        ? "gem/perfect_topaz"
-                        : "gem/perfect_emerald");
+                    ResolveCategorySelectorAsset(category.Key));
                 AddItemNameString(
                     itemNameStrings,
                     itemNameLocalizationIndex,
@@ -1650,7 +1725,6 @@ public static class InGameSupplyModBuilder
         IReadOnlyList<ConvenienceCategory> categories,
         ISet<string> reservedSelectorCodes,
         JsonArray hdItems,
-        IReadOnlyDictionary<string, string> hdItemAssets,
         JsonArray itemNameStrings,
         IReadOnlyDictionary<string, JsonObject> itemNameLocalizationIndex,
         IReadOnlyDictionary<BaseCreationMode, string> baseModeTokens,
@@ -1721,11 +1795,7 @@ public static class InGameSupplyModBuilder
                 AddHdItemMapping(
                     hdItems,
                     selector.Code,
-                    isBaseSelector
-                        ? "gem/perfect_diamond"
-                        : hdItemAssets.GetValueOrDefault(
-                            selector.Target.Code,
-                            "scroll/identify_scroll"));
+                    ResolveCategorySelectorAsset(category.Key));
                 AddItemNameString(
                     itemNameStrings,
                     itemNameLocalizationIndex,
@@ -1860,7 +1930,10 @@ public static class InGameSupplyModBuilder
                 }
 
                 misc.Rows.Add(row);
-                AddHdItemMapping(hdItems, selector.Code, "gem/perfect_amethyst");
+                AddHdItemMapping(
+                    hdItems,
+                    selector.Code,
+                    ResolveCategorySelectorAsset(category.Key));
                 AddLiteralItemNameString(
                     itemNameStrings,
                     nameStringKey,
@@ -2043,7 +2116,7 @@ public static class InGameSupplyModBuilder
             misc.Set(row, SelectorVendor + "Max", "1");
             misc.Rows.Add(row);
 
-            AddHdItemMapping(hdItems, code, visual.Asset);
+            AddHdItemMapping(hdItems, code, ResolveSelectorAsset($"socket_{sockets}"));
             AddLiteralItemNameString(
                 itemNameStrings,
                 nameStringKey,
@@ -2137,6 +2210,7 @@ public static class InGameSupplyModBuilder
                     mode.EnglishName,
                     mode.KoreanName,
                     visuals[index],
+                    ResolveSelectorAsset(BaseModeSelectorAssets[mode.Mode]),
                     ref nextItemNameStringId));
         }
 
@@ -2184,6 +2258,7 @@ public static class InGameSupplyModBuilder
                     $"Charm option: {mode.EnglishName}",
                     $"참 옵션: {mode.KoreanName}",
                     visuals[index],
+                    ResolveSelectorAsset(CharmBonusSelectorAssets[mode.Key]),
                     ref nextItemNameStringId));
         }
 
@@ -2209,6 +2284,7 @@ public static class InGameSupplyModBuilder
             "Quick craft workstone",
             "빠른 크래프트 작업석",
             TokenVisual.PerfectRuby,
+            ResolveSelectorAsset("quick_craft"),
             ref nextItemNameStringId);
     }
 
@@ -2223,6 +2299,7 @@ public static class InGameSupplyModBuilder
         string englishName,
         string koreanName,
         TokenVisual visual,
+        string selectorAsset,
         ref int nextItemNameStringId)
     {
         var template = misc.Rows.Single(row => misc.Get(row, "code") == "isc");
@@ -2259,7 +2336,7 @@ public static class InGameSupplyModBuilder
         misc.Set(row, SelectorVendor + "Max", "1");
         misc.Rows.Add(row);
 
-        AddHdItemMapping(hdItems, code, visual.Asset);
+        AddHdItemMapping(hdItems, code, selectorAsset);
         AddLiteralItemNameString(
             itemNameStrings,
             nameStringKey,
@@ -2613,6 +2690,38 @@ public static class InGameSupplyModBuilder
         {
             [code] = new JsonObject { ["asset"] = asset }
         });
+    }
+
+    private static string ResolveCategorySelectorAsset(string categoryKey)
+    {
+        if (!CategorySelectorAssets.TryGetValue(categoryKey, out var asset))
+        {
+            throw new InvalidDataException(
+                $"Selector category '{categoryKey}' does not have a dedicated HD icon.");
+        }
+
+        return ResolveSelectorAsset(asset);
+    }
+
+    private static string ResolveSelectorAsset(string asset) => SelectorAssetRoot + asset;
+
+    private static string[] CreateStaticHdSelectorAssets()
+    {
+        var assets = CategorySelectorAssets.Values
+            .Concat(BaseModeSelectorAssets.Values)
+            .Concat(CharmBonusSelectorAssets.Values)
+            .Concat(Enumerable.Range(1, 6).Select(sockets => $"socket_{sockets}"))
+            .Append("quick_craft")
+            .Distinct(StringComparer.Ordinal)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+        return assets.SelectMany(asset => new[]
+            {
+                $"data/hd/global/ui/items/misc/jm_selectors/{asset}.sprite",
+                $"data/hd/global/ui/items/misc/jm_selectors/{asset}.lowend.sprite",
+                $"data/hd/items/misc/jm_selectors/{asset}.json"
+            })
+            .ToArray();
     }
 
     private static async Task CopyStaticHdSelectorAssetsAsync(

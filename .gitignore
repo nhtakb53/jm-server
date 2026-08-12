@@ -9,6 +9,9 @@
 TestResults/
 coverage/
 artifacts/
+external/D2R-Excel/
+external/d2data/
+assets/item-icons/.work/
 *.pfx
 *.key
 *.crt

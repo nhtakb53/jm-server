@@ -161,7 +161,12 @@ public static class ProfileSavePolicy
     public const string PreferredSoftcoreSharedStashName = "ModernSharedStashSoftCoreV2.d2i";
 
     private static readonly HashSet<string> CharacterExtensions = new(
-        [".d2s", ".ctl", ".key", ".ma0", ".ma1", ".ma2", ".ma3", ".map"],
+        [
+            ".d2s",
+            ".ctl", ".ctlo",
+            ".key", ".keyo",
+            ".ma0", ".ma1", ".ma2", ".ma3", ".map"
+        ],
         StringComparer.OrdinalIgnoreCase);
 
     private static readonly HashSet<string> SharedStashNames = new(
