@@ -575,8 +575,6 @@ public sealed class LauncherService
         }
 
         D2RLoaderInstaller.EnsurePrivateSessionProcessesAreStopped();
-        await D2RSettingsSession.RecoverInterruptedAsync(
-            cancellationToken: cancellationToken);
         var lease = await ProfileLeaseFile.LoadAsync(cancellationToken);
         using var timeout = CreateTimeout(cancellationToken, TimeSpan.FromSeconds(30));
         await using var connection = new LauncherConnection(

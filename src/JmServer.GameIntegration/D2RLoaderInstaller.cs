@@ -28,8 +28,6 @@ public static partial class D2RLoaderInstaller
         archivePath = Path.GetFullPath(archivePath);
         gameDirectory = NormalizeGameDirectory(gameDirectory);
         EnsureGameIsNotRunning();
-        await D2RSettingsSession.RecoverInterruptedAsync(
-            cancellationToken: cancellationToken);
 
         var gameVersion = ReadAndValidateGameVersion(gameDirectory);
         var verification = await D2RLoaderVerifier.VerifyReleaseArchiveAsync(
