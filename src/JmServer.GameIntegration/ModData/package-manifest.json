@@ -71,611 +71,611 @@
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_axe.lowend.sprite",
-      "Sha256": "9F80A4D7D11D442BCEE3E33EAF158E9DE66A0CED1F5D132FA8D2B2843B8E65DB"
+      "Sha256": "47DF747A41694553D53D6BF2080059881415E74C460AE5F07173B99EABFC72E8"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_axe.sprite",
-      "Sha256": "014B0BBE8DAE61FE1C35A837D1DD2AFBECFFEE70A4F3AC274AA107431D2BC6C0"
+      "Sha256": "36754182C1C8857D45138637121813CC89658C79F4284B51DA1E798EACCAF5DF"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_belts.lowend.sprite",
-      "Sha256": "B9680E5C2B9F94D243D949BBFE2A1AE8D867DB2D617A9AA8427106AF7AA9EA16"
+      "Sha256": "97C28C5F0958125E6ED5418D6E985ACFC8837F36548819806407E05BA394129B"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_belts.sprite",
-      "Sha256": "5A9A5FE89AF47033F754102E6C72642DBE6D76F46E386B29762E0C87E24EDD68"
+      "Sha256": "ABC7136FC5CB8CB6FB1FB5024BAF8A2C8252F1EDE9825BCB97B546D65435D66E"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_blunt.lowend.sprite",
-      "Sha256": "E594CA80F3F8D180E2E6EB3357CA5E209C4A5AD7847123999C61B547BEF8ED08"
+      "Sha256": "48758A6FC84200C4C8BF6565EC161DD83FB8499DCD9C19A2874969C2A46D1340"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_blunt.sprite",
-      "Sha256": "121E4CC85558AF82E963F43CBB932FA57912662B492C74B4BF2F361B0FBEEA1F"
+      "Sha256": "9A898E79EBA3348C62B2E001F3BB60891A629C6D8D8006BA72A981855821904D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_body.lowend.sprite",
-      "Sha256": "1D80CA535660745CCAF7C8EFF0980EA0503C7D812022D5C968794622A8EA6534"
+      "Sha256": "8DEB4C240B799A07EBF3DD447DBEC493B4DF44893BCD4479F5A362AA27706D5A"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_body.sprite",
-      "Sha256": "D9F6F850DA6EF8E960FAEC0F9BB1A34079CAFFB376867AC3F1C1227DC03BABAC"
+      "Sha256": "B1B57B23CF0B0CA3DC3579CB90C8CF907C8F4DA9E1A78F470B71780CAF447793"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_boots.lowend.sprite",
-      "Sha256": "348031AFF69F968444397D2E141E7F7916448D9ADA77DD786C907BED61A7C58C"
+      "Sha256": "5224C5538D932BF2D4840C49F28B3D776AD00A36339820B61FB0A53D1158C8A6"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_boots.sprite",
-      "Sha256": "C428353CA9010745CAB17582E4D123A4084A78907EA0B82EDAA0A92F2B2C13D3"
+      "Sha256": "D2A74C8C689831ACCB48FA00FB2FDD78FEEE883CA25E24945CB988261D068EF4"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_bow.lowend.sprite",
-      "Sha256": "F34A9357CE646A7022397B49D6B4854560D4BB63B2384E0015BF40A5506F19D1"
+      "Sha256": "4A3CE634C805913032F8EB8F4C6FDAF6FBE78CD46920663C2B14398935DD5416"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_bow.sprite",
-      "Sha256": "45F94CC3D240997BA6CE631F9DAC09078155D3351CCEFD8BD33DFE171B6FEDE2"
+      "Sha256": "269CF1CD45D094B8C22F2F8B7B2C6B70F26402C1443B3A51526986FBAD4AC2BE"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_caster.lowend.sprite",
-      "Sha256": "1C5E0DCB18114A2035447FE1616EF3FA4553321EE458ED7FDD99A57F7A5EFB46"
+      "Sha256": "7BA871DEBA0BFCCDF8AFF3056B6B7C4605F536C28647F78A416D6C80FD6E0834"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_caster.sprite",
-      "Sha256": "A7280D290775FB78A19A9196A4672687863D8F98065E556290C64A004A7B81FB"
+      "Sha256": "1DF3D6AB9A0C4A591A8054F130F4E0FE15EFDABBB97C68FF409D66F9B72C35BF"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_class_armor.lowend.sprite",
-      "Sha256": "F99254B1276264B839630B5A75097CA73D1FF2796E427B989781158EB2B6F9AB"
+      "Sha256": "33673BAAEA1DF0BB351D2E7BD4D99DECFE956A02E9BC337A52B9C19250EDB56C"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_class_armor.sprite",
-      "Sha256": "A96FE171B962A9130B34B0B663DCFA139EB8940D6323533689FB6F18AA65B20B"
+      "Sha256": "E90F80F451D5131919D45B105CDC175A558E2B190D44A340158DB716B135151B"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_class_weapon.lowend.sprite",
-      "Sha256": "2E2FE6C84F36A6AC568A154CEE9450FC2459AD9D6B703C74C7BCA7C3BA3A8B0A"
+      "Sha256": "8805E7F08A0A04751109C4D95144861AB8B727D0DFE13987B208DDB7D41B1DA6"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_class_weapon.sprite",
-      "Sha256": "7D37EFFFEB39F549CDDF22BE76E21CD53E9D445D6CB2DC55EA6458D2D817CF73"
+      "Sha256": "138618525ADC6A76D1553AE06F8AA473489B760695709A722061742937EAC495"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_dagger.lowend.sprite",
-      "Sha256": "EE3882C9A21274F4397E4267E2B0559A2B93AF49B8918D1D13DBB51DB0F78A11"
+      "Sha256": "3ACF252925D107E54FC81FB0AB340AD33480C8689622D1F4C18DD8F942931B47"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_dagger.sprite",
-      "Sha256": "DC469ED66569E4B1F2D56A861DE9A0AFABDA362EEB37FA166D52A2C3592EC02F"
+      "Sha256": "7EE3992979A409C6DF8AA2DC0880CCD66A3C01C985A76551A50F5A232E2F9696"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_gloves.lowend.sprite",
-      "Sha256": "BFCDBE303E6E04185667439AADAB91BAA9ECEC96EC9053AE83B3C3C1E3474EB5"
+      "Sha256": "DA013576806BDB315ECB0B984E7FEC62CEE4CE80715FAA56ECE4B30E972431A2"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_gloves.sprite",
-      "Sha256": "3677D2778ECE914D974916074172F4737AE6BCC70CC00AA30E0605D091E575EF"
+      "Sha256": "D2929359F9D41AF690A9F5A88D3F4657B86F74D48331DCE38F3A4FC673D73176"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_helm.lowend.sprite",
-      "Sha256": "D1AD2B4D8722017194328055F614830F956EDB983083225425B5E124991010DD"
+      "Sha256": "7D9F369C9DBD8DE62D74D22FE9DBBFE21986E421A4B581DDACB43BC50F1C539A"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_helm.sprite",
-      "Sha256": "E4C426C8EE290B81C8ECFF26E4557B4510CE5CDFF7D50A2BF6657A5C482944D5"
+      "Sha256": "374E04DB97537918FCC1350306CB6E7C856C6705A1772AF05062B17BA76A84A7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_ethereal.lowend.sprite",
-      "Sha256": "5E5FFCD8C99CB316B50BC2C7A53225F7829AC7F2C1736F1A647D9B06A783D9E3"
+      "Sha256": "FDCEAA59B7DA39E41822D49D68F274B9434CEF72CA519201F551DE5D8E3F2000"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_ethereal.sprite",
-      "Sha256": "F45CCD743A24BD9F4ADC02D32910754404C3A66ECFA3118E1A37A17940ABCABB"
+      "Sha256": "F56880EB359C0A2B5C5EC3CA7D42E37647F588B147B0A83AAB6BF1330F538190"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_magic.lowend.sprite",
-      "Sha256": "9E5B21AE5103588059151DFCCF0E589DEF8ABDBDE14378E2FE5E0F111447E56A"
+      "Sha256": "142F015344EBD957901B92C2312211833C54592EDA17675161013A49A842189D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_magic.sprite",
-      "Sha256": "B625C25ED6F9CA74EA8C01A7EE1003BFB987D295F40CFB4D0A86BCC8E316007A"
+      "Sha256": "003ABDA298DB78BAADFFF429FDDE7A884F2292CB52E9F5FDB5959DE0D9CEBBB0"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_normal.lowend.sprite",
-      "Sha256": "B53310F5D58B0E85B467A572656F81B070379D2BEA862A81EDAC9423AE491B7E"
+      "Sha256": "B897E37308BF12370582B3891A9201A32DC9DF4926C15081002ECBC862735894"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_normal.sprite",
-      "Sha256": "CE7CFABE6B2D89B1D70ADBA4D2C4EDE870EF41379D83F498B14601E7ED88271C"
+      "Sha256": "13930F96008920FD61CDBD544922CA9AC9F723FE5E700AF3E9622E2C50EBC367"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_superior.lowend.sprite",
-      "Sha256": "9F69CE71415F084EDAACB4BDA58E05A9D4F4351A52379023E77CF7D2D16C6E88"
+      "Sha256": "D90C39EBB5BD3FE2D702E146D9703559C954BEBDD7BD5D05C789D02B1C17B98D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_superior.sprite",
-      "Sha256": "9A619F7D2A4A2792089B76AFC96581E280718DA8F59FD2162E0A731DE297DECF"
+      "Sha256": "2F83EAB0B3E41AD5B6F60F535673AE36C0DC27CAD22F485804AE7BD0AC8EAAE2"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_superior_ethereal.lowend.sprite",
-      "Sha256": "518112B604AFAE7FCE5875B3988046FA227054A5B7E0D11C9BE16EB0EF5D6784"
+      "Sha256": "049E281CE6A8E61555BE7D6643F6D97C9624984934E8D8E338A2F46EEE61C4CF"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_superior_ethereal.sprite",
-      "Sha256": "3CEE707F5011622AB6CB793B875A38676FED93A3D37133D57711F5578AE93719"
+      "Sha256": "C5859ED3E8E47E387350F9A90EBB37A427700475451ABB7E3D8EA851C25124F6"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_pole.lowend.sprite",
-      "Sha256": "723B6B832945E05EC453F07634A71AC5DEFD8BC09D74BD6087CC68579509494A"
+      "Sha256": "4695CF6E8929A08BE0F9FFCEAB82C324EA0CDC25BECBCA042705DAE0B02C97F7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_pole.sprite",
-      "Sha256": "5F2451925AF312BEFB4EA41D0163F3EF3180C2C1F5CD2588AA86E5E903B54905"
+      "Sha256": "120B0B70FB1F70BEB07E47FB8A02A26ED622ED9C8F128FE32382E0C28B7C4A18"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_shield.lowend.sprite",
-      "Sha256": "621F138659D05C7ADC393BC5620CB16A1D30C4E53060625FB2E990A88A79D8A2"
+      "Sha256": "12B8C892524F7F5128CCA9C1D1206BEF5DA78BDFF6D45B79C5E132AD1794DB2D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_shield.sprite",
-      "Sha256": "1D095D70E80F56EE7DA54C5FC2AE39C884082190B2E5371F455BD6B6C6B1B478"
+      "Sha256": "3DF54E7E06E5939D01260A202C44C2E93B6CC91096858786F78664D60F3D7C92"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_sword.lowend.sprite",
-      "Sha256": "BA80157EAEF334B9F5976D7C1430C13E8B436E6E990ED23EE9AA264C9660EAA2"
+      "Sha256": "A66C3ADB68DA3DF0F4E379FF251D7E0E95EDEAB143D3962AE71042995806DE7A"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_sword.sprite",
-      "Sha256": "90B9D1B281BC3A763676AD4AF51EDEC520355358BBDA5735D72B944E1512C305"
+      "Sha256": "B9D0FDFE3A6EA4C45FDF5C01DC3382E4D7646EBC149CBD9E04190C0300C11507"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_dexterity.lowend.sprite",
-      "Sha256": "D1F5EA6CDD119A7C83C3325AAE2BB41562D795AE76B41299BBE638F5566B0673"
+      "Sha256": "FA2A7BC8631A7E65E18D5A0E2DD3C42B7D8FD3BCF180CE5F18DC47B74FC6165E"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_dexterity.sprite",
-      "Sha256": "3FF8165ED749E790C73B16E136FB31C9E7C3B61208552F25F2BBD15C3326002F"
+      "Sha256": "C985EB1A0FFC17CEF4653C32C65125177EB8E42269FC366F53010B3D6014F64E"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_fhr.lowend.sprite",
-      "Sha256": "92332D12D7DCD5EE90F28B182ACFE20C69B0197378303910DE4A4DFA6ACA51AC"
+      "Sha256": "1EB16D9D9AE71D9D24CCBC12BBA8FD383A7C8C5D5BC8C8F455F40AD94C840038"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_fhr.sprite",
-      "Sha256": "8BF2D0F5808655AFB9E617C47744B55212B186DEB0B0AD2EBF6291AF302A030A"
+      "Sha256": "FB7276F50F607355C8EC4770DA5DA33D646364EC408A4F4C18B96B7F5D3627F4"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_magic_find.lowend.sprite",
-      "Sha256": "6948F84E1A297314C82D9838C61E987E75D23D3DEF68221604A9330368FD64E5"
+      "Sha256": "F6232206D12792CF5C871471EE0FA40C1A1427FB7DF6F173DFB70016EF7AA5B3"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_magic_find.sprite",
-      "Sha256": "6DDF8E1E238ADBFDD0F3AC90448C8D97D7890B5B186479FFC80E839CF612F5BF"
+      "Sha256": "EF3A3B4A24F24173EFCEE065DA5717F1B91905777FF4024AD2634C166B523468"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_movement.lowend.sprite",
-      "Sha256": "70E90CAA06C3212D4DCBA4459B8D0FB283FC4A8D4B57FE3E803F3A7235D0799C"
+      "Sha256": "5C562678AF05281B09A9F85635B302D4CB54BA07D19B4B7BE900E7394512A4D7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_movement.sprite",
-      "Sha256": "28BE7ADDF651F21E9B6DC2E95E87228BEF3430A96B16F8CE5670F74C1ED9408E"
+      "Sha256": "7C79F3A43C20193E3F9EFBBD81CA9E0B377A851B3A99AFCC782C56ABC3A4135C"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_random.lowend.sprite",
-      "Sha256": "BE66DBD4080AC52B4D96F3E0F6CE418111747D1E81D6F7F4E5A188976882264C"
+      "Sha256": "29B29313E7E53E123D67A8D5E4F1DED15816DE878791C84DE259E7A20A892AC1"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_random.sprite",
-      "Sha256": "E2FA81F65992A99A599138771790A28918427AB9D84E707409677713E20FB969"
+      "Sha256": "A004BB13A3FB470449F9917E66EAA867F0EB37DA0D2634A243BDDD94876C2FE6"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_strength.lowend.sprite",
-      "Sha256": "FB47E601E3B38DD05E5CC08E7D9ABDF7FB9FF35C1EC1817BBBE00227D9F512FF"
+      "Sha256": "1E4299B9DE55DEF50EC1ACBBD5239F3F71240D1922B2B7F498ACD1C0A39D1E09"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_strength.sprite",
-      "Sha256": "2A0368B24CC5E4DEA27200B56B790EC0C6EE2679C066793CBAB13FBD8CB8E2CE"
+      "Sha256": "8B21FD68B7B6CF8B587C43D51A373C122F970A5B7E4F51666CAD8BF7FFC5A208"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_vitality.lowend.sprite",
-      "Sha256": "19E131617DB36172913859B0D9B20C16B1F8B978637C966248EF894622F9C772"
+      "Sha256": "AD91A8A721D6E45567BB1E524F6903E1B966423F5C7E965D67B6F406C9E47829"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_vitality.sprite",
-      "Sha256": "FB17F6747634DF907D22511465841045113BB4A1BD638737FA47E77AA30E8C6D"
+      "Sha256": "0A6A7E59DAC3F121D07E8E7E767CC694063DCB8A0C82FF9A43296FC717DFDF8D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_charms.lowend.sprite",
-      "Sha256": "3E47924B432B88D46529F933FFDD160A9BE8E38EE0D80DE027E43E70193B791A"
+      "Sha256": "9C873C5F5EFC85BD10B26EE048D781DA1ADA7D6BE0CCCA6A9AB0F03F72AB55A4"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_charms.sprite",
-      "Sha256": "6A1538744B31EDE0494256A48AA64FB49A8717744223BB3409C8D2D19650F634"
+      "Sha256": "1314EAC118596B1F57A54CB741B099635ED757CEBCE08273A951961DAFC8D8F8"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_gems.lowend.sprite",
-      "Sha256": "AAA3652B4431A4264F414B86141DEC53E24F054B193255276884D1DC5A9C6DCF"
+      "Sha256": "9AECA5235E51A531DF2EA703A1BEB23B0837EC7CED79EA42EDE7149E1FCB0119"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_gems.sprite",
-      "Sha256": "C1C4DEB3F431AA683FCFC78D7A52B2FF64A6FE104059C8FAA34ADDE38EFE4445"
+      "Sha256": "92C38B86A9D240D7CB20F0D302D2A3D90F2E5909B5DBA3C53DEC3C3C58488641"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_runes.lowend.sprite",
-      "Sha256": "DBAE7FC2DE49858D191B961A7D24BE91B28DE2015D91F5A065D49F82D344BCC6"
+      "Sha256": "9C27F9AC1192FF5EE4E2F636A947D3508A5B5B34DCDDEAA2E258BF70C47517A6"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_runes.sprite",
-      "Sha256": "73FFC559045472391A596098710953243F2C2DB7C8741462E7CFED74D9AD41B2"
+      "Sha256": "8C0BFC3208FBB77B8038218B6AC4B4C62F923B73A7D4D6458AF182A428683C06"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/popular_large_charms.lowend.sprite",
-      "Sha256": "C11D76B15E5E70C4B24173CE973675E3DB100E01257DC3C98A3DC58680CC6EB3"
+      "Sha256": "C9B933BA69D61B36186D185573C61F641C3609797824A36BB6ABFBF7F1C7AE33"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/popular_large_charms.sprite",
-      "Sha256": "F7725ED79B9DEC2ACC5BCA645FB1456DF039F1DE632B8C88B0BFC7E8D8FA23CF"
+      "Sha256": "D50F588B13F675DE09F836877EB7FD2B06E931FBDD954909C95C60D15CED83DB"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/popular_small_charms.lowend.sprite",
-      "Sha256": "F3C48AE214DC9FE60DF7B8520370C3EA92FD75DE0A46C1900AA378CA3749AB80"
+      "Sha256": "795D89B5DFA05DA4CEA749D2F91B53A80A4B1F7E0DAF7D40C8D96ABFD9C372EB"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/popular_small_charms.sprite",
-      "Sha256": "305D60C6F439EBEEF670F1FF91FEBC83A6B8E3963C8CC72F66934DCF3F147829"
+      "Sha256": "E867F5F7455677D17CF4EF3A5989526A29449A8C16225E9EE3CDCF89DE98FFA7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/quick_craft.lowend.sprite",
-      "Sha256": "C0B0BC863A0BEFE26753A609AA7DECB9D20DB6FA0553FE9539725A61CE13ECAA"
+      "Sha256": "CBDCEFC17C3153B1DE630A9F18145FB85B4342D7E1201029328141D08269B294"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/quick_craft.sprite",
-      "Sha256": "AE9BBDF417DF1FE921FDD3346EFDA3171371B20F8E733AFCBFA01AB2A3FF1CBA"
+      "Sha256": "E42C0F192E65016AFAA2EA4C042A284A1316C91DDC05444EB35426D21D13A5D5"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_belts.lowend.sprite",
-      "Sha256": "27980160B2ABC42D9B2797F9C326FC3EF83E16C8AE07CFC978041E7C858B1D21"
+      "Sha256": "DB83351FE80B7BED70B7EFDCB6708F6A0BA2B939DC700E83FF8706BA87E6B85D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_belts.sprite",
-      "Sha256": "1D0BBE46BC857EC61ABB86B48D45D8420D61CD0E4D96FAA1A2999D18082A31CE"
+      "Sha256": "19281F0182121C75006CC52AF71B25D675C52E06E33D80A6DA3130AB4F0A8679"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_body.lowend.sprite",
-      "Sha256": "644FDF54A183CBC6287558621C17015E0486ECA84D53D29A624F914DD5153ECA"
+      "Sha256": "C8E07EE583ECA532C4963072807581917BF41C63E9E02D8BC298DA7466690AA4"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_body.sprite",
-      "Sha256": "D7CB98680AC291FAA148BB9A8D3433D48D602D25A03267EA00A68C608397FB0F"
+      "Sha256": "4BC1CDB42706E93008568C78C8E05BBF4008C8D3D82F607B29860D477C7E73CD"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_boots.lowend.sprite",
-      "Sha256": "33357AE4B12C6F73C874B495A8E829A4662EDE30B8139251E2F36F693790BC3A"
+      "Sha256": "6169245C7AB333A17E5B0B25E56A373260698B0E75F5E1D127C7B0693B8D23E4"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_boots.sprite",
-      "Sha256": "9B99F4618B34E181A37566D776F645338860820FB07175083B4380E3D20DC0C5"
+      "Sha256": "454D5D61EEE27C1FB7DCD1D10B41F1695EEF1487CC2549F0C6D06008031C23FF"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_class_armor.lowend.sprite",
-      "Sha256": "524F209389D5516CD32782A7627BD3F633D6329E875DDC44EB0A9FDF2F1B91A4"
+      "Sha256": "D41369FCEF6B1C685431FEB4EE6E5CDCED91791B634E61B883712966DA817CD5"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_class_armor.sprite",
-      "Sha256": "3375BC9F5B53C24C3F4F20046A532D8B96F11B9C0B09F02B13D491712CF80FBC"
+      "Sha256": "A92C29DCA9E153ED15314FE5533E5868EC2ADE4F2E00FE69FAF2A5A789215C7D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_gloves.lowend.sprite",
-      "Sha256": "D25E687954569AE4C38D6504CB51884316BE94460DA8E045E6A0A8EA78D4B8B2"
+      "Sha256": "6F09F583FBF3F096147F6355F26B486425260B3E3B1CA653490775D6C0785406"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_gloves.sprite",
-      "Sha256": "9F9EBF24D91B70D9B516236B199F935028F5F333B927F825BF292A2E6ABB8127"
+      "Sha256": "F7B75351C62B5701CC80CB83AFD529BA1367A61F7C7DA18742CED34C5D727A02"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_helm.lowend.sprite",
-      "Sha256": "3CBC20A12EFA4CD4EE632764DF49825AA91339DEC5021709B7794984D0410DC4"
+      "Sha256": "B203854E88FC03A631F3C3CBE7F54F7026DE0E609748FD8C4E946963D97FD0FA"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_helm.sprite",
-      "Sha256": "FB188802FEC7CE6E27C897A5B5670DC4D95C073360A3E9AB99EE5C17BF7BB7A3"
+      "Sha256": "B9843B692CD28A37F5F57DFC374838DEBDCA275407A994E4A5A6BC567132659A"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_jewelry.lowend.sprite",
-      "Sha256": "0A7BD5885DEF71F6193D01D984902E487E8290FD3F9460562766155C9500B87B"
+      "Sha256": "9C7A399C3CFF69843F459C96E49CF9ADBE3A7E2E380E10F93E3A25FC46256DCB"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_jewelry.sprite",
-      "Sha256": "4ED6D853173B4E12F6E061B2614750F61ACC43D3579779A479858B1993C534BC"
+      "Sha256": "672708C99203F5B8051380CAAFADA714F9DC820DB50333B4A2BB56B8659084DA"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_other.lowend.sprite",
-      "Sha256": "01C35108F9872B020BAB376CE6E239649776D9B02A6743F2B45EC7694A390F90"
+      "Sha256": "049E00AA0DA34A6B7C0429B36F038C341AA82A5197E9986176A5EB41F683DC1E"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_other.sprite",
-      "Sha256": "382AC607E19BB83ACA38D01AE727FD5010DB4CBBDBF2CB37F9757C0F31717442"
+      "Sha256": "D61DADA53ED72D2F398618363B9EB6E525B1D31AE9E8D48547697B6BA6A842F7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_shield.lowend.sprite",
-      "Sha256": "3DCEDD68F610DE606307B347B85D90B1740AAF766A0D09EF643EAE8711B8826A"
+      "Sha256": "18ED4403C0B1CDAB276980DE87FB2D3EE48F01A216AFA6B3AE421E5B41E1FDC9"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_shield.sprite",
-      "Sha256": "6E4260D62F03F5E5A4477F779DDB6E93C8A01C68426C33CC30B05D5E81D62AD6"
+      "Sha256": "847D3D68515D667F2E34644544281136E5E75B459C5F2DD3CB0F69D4512CA06F"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_weapons.lowend.sprite",
-      "Sha256": "898C9FEBAA9D0088B9CDA86D3C8E2D513DB048F4CFE7A30321CBF604352B7291"
+      "Sha256": "D40F6EEBF998C91F9AAA092B2E7ADAC36200AD1ADB9578D4780D8060D029A709"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_weapons.sprite",
-      "Sha256": "87EA41D5AC82CD29E59B7ABDD56E9FAC525C07FF6772E8C55496042CAFCA4476"
+      "Sha256": "017186FF34A52AF819EF6B9EB1D7FD39DA55128790F5E32745E9B436BC47D024"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_amazon.lowend.sprite",
-      "Sha256": "55B9D1560DF477C49735788EB5E13E432F1072FE6F4D94E99CE132BB401EDDE6"
+      "Sha256": "B976C8455781BEA95328BA745FD3E590090983CD260151534888E4960C1BEACA"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_amazon.sprite",
-      "Sha256": "21046D6C3B209919E1112C6AE6539D0D12339B1F52ABAB8CDB328A8228A75331"
+      "Sha256": "69E3A3561A86E481D756447915369D76C2534709B239BE2622A2B8CD1A2B64EC"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_assassin.lowend.sprite",
-      "Sha256": "309D15CA671ADA66815FFEF2A799966D7973E1E455B5A72EFA443C9548958525"
+      "Sha256": "E8E171FD7B4925ED49E0823911668FFA6791BFE677D1229662F6755D31584F8C"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_assassin.sprite",
-      "Sha256": "7FF961183B777697FF6F40BE911B7A9ACEF4EC1784D4B2D95055158F3F10B6BF"
+      "Sha256": "C1F37B9471454078DFF81177D55C7E44D8BF5190E5377CC4F0B4CE340ED99680"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_barbarian.lowend.sprite",
-      "Sha256": "7610B404357D8A4E4DF39DFB669665DD7BE58DBF54A48F22D951B41D0A797693"
+      "Sha256": "144B821D09FDF6BC58193303CEFCD937C250A8FCEDA11F4BB0A2AD5015CC3720"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_barbarian.sprite",
-      "Sha256": "241BCF5A7A44B74B6578FD809295F893374868A2810953B2464C6322541E6C1E"
+      "Sha256": "7AE7B8FEA64B5C61C95C031CA576040CCE716F74E9142BBB1B274C60273622C8"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_druid.lowend.sprite",
-      "Sha256": "76DD089026D01BAAF3019A91EB6E5020AFFC1DD24C0BFCD7C7BF94752AB67992"
+      "Sha256": "E13836A3FDF48ADF65F332D0C5C586367F8F1D9B214C905F150A64C0263C2A98"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_druid.sprite",
-      "Sha256": "2A2921564573C76438474F571453D0AB8A03D5FBB137EA31AD66F36CE3EE0A2B"
+      "Sha256": "B714A9CB7F152933081F14BBCD2E64BAF7563799FA4392C52370B69680A755FE"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_necromancer.lowend.sprite",
-      "Sha256": "1A798B208280E672A9A9ECED341FE3C70127A526B0C11AD7B4F3396777AFB6BE"
+      "Sha256": "6113C27A9A9DB14576DC0C55CC1F1F7E536D189A24BD1526B328FD8BD984F425"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_necromancer.sprite",
-      "Sha256": "C9D070AB3DA686BDF804FD662B69102177375C7F0E39F76610E3BBE0B4000DF1"
+      "Sha256": "AC3031D033841A547A95BB66B1323A8D43D838296D5B44C155CD8DA744CC9F70"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_paladin.lowend.sprite",
-      "Sha256": "18E45E84EAADC1F386F52AFA46382003D05BA3E0A801423E8151F8EC9A2FDDB0"
+      "Sha256": "C82FEC902D89AA1AA441EEF9BFC84846AED67AC8FE09D73911C7D4296A682E54"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_paladin.sprite",
-      "Sha256": "C94063B346F5792BF099628B194125DBDF51482B9D7F1769B4760E5721A969A3"
+      "Sha256": "B2DAB1A5F85E77580F45628288D91940DF72B0465058172715A35A90A0F02422"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_sorceress.lowend.sprite",
-      "Sha256": "DC4916C726F5FF50A7198EE2983485DE6EF5B5C1178A869883B7566B2DBA8C6D"
+      "Sha256": "6D5673046680DC901B21320577C64AEA26880562DDB26E64D27BEBB7ECF9A06A"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_sorceress.sprite",
-      "Sha256": "D56D2C4F5F8412E382C3299B5B4BC4A99414AF8E2F3E4B55D9C8998A1782D85A"
+      "Sha256": "5D9286119EC8CDF348F66BB90B8133DE64C668C714E9110E309EC1850318647C"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_warlock.lowend.sprite",
-      "Sha256": "5FCCA205F1B173F6C6770B852E0CD9B399899178139C910CE3F922F120A0A559"
+      "Sha256": "3F3948A0DDEF19A221F97F9184B328DE6975853E83025C74A7EB637943B50B26"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_warlock.sprite",
-      "Sha256": "9DCEF653088F564F63AC178B6727D34E4400C912E6FFA70B9C751FFE19EE062D"
+      "Sha256": "BD22BD0F8D978C594DF47552EEE4E36D931B5CAB47B63EF1DF8D81E0930BC5DB"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_1.lowend.sprite",
-      "Sha256": "AE190F866546D754D35BD099E14F5C5341029535F439BDC98145BE7BCDEBAAE6"
+      "Sha256": "D07736D3C8EB7C5C4B46146896646D4EB06234EBD92768EE067112C762F0EAFB"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_1.sprite",
-      "Sha256": "DDD52C8475DAF3F398142C4DE3C889440CFA31FD1A0E93977C04CAAE0C2C7CDD"
+      "Sha256": "9234510813E0C7EFABFBCBB6C23036996CEDA1B6C95305765D3EF99D89F93A42"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_2.lowend.sprite",
-      "Sha256": "E112A5C6816FEB68FB7A10DD34C254C3919B14372430CF003EF4F07FFDE4FC11"
+      "Sha256": "1F00AAF53BC27CDFC15314946BF8A67D7C6B64AE78FF74CD726792D78334A948"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_2.sprite",
-      "Sha256": "BF057E3E1B66DD7507ABDC7015F576C5250D3E54D17EE8ABCCC0DE5890140972"
+      "Sha256": "9B3923BB89B72A4A168E5245A0CDD25E36C67189C0AA94C7007068E63D3C49DE"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_3.lowend.sprite",
-      "Sha256": "DCDBFF49BFBD0A0E4A2068FC3BF483669B56841EC3AD920A548739EFB7727852"
+      "Sha256": "88E04571FCB3C58ACE4BBF06BFA725793ABE78F4CDEEFB29D912B9C745B30948"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_3.sprite",
-      "Sha256": "DD50D2AC69824C2F1E56AFD2F9339EFE6806E206112BC2154346E69F86795D22"
+      "Sha256": "9178E68DF5B4A1292BCF96F2366CD49EE1A975E7A343F7C1784E8A1BA0912D85"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_4.lowend.sprite",
-      "Sha256": "048F5915CADDC6AA24C5136565CD1AD92FDAC5B7684991963FD538376D8815CA"
+      "Sha256": "779CF5CFC37FF1E2A716EA49B6A90B6D72167018935878D24023DEBFE0FFBD57"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_4.sprite",
-      "Sha256": "5873C1AD55B3293FF1A5315F96DDBD67D1B54A7843BB7D63144C61B4C0D17302"
+      "Sha256": "3CAE55275D23D99F963A45A1EEADB06E07C114D788BF1016D119E14F7171112A"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_5.lowend.sprite",
-      "Sha256": "36089F176F8C9D62D9B3EF009CA1369C21F2317EFDE0FC36C3033F2B87157090"
+      "Sha256": "8141843B909866E4AE6C8C177776A579352E3973F1FAEC03048D3E0E1CE9EC54"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_5.sprite",
-      "Sha256": "8A1C9951C3DA25953CB7D5274F840D763DC6E1EE0335DCF924B6297D252A5A5F"
+      "Sha256": "1DCEF04F4F6D17F201C7696EFB1848BE37F8345C38ABF82829D6849F9EF1C323"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_6.lowend.sprite",
-      "Sha256": "F9774D154268FDD63A243DD1ECCF90FB93EFE04718A528C51031E2DC7133692D"
+      "Sha256": "1E92C90BE8061030AE69801BD5B0EC9708DCF55B3A6FFA8490D015B0C8FC1C5E"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/socket_6.sprite",
-      "Sha256": "621B5EA303B8D987DC26095251DBFF7043412BB2FFCE5C144D0B902E7A9586B4"
+      "Sha256": "3866DCA00D5E5A523D8D5B6B24D80BB30BC4BBE6EF423A65E04D3FD943A3F1B2"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_amulets.lowend.sprite",
-      "Sha256": "5B9E34B072354568106C749CB4C314427C972D03277A6A4627577427B55F9DF9"
+      "Sha256": "5A17BC1D20658C1E5A030916EFDF87FB6FF24DA80F4C3368E7A749D4BC16CF9E"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_amulets.sprite",
-      "Sha256": "2A4A2EEEED31C32AEE570A848EF0E3A9AC9F3A02F3A2BF3930AE555E0C9CD32C"
+      "Sha256": "DA1E3A594689F55822F78807AFB539BD4DAA4EA20C344994610D7230E9DB3176"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_axe.lowend.sprite",
-      "Sha256": "BCD3D6EF5FF13FE992A8D8B2E848E4E819679833C26D29EC48684C9B1F606905"
+      "Sha256": "F64A8C4141EE09E7EF19E91B5C989FB4632D8D15A2DAAF3C806E3575A84228F8"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_axe.sprite",
-      "Sha256": "3D30564F5188572AF453D8FE56ECD9AD749CF8C1B5EECFAE7769B4765B85A087"
+      "Sha256": "8B3CDC3A2EBF12B67C72CC4FDB67EBA32072577E66B99C2ED7DD6C86E6146A51"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_belts.lowend.sprite",
-      "Sha256": "98E2152C2DEF812B283DAB70CA4DFD57086D7BB9E415B97333B43DF64D3A26E3"
+      "Sha256": "FDBCDF2AE679AAC65A1169C4C10C8A5F07FC8E376D4E899159934E2BCD89C5F7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_belts.sprite",
-      "Sha256": "EC177A5C17DCDA91EB6DA080FFF440EF8C4F09034AF19730D22235F77D132427"
+      "Sha256": "A72F9852935B2C31493D0BC65007E7FDC98AC81D9F8473AAFE5C0095D806F608"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_blunt.lowend.sprite",
-      "Sha256": "89B5B6177E2126A65AABFAADA65D01D86977F7A0A01010B1316DAE1959B842C6"
+      "Sha256": "234D2103001C29B28C35207E9AE1E624388CE0614C54C46A760CDD02E258DBC0"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_blunt.sprite",
-      "Sha256": "0CDFF3321CFDD20F5BDEECE909135AC6BD8544FE4484CA879A4C0F38A0884429"
+      "Sha256": "DE123846D554BADA0E8F3792DD3E95C866B72104C0A0012FFB84489638DAD1F7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_body.lowend.sprite",
-      "Sha256": "D62A8C4CD5D43DCC92BA79B55EACD8468CB7FDB1BFCE5D87F14A24EF6E510B08"
+      "Sha256": "D8D9D85477886EE0D8FD09BBFA1B074493ED5E334761DF58E086D0F8E0B4A6E5"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_body.sprite",
-      "Sha256": "E7AC6BF24790A973E15D6B0184FCD50E9BB4E383DA6048EC3C6AC7C7644E9009"
+      "Sha256": "7962200568FB4EE44F483FFED3E82ACBF864442975B83850765A74BCDB4BC2D7"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_boots.lowend.sprite",
-      "Sha256": "160832F640B3FB9D65F8306A09DFF396C86D6676B4A7F1204605BB76106C3ACC"
+      "Sha256": "57E8D57CE43AF171C99FA4FBCC3549F92C1D0883F487DC2212A36B115A4D9C2F"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_boots.sprite",
-      "Sha256": "163A9EA86B2D06A44C5E2E7CF37A14B5A00925C5B6DFE95F045139456DF42891"
+      "Sha256": "5E264EF541BF42B6EA0E24C62CF41F539EB24AC066BF5FB43A133F9C63C19C84"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_bow.lowend.sprite",
-      "Sha256": "DA048A920969E59AC753FCCE1E6D9B846A8642BAC410FAF4AE1AEBECE3FA9DF2"
+      "Sha256": "FA93D54B146790B316B3064229A9CC1BD247BC4534B43D837D4FB844B357AC1C"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_bow.sprite",
-      "Sha256": "F67F5085E831C7374213AA485B1B4C3CDC31D96E20318070534B9CA94EC6575D"
+      "Sha256": "FB2A7B0F20543D8E58DC3A771FB6B97244B5578FDEFD8AF4826D3F5C4E18DFF9"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_caster.lowend.sprite",
-      "Sha256": "21539FF3B2F8582F351D921ACC2471CDB8D3CE80FEC9FEDCD6A13D98BDB6C127"
+      "Sha256": "4A26E64911949B37D2CF1FA61953C3DA322E29A5C81332DBECBE99D603355FE6"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_caster.sprite",
-      "Sha256": "B7A7957D9F6BBB7B56177F2F8F54AA923266FEF7A471141A96D8816C87BF5B30"
+      "Sha256": "D7367A93AE7BBA0C124D503B0B5856DB267D74D8A27E197DAD7A8DDF72DDCA44"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_charms.lowend.sprite",
-      "Sha256": "D5F6E1A101AEE973904B69FFFAD474B313B7092B08417978DD9F38A483F8CBCD"
+      "Sha256": "F9AB38E6517B93EF09F8155F107840CE8A45E1AAC8BEAED577858D1BCB69A016"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_charms.sprite",
-      "Sha256": "428654E6C753429809BBA2A42EE31D380941644E63006C41708EC2925A258F49"
+      "Sha256": "DC84488C55DEB27CC7AD3A41E95364C414D3F9DD9C2A90FA3EB1DDD3D89B4918"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_class_armor.lowend.sprite",
-      "Sha256": "74CD8DFD8F7618AECFDFFDFB3570E4A4B677D294AD54F8081A34F0DAED081EFA"
+      "Sha256": "A941FEB44A04E5DBFEDCDA00F3DD398E92DE722913442FF32F3596FF76E22007"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_class_armor.sprite",
-      "Sha256": "0F7665EFBE0E8CF977AA06E254C30B3001CA22CBB900FDDE7528E2E4FBC2976A"
+      "Sha256": "A6BC40AC23E4D76A26B8C17C0242CD5E6B349847211FF7F8B5BD77AF05C6A8CC"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_class_weapon.lowend.sprite",
-      "Sha256": "6799D360208350727BDC4EDBCF82BAAC6547AB9B6183B5BED5809550BF24841C"
+      "Sha256": "79E08EFC734D27B7D85EB431F697C431171643EBB944E1D9B1C0F69BA5A16E06"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_class_weapon.sprite",
-      "Sha256": "0EE9E96D81C41F5AEBCE609E22735475773D4472DB0FC1485870346416DBFF98"
+      "Sha256": "405B7EFAC5C3316BB566109B4208895C0002451286EED2151632AE45C03F9609"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_dagger.lowend.sprite",
-      "Sha256": "4CFF0F67616B72841AE83ECA82D56D09A5B0F34FD7C8CD26C0F2FB5166037594"
+      "Sha256": "1A3E598FFEFB9149B42DB74126361617096872A63207DD8CB72FFFA28AB82186"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_dagger.sprite",
-      "Sha256": "25986292AE81676B387603A61705CC8E4A0447C6F7E55A762DC290F37C32749F"
+      "Sha256": "A0921526481423BD8FFB147BF4E0C2A634F77588A46E2E53FDD151D033AFABAC"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_gloves.lowend.sprite",
-      "Sha256": "BF340FC3D540BD157C8B9C911883F17F11E4240BD063FE4D850C433DB0AED68A"
+      "Sha256": "DBF3710A676F3DCB41E7A4021D21444397D1E420EC0722782896F33161A6C5E0"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_gloves.sprite",
-      "Sha256": "8B81B2874CCC2910447F4EC683FC6113AC608D6C7C286D6902056D5F5969E945"
+      "Sha256": "92D12503231B5F3B6DA3634E6C99773A16A8F51AADE3F0EB4437D0F0D8F3E668"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_helm.lowend.sprite",
-      "Sha256": "3687BB60A980D53327F611C0196D2E0ACB13DE28AB1CB74C9C8E632341464714"
+      "Sha256": "687D4EFA566F35CFE4CE5DFABCC8EF722B196330B7162AAA0F903CF556948E38"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_helm.sprite",
-      "Sha256": "3A366EC81AE9445525079EF659EE85FF4717D2ABCB72CAC45F7E026FDBFB9861"
+      "Sha256": "AF44D8EF9AF70298C2A9A5E4441903996FDC077AE8B53C0BD9EB12624991AC73"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_other.lowend.sprite",
-      "Sha256": "A65BFBF056949825ADAA892E84EECE0D4B29C136E918E26C0A5C27B5A92107F1"
+      "Sha256": "24FF87D365AEF49C7F53823646667B844CD26FF3F4FE2ADB5F9E6228DD145F79"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_other.sprite",
-      "Sha256": "1DC02E240E94C5B30F5457703E91ECBFA4C1B75D2B7C3B890A0D3C34DD5D0E71"
+      "Sha256": "DB6B06DB322A03A908E6D8A0B9E3C978CE5B7EA8AF3B8FD3AF80B5F52E8E86CF"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_pole.lowend.sprite",
-      "Sha256": "48BFB8ED7B61D5F63AB473AC199C33C4229A9EFBE022E6C13FCBA032E49461BF"
+      "Sha256": "E94B0E45A6962FD55124D6ED2C468260589A711F8000C1AE4CAFDB88BFC3FDB9"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_pole.sprite",
-      "Sha256": "B71F435918D57A862C7E5C7141E2C0D9A6825F7B07B9364FF6CF52058DDA4429"
+      "Sha256": "C008E2822946810BAA56086E6A76DE50EFBAAC3EC6F415296E01525850E97810"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_rings.lowend.sprite",
-      "Sha256": "DB999C74C06D8D9404268B58F60BCA2148D518DADCE59DD5D1971DB24FFD219C"
+      "Sha256": "9078C4CA374555FF39F0493BF58B82827DAB8DEE3D96A5F7D8161B21AA65873F"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_rings.sprite",
-      "Sha256": "82A825ED571D66E566498A21D4E9F5817FC0F6D62B059F4FA2C9364D5CA1DC0A"
+      "Sha256": "57791790B96CB73D3A7FA972979999DB69CEFFF2965B777CF2437C36C194FC16"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_shield.lowend.sprite",
-      "Sha256": "822DE23DDF231AD9A64DB16947AEC1C358D206F4F6A42B83615B9FD2F8E27C0B"
+      "Sha256": "E810A40DDEF6E24ADC2AD454BB198CB93343A26798B2EF920FA70D415AB8185B"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_shield.sprite",
-      "Sha256": "3107B3E4EDBC1C8EBE1A8E0E5517BE5C3C10C731B3A0BBC9529AD29E5E40B33C"
+      "Sha256": "96F370624EE15F2014050E99318B3845E8D8E9FAE1B8F12AFB18AF952D4F122B"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_sword.lowend.sprite",
-      "Sha256": "EE37AC8D7F328CEFA3EDB330E7988888E7278DE620B5C18CFCC747C6D95DF1F0"
+      "Sha256": "A3AA8FDEA77CB3869B1C905EC8395212D11A420A9008AE8002E03CC2291CE92D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_sword.sprite",
-      "Sha256": "B02BDAF12C8FE27D0DEF5473D6D5A06C0A22F6E35D7BB36E488E2FB96983EC48"
+      "Sha256": "01C0C2D935680F288E43C1CF4458286D3D3011B1EB72B0C850A7280B26A123AF"
     },
     {
       "RelativePath": "data/hd/items/items.json",
