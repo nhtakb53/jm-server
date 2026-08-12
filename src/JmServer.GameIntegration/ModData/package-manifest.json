@@ -167,11 +167,11 @@
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_ethereal.lowend.sprite",
-      "Sha256": "FCF1175E7978003DB8589C06268D717758A469007ED5DCD83017614625D4A332"
+      "Sha256": "5E5FFCD8C99CB316B50BC2C7A53225F7829AC7F2C1736F1A647D9B06A783D9E3"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_ethereal.sprite",
-      "Sha256": "172146E02620D389B1A04D34C9B2E07EF20CD211F8E07A7042096C8E1AC11E75"
+      "Sha256": "F45CCD743A24BD9F4ADC02D32910754404C3A66ECFA3118E1A37A17940ABCABB"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_mode_magic.lowend.sprite",
