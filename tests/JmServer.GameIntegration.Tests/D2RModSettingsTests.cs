@@ -6,6 +6,27 @@ namespace JmServer.GameIntegration.Tests;
 public sealed class D2RModSettingsTests
 {
     [Fact]
+    public void HasLocalSettings_DetectsOnlyTheModSettingsFile()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-exists-test-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        try
+        {
+            Assert.False(D2RModSettings.HasLocalSettings(root));
+
+            File.WriteAllText(Path.Combine(root, "Settings.json"), "{}");
+
+            Assert.True(D2RModSettings.HasLocalSettings(root));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public async Task ExistingModSettingsKeepUserValuesAndGainFirstRunMarkers()
     {
         var root = Path.Combine(Path.GetTempPath(), "jm-settings-test-" + Guid.NewGuid().ToString("N"));
@@ -138,6 +159,29 @@ public sealed class D2RModSettingsTests
             {
                 Directory.Delete(root, recursive: true);
             }
+        }
+    }
+
+    [Fact]
+    public async Task ExistingLocalSettingsCanBeKeptInsteadOfOverwrittenByServerBackup()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-settings-local-precedence-test-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        var localPath = Path.Combine(root, "Settings.json");
+        try
+        {
+            await File.WriteAllTextAsync(localPath, """{"Quick Cast Enabled":1}""");
+
+            Assert.True(D2RModSettings.HasLocalSettings(root));
+
+            var saved = await D2RModSettings.ReadForSyncAsync(root);
+            Assert.Equal("""{"Quick Cast Enabled":1}"""u8.ToArray(), saved);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
         }
     }
 

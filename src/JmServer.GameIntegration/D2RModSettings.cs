@@ -15,6 +15,9 @@ public static class D2RModSettings
         return Path.Combine(modSaveDirectory, SettingsFileName);
     }
 
+    public static bool HasLocalSettings(string? modSaveDirectory = null) =>
+        File.Exists(GetSettingsPath(modSaveDirectory));
+
     public static async Task<byte[]?> ReadForSyncAsync(
         string? modSaveDirectory = null,
         CancellationToken cancellationToken = default)

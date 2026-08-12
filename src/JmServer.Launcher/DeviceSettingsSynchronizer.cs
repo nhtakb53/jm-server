@@ -7,21 +7,34 @@ namespace JmServer.Launcher;
 
 public static class DeviceSettingsSynchronizer
 {
+    public static Task<DeviceSettingsDownloadResult> DownloadAsync(
+        LauncherConnection connection,
+        CancellationToken cancellationToken) =>
+        DownloadAsync(connection, installLocally: true, cancellationToken);
+
     public static async Task<DeviceSettingsDownloadResult> DownloadAsync(
         LauncherConnection connection,
+        bool installLocally,
         CancellationToken cancellationToken)
     {
         var response = await connection.GetDeviceSettingsAsync(cancellationToken);
         ValidateDownload(response);
         if (!response.Metadata.Exists)
         {
-            return new DeviceSettingsDownloadResult(false, 0);
+            return new DeviceSettingsDownloadResult(false, false, 0);
         }
 
-        await D2RModSettings.InstallSyncedAsync(
-            response.Binary,
-            cancellationToken: cancellationToken);
-        return new DeviceSettingsDownloadResult(true, response.Metadata.Revision);
+        if (installLocally)
+        {
+            await D2RModSettings.InstallSyncedAsync(
+                response.Binary,
+                cancellationToken: cancellationToken);
+        }
+
+        return new DeviceSettingsDownloadResult(
+            installLocally,
+            true,
+            response.Metadata.Revision);
     }
 
     public static async Task<DeviceSettingsUploadResult> UploadAsync(
@@ -90,6 +103,9 @@ public static class DeviceSettingsSynchronizer
     }
 }
 
-public sealed record DeviceSettingsDownloadResult(bool Downloaded, long Revision);
+public sealed record DeviceSettingsDownloadResult(
+    bool Downloaded,
+    bool ServerCopyExists,
+    long Revision);
 
 public sealed record DeviceSettingsUploadResult(bool Uploaded, long Revision);

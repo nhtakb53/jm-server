@@ -34,6 +34,16 @@ public static class ProfileDirectoryManager
         var existing = Directory.EnumerateFiles(saveDirectory, "*", SearchOption.TopDirectoryOnly)
             .Where(path => ProfileSavePolicy.IsManagedFileName(Path.GetFileName(path)))
             .ToArray();
+        var registeredNameSet = registeredNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var localControlFiles = existing
+            .Where(path =>
+            {
+                var fileName = Path.GetFileName(path);
+                return ProfileSavePolicy.IsCharacterControl(fileName) &&
+                       IsRegisteredCharacterFile(fileName, registeredNameSet);
+            })
+            .Select(path => new ProfileFile(Path.GetFileName(path), File.ReadAllBytes(path)))
+            .ToArray();
         var quarantineDirectory = Quarantine(existing, quarantineRoot);
         var installedPaths = new List<string>();
         try
@@ -48,6 +58,26 @@ public static class ProfileDirectoryManager
                     await File.WriteAllBytesAsync(temporary, file.Data, cancellationToken);
                     File.Move(temporary, destination, overwrite: false);
                     installedPaths.Add(destination);
+                }
+                finally
+                {
+                    File.Delete(temporary);
+                }
+            }
+
+            foreach (var file in localControlFiles)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var destination = ResolveChildPath(saveDirectory, file.RelativePath);
+                var temporary = destination + ".jmlocal-" + Guid.NewGuid().ToString("N");
+                try
+                {
+                    await File.WriteAllBytesAsync(temporary, file.Data, cancellationToken);
+                    File.Move(temporary, destination, overwrite: true);
+                    if (!installedPaths.Contains(destination, StringComparer.OrdinalIgnoreCase))
+                    {
+                        installedPaths.Add(destination);
+                    }
                 }
                 finally
                 {
@@ -92,7 +122,7 @@ public static class ProfileDirectoryManager
             {
                 var name = Path.GetFileName(path);
                 return !ProfileSavePolicy.IsSharedStash(name) &&
-                       !registered.Contains(Path.GetFileNameWithoutExtension(name));
+                       !IsRegisteredCharacterFile(name, registered);
             })
             .ToArray();
         var quarantineDirectory = Quarantine(unexpected, quarantineRoot);
@@ -174,6 +204,19 @@ public static class ProfileDirectoryManager
     private static string ResolveSaveDirectory(string? saveDirectory) =>
         Path.TrimEndingDirectorySeparator(Path.GetFullPath(
             saveDirectory ?? D2RClientLayout.GetModSaveDirectory()));
+
+    private static bool IsRegisteredCharacterFile(
+        string fileName,
+        IReadOnlySet<string> registeredCharacterNames)
+    {
+        if (ProfileSavePolicy.IsSharedStash(fileName))
+        {
+            return false;
+        }
+
+        return registeredCharacterNames.Any(
+            characterName => ProfileSavePolicy.BelongsToCharacter(fileName, characterName));
+    }
 
     private static string ResolveChildPath(string directory, string fileName)
     {

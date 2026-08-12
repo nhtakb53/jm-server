@@ -6,6 +6,79 @@ namespace JmServer.GameIntegration.Tests;
 public sealed class ProfileDirectoryManagerTests
 {
     [Fact]
+    public async Task InstallCheckout_PreservesLocalControlsForRegisteredCharacter()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-profile-control-merge-test-" + Guid.NewGuid().ToString("N"));
+        var saveDirectory = Path.Combine(root, "save");
+        var quarantineRoot = Path.Combine(root, "quarantine");
+        Directory.CreateDirectory(saveDirectory);
+        try
+        {
+            await File.WriteAllBytesAsync(Path.Combine(saveDirectory, "Hero0.keyo"), [9, 8]);
+            await File.WriteAllBytesAsync(Path.Combine(saveDirectory, "Other0.keyo"), [7]);
+            var bundle = ProfileBundleCodec.Encode(
+            [
+                new ProfileFile("Hero.d2s", [1]),
+                new ProfileFile("Hero0.keyo", [2])
+            ]);
+
+            var installed = await ProfileDirectoryManager.InstallCheckoutAsync(
+                bundle,
+                saveDirectory,
+                quarantineRoot);
+
+            Assert.Equal([9, 8], await File.ReadAllBytesAsync(
+                Path.Combine(saveDirectory, "Hero0.keyo")));
+            Assert.False(File.Exists(Path.Combine(saveDirectory, "Other0.keyo")));
+            Assert.NotNull(installed.QuarantineDirectory);
+            Assert.True(File.Exists(Path.Combine(installed.QuarantineDirectory!, "Other0.keyo")));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void CollectForCheckin_PreservesNumberedOfflineControlFiles()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-profile-controls-test-" + Guid.NewGuid().ToString("N"));
+        var saveDirectory = Path.Combine(root, "save");
+        var quarantineRoot = Path.Combine(root, "quarantine");
+        Directory.CreateDirectory(saveDirectory);
+        try
+        {
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Hero.d2s"), [1]);
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Hero.key"), [2]);
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Hero.ctl"), [3]);
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Hero0.keyo"), [4]);
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Hero0.ctlo"), [5]);
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Hero12.keyo"), [6]);
+
+            var collected = ProfileDirectoryManager.CollectForCheckin(
+                ["Hero"],
+                saveDirectory,
+                quarantineRoot);
+            var files = ProfileBundleCodec.Decode(collected.BundleData);
+
+            Assert.Null(collected.QuarantineDirectory);
+            Assert.Contains(files, file => file.RelativePath == "Hero.key");
+            Assert.Contains(files, file => file.RelativePath == "Hero.ctl");
+            Assert.Contains(files, file => file.RelativePath == "Hero0.keyo");
+            Assert.Contains(files, file => file.RelativePath == "Hero0.ctlo");
+            Assert.Contains(files, file => file.RelativePath == "Hero12.keyo");
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public void QuarantineManagedProfile_MovesManagedFilesAndAdditionalLeaseAtomically()
     {
         var root = Path.Combine(

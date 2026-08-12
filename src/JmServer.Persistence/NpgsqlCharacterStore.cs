@@ -901,10 +901,7 @@ public sealed class NpgsqlCharacterStore(
         var files = await ReadFilesAsync(connection, accountId, cancellationToken);
         return files.Where(file =>
                 !ProfileSavePolicy.IsSharedStash(file.RelativePath) &&
-                string.Equals(
-                    Path.GetFileNameWithoutExtension(file.RelativePath),
-                    characterName,
-                    StringComparison.OrdinalIgnoreCase))
+                ProfileSavePolicy.BelongsToCharacter(file.RelativePath, characterName))
             .ToArray();
     }
 

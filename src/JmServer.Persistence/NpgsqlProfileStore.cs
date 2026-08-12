@@ -365,7 +365,10 @@ public sealed class NpgsqlProfileStore(NpgsqlDataSource dataSource) : IProfileSt
 
         foreach (var file in files.Where(file => ProfileSavePolicy.IsCharacterCompanion(file.RelativePath)))
         {
-            if (!registeredNames.Contains(Path.GetFileNameWithoutExtension(file.RelativePath)))
+            if (!registeredNames.Any(
+                    characterName => ProfileSavePolicy.BelongsToCharacter(
+                        file.RelativePath,
+                        characterName)))
             {
                 throw new InvalidDataException(
                     $"Companion file '{file.RelativePath}' does not belong to a registered character.");

@@ -5,6 +5,22 @@ namespace JmServer.Domain.Tests;
 public sealed class ProfileBundleCodecTests
 {
     [Theory]
+    [InlineData("Hero.key", "Hero", true)]
+    [InlineData("Hero0.keyo", "Hero", true)]
+    [InlineData("Hero12.ctlo", "Hero", true)]
+    [InlineData("Hero0.ma0", "Hero", false)]
+    [InlineData("Heroine0.keyo", "Hero", false)]
+    [InlineData("Hero0.keyo", "Hero0", false)]
+    [InlineData("Hero00.keyo", "Hero0", true)]
+    public void BelongsToCharacter_HandlesOfflineControlSlotSuffix(
+        string fileName,
+        string characterName,
+        bool expected)
+    {
+        Assert.Equal(expected, ProfileSavePolicy.BelongsToCharacter(fileName, characterName));
+    }
+
+    [Theory]
     [InlineData("Hero.ma0")]
     [InlineData("Hero.ma1")]
     [InlineData("Hero.ma2")]

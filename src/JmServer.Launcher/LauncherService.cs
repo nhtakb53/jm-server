@@ -367,12 +367,15 @@ public sealed class LauncherService
                 connectTimeout.Token);
             var settingsDownload = await DeviceSettingsSynchronizer.DownloadAsync(
                 connection,
-                connectTimeout.Token);
+                installLocally: !D2RModSettings.HasLocalSettings(),
+                cancellationToken: connectTimeout.Token);
             Report(
                 progress,
                 settingsDownload.Downloaded
                     ? $"개인 설정을 서버에서 불러왔습니다. (리비전 {settingsDownload.Revision})"
-                    : "서버에 저장된 개인 설정이 없어 현재 PC 설정을 사용합니다.",
+                    : settingsDownload.ServerCopyExists
+                        ? "현재 PC의 개인 설정을 유지합니다. 게임 종료 후 서버 저장본도 갱신됩니다."
+                        : "서버에 저장된 개인 설정이 없어 현재 PC 설정을 사용합니다.",
                 settingsDownload.Downloaded
                     ? LauncherProgressKind.Success
                     : LauncherProgressKind.Information);

@@ -197,6 +197,44 @@ public static class ProfileSavePolicy
     public static bool IsCharacterCompanion(string value) =>
         CharacterExtensions.Contains(Path.GetExtension(value)) && !IsCharacterSave(value);
 
+    public static bool IsCharacterControl(string value)
+    {
+        var extension = Path.GetExtension(value);
+        return extension.Equals(".key", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".keyo", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".ctl", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".ctlo", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static bool BelongsToCharacter(string value, string characterName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(characterName);
+        if (!IsCharacterSave(value) && !IsCharacterCompanion(value))
+        {
+            return false;
+        }
+
+        var stem = Path.GetFileNameWithoutExtension(value);
+        var extension = Path.GetExtension(value);
+        var hasOfflineControlSlot =
+            extension.Equals(".keyo", StringComparison.OrdinalIgnoreCase) ||
+            extension.Equals(".ctlo", StringComparison.OrdinalIgnoreCase);
+        if (!hasOfflineControlSlot)
+        {
+            return stem.Equals(characterName, StringComparison.OrdinalIgnoreCase);
+        }
+
+        // D2R appends a numeric input slot to offline control files, for example
+        // Hero0.keyo and Hero0.ctlo. The suffix is not part of the character name.
+        if (stem.Length <= characterName.Length ||
+            !stem.StartsWith(characterName, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        return stem.AsSpan(characterName.Length).IndexOfAnyExceptInRange('0', '9') < 0;
+    }
+
     public static bool IsSharedStash(string value) => SharedStashNames.Contains(value);
 
     public static bool IsSoftcoreSharedStash(string value) =>
