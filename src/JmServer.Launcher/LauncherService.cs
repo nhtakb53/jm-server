@@ -335,6 +335,15 @@ public sealed class LauncherService
                    cancellationToken,
                    TimeSpan.FromSeconds(30)))
         {
+            Report(progress, "인게임 모드 파일을 최신 상태로 맞추는 중입니다.");
+            var synchronization = await D2RLoaderInstaller.SynchronizeSupplyModAsync(
+                gameDirectory,
+                verificationTimeout.Token);
+            if (!synchronization.IsValid)
+            {
+                throw new InvalidDataException(synchronization.Message);
+            }
+
             var installation = await VerifyClientAsync(gameDirectory, verificationTimeout.Token);
             if (!installation.IsValid)
             {

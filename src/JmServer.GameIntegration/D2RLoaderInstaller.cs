@@ -330,6 +330,75 @@ public static partial class D2RLoaderInstaller
         }
     }
 
+    public static async Task<LoaderVerificationResult> SynchronizeSupplyModAsync(
+        string gameDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            gameDirectory = NormalizeGameDirectory(gameDirectory);
+            EnsureGameIsNotRunning();
+            ReadAndValidateGameVersion(gameDirectory);
+
+            var modDirectory = Path.Combine(
+                gameDirectory,
+                ModDirectoryRelativePath.Replace('/', Path.DirectorySeparatorChar));
+            await SynchronizeSupplyModDirectoryAsync(modDirectory, cancellationToken);
+            return await JmSupplyModPackage.VerifyAsync(modDirectory, cancellationToken);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or
+                                          InvalidDataException)
+        {
+            return LoaderVerificationResult.Failure(exception.Message);
+        }
+    }
+
+    internal static async Task SynchronizeSupplyModDirectoryAsync(
+        string modDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        modDirectory = Path.GetFullPath(modDirectory);
+        var stagingDirectory = Path.Combine(
+            Path.GetTempPath(),
+            "jm-supply-sync-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(stagingDirectory);
+        try
+        {
+            await JmSupplyModPackage.WriteToDirectoryAsync(stagingDirectory, cancellationToken);
+            foreach (var file in JmSupplyModPackage.Manifest.Files)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var platformRelativePath = file.RelativePath.Replace(
+                    '/',
+                    Path.DirectorySeparatorChar);
+                var sourcePath = Path.Combine(stagingDirectory, platformRelativePath);
+                var destinationPath = Path.Combine(modDirectory, platformRelativePath);
+                if (File.Exists(destinationPath) &&
+                    await FilesHaveSameContentAsync(sourcePath, destinationPath, cancellationToken))
+                {
+                    continue;
+                }
+
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+                var temporaryDestination = destinationPath +
+                                           ".jmnew-" + Guid.NewGuid().ToString("N");
+                try
+                {
+                    File.Copy(sourcePath, temporaryDestination, overwrite: false);
+                    File.Move(temporaryDestination, destinationPath, overwrite: true);
+                }
+                finally
+                {
+                    File.Delete(temporaryDestination);
+                }
+            }
+        }
+        finally
+        {
+            Directory.Delete(stagingDirectory, recursive: true);
+        }
+    }
+
     internal static string CreateRestrictedConfiguration(string configuration)
     {
         configuration = ReplaceSetting(configuration, "default_mod", "\"JMServer\"");

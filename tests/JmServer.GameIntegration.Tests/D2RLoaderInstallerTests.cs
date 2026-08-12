@@ -4,6 +4,40 @@ namespace JmServer.GameIntegration.Tests;
 
 public sealed class D2RLoaderInstallerTests
 {
+    [Fact]
+    public async Task SynchronizeSupplyModDirectoryRestoresMissingAndChangedNestedFiles()
+    {
+        var temporaryDirectory = Path.Combine(
+            Path.GetTempPath(),
+            "jm-supply-sync-test-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            await JmSupplyModPackage.WriteToDirectoryAsync(temporaryDirectory);
+            var missingSprite = Path.Combine(
+                temporaryDirectory,
+                "data", "hd", "global", "ui", "items", "misc", "jm_selectors",
+                "unique_sword.lowend.sprite");
+            File.Delete(missingSprite);
+            var changedItems = Path.Combine(
+                temporaryDirectory,
+                "data", "hd", "items", "items.json");
+            await File.AppendAllTextAsync(changedItems, "changed");
+
+            await D2RLoaderInstaller.SynchronizeSupplyModDirectoryAsync(temporaryDirectory);
+
+            var verification = await JmSupplyModPackage.VerifyAsync(temporaryDirectory);
+            Assert.True(verification.IsValid, verification.Message);
+            Assert.True(File.Exists(missingSprite));
+        }
+        finally
+        {
+            if (Directory.Exists(temporaryDirectory))
+            {
+                Directory.Delete(temporaryDirectory, recursive: true);
+            }
+        }
+    }
+
     private const string ReleaseConfiguration =
         """
         [d2rloader]

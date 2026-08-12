@@ -110,7 +110,50 @@ public sealed partial class JmSupplyModPackageTests
             Assert.Equal(1_194, JmSupplyModPackage.Manifest.CustomItemCount);
             Assert.Equal(91, JmSupplyModPackage.Manifest.WorkbenchRecipeCount);
             Assert.Equal(36, JmSupplyModPackage.Manifest.QuickCraftRecipeCount);
-            Assert.Equal(18, JmSupplyModPackage.Manifest.Files.Count);
+            Assert.Equal(22, JmSupplyModPackage.Manifest.Files.Count);
+            Assert.Contains(
+                JmSupplyModPackage.Manifest.Files,
+                file => file.RelativePath ==
+                        "data/hd/global/ui/items/misc/jm_selectors/unique_sword.sprite");
+            Assert.Contains(
+                JmSupplyModPackage.Manifest.Files,
+                file => file.RelativePath ==
+                        "data/hd/global/ui/items/misc/jm_selectors/unique_sword.lowend.sprite");
+            Assert.Contains(
+                JmSupplyModPackage.Manifest.Files,
+                file => file.RelativePath ==
+                        "data/hd/items/misc/jm_selectors/unique_sword.json");
+
+            var uniqueSwordSprite = File.ReadAllBytes(Path.Combine(
+                temporaryDirectory,
+                "data", "hd", "global", "ui", "items", "misc", "jm_selectors",
+                "unique_sword.sprite"));
+            Assert.Equal("SpA1", System.Text.Encoding.ASCII.GetString(uniqueSwordSprite, 0, 4));
+            Assert.Equal(31, BitConverter.ToUInt16(uniqueSwordSprite, 4));
+            Assert.Equal(98, BitConverter.ToInt32(uniqueSwordSprite, 8));
+            Assert.Equal(98, BitConverter.ToInt32(uniqueSwordSprite, 12));
+            Assert.Equal(40 + (98 * 98 * 4), uniqueSwordSprite.Length);
+
+            var uniqueSwordLowEndSprite = File.ReadAllBytes(Path.Combine(
+                temporaryDirectory,
+                "data", "hd", "global", "ui", "items", "misc", "jm_selectors",
+                "unique_sword.lowend.sprite"));
+            Assert.Equal("SpA1", System.Text.Encoding.ASCII.GetString(
+                uniqueSwordLowEndSprite,
+                0,
+                4));
+            Assert.Equal(31, BitConverter.ToUInt16(uniqueSwordLowEndSprite, 4));
+            Assert.Equal(49, BitConverter.ToInt32(uniqueSwordLowEndSprite, 8));
+            Assert.Equal(49, BitConverter.ToInt32(uniqueSwordLowEndSprite, 12));
+            Assert.Equal(40 + (49 * 49 * 4), uniqueSwordLowEndSprite.Length);
+
+            using var uniqueSwordDefinition = System.Text.Json.JsonDocument.Parse(
+                await File.ReadAllTextAsync(Path.Combine(
+                    temporaryDirectory,
+                    "data", "hd", "items", "misc", "jm_selectors", "unique_sword.json")));
+            Assert.Equal(
+                "UnitDefinition",
+                uniqueSwordDefinition.RootElement.GetProperty("type").GetString());
 
             var excelDirectory = Path.Combine(temporaryDirectory, "data", "global", "excel");
             var armor = D2TsvTable.Load(Path.Combine(excelDirectory, "armor.txt"));
@@ -124,6 +167,7 @@ public sealed partial class JmSupplyModPackageTests
             var magicPrefixes = D2TsvTable.Load(Path.Combine(excelDirectory, "magicprefix.txt"));
             var magicSuffixes = D2TsvTable.Load(Path.Combine(excelDirectory, "magicsuffix.txt"));
             var autoMagic = D2TsvTable.Load(Path.Combine(excelDirectory, "automagic.txt"));
+            var qualityItems = D2TsvTable.Load(Path.Combine(excelDirectory, "qualityitems.txt"));
             var runewords = D2TsvTable.Load(Path.Combine(excelDirectory, "runes.txt"));
             var levelPresets = D2TsvTable.Load(Path.Combine(excelDirectory, "lvlprest.txt"));
 
@@ -163,6 +207,47 @@ public sealed partial class JmSupplyModPackageTests
             Assert.Equal("59", autoMagic.Get(colossus, "mod1min"));
             Assert.Equal("60", autoMagic.Get(colossus, "mod1max"));
 
+            Assert.Equal(29, qualityItems.Rows.Count);
+            var superiorRanges = new Dictionary<string, (string Minimum, string Maximum)>
+            {
+                ["att"] = ("3", "3"),
+                ["dmg%"] = ("14", "15"),
+                ["ac%"] = ("14", "15"),
+                ["dur%"] = ("15", "15")
+            };
+            Assert.All(qualityItems.Rows, row =>
+            {
+                for (var slot = 1; slot <= 2; slot++)
+                {
+                    var property = qualityItems.Get(row, $"mod{slot}code");
+                    if (property.Length == 0)
+                    {
+                        continue;
+                    }
+
+                    var expected = superiorRanges[property];
+                    Assert.Equal(expected.Minimum, qualityItems.Get(row, $"mod{slot}min"));
+                    Assert.Equal(expected.Maximum, qualityItems.Get(row, $"mod{slot}max"));
+                }
+            });
+
+            var superiorArmorRolls = qualityItems.Rows
+                .Where(row => qualityItems.Get(row, "armor") == "1")
+                .ToArray();
+            Assert.Equal(10, superiorArmorRolls.Length);
+            Assert.Equal(8, superiorArmorRolls.Count(row =>
+                qualityItems.Get(row, "mod2code").Length != 0));
+
+            var superiorWeaponRolls = qualityItems.Rows
+                .Where(row => qualityItems.Get(row, "weapon") == "1")
+                .ToArray();
+            Assert.Equal(20, superiorWeaponRolls.Length);
+            Assert.Equal(17, superiorWeaponRolls.Count(row =>
+                qualityItems.Get(row, "mod2code").Length != 0));
+            Assert.Equal(16, superiorWeaponRolls.Count(row =>
+                qualityItems.Get(row, "mod1code") == "dmg%" ||
+                qualityItems.Get(row, "mod2code") == "dmg%"));
+
             var bloodHelm = cube.Rows.Single(row => cube.Get(row, "description") ==
                 "1 Magic Helm + 1 Jewel + 1 Ral Rune + 1 Perfect Ruby -> Blood Helm");
             Assert.Equal("3", cube.Get(bloodHelm, "mod 1 min"));
@@ -181,6 +266,13 @@ public sealed partial class JmSupplyModPackageTests
             var selectorCodes = selectors
                 .Select(row => misc.Get(row, "code"))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var uniqueSwordSelectorCodes = cube.Rows
+                .Where(row => cube.Get(row, "description").StartsWith(
+                    "JM unique-sword next ",
+                    StringComparison.Ordinal))
+                .Select(row => cube.Get(row, "input 1"))
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            Assert.NotEmpty(uniqueSwordSelectorCodes);
             var recipes = cube.Rows
                 .Where(row => selectorCodes.Contains(cube.Get(row, "input 1")))
                 .ToArray();
@@ -596,7 +688,9 @@ public sealed partial class JmSupplyModPackageTests
                 Assert.Equal("1", misc.Get(row, "invwidth"));
                 Assert.Equal("1", misc.Get(row, "invheight"));
                 Assert.Equal(
-                    misc.Get(row, "code")[0] == '5'
+                    uniqueSwordSelectorCodes.Contains(misc.Get(row, "code"))
+                        ? InGameSupplyModBuilder.UniqueSwordSelectorAsset
+                        : misc.Get(row, "code")[0] == '5'
                         ? "gem/perfect_topaz"
                         : "gem/perfect_emerald",
                     hdItemAssets[misc.Get(row, "code")]);

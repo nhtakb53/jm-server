@@ -18,18 +18,26 @@ public static class InGameSupplyModBuilder
     public const int MaximumAffixWeightMultiplier = 15;
     public const int PreferredCharmAffixWeightMultiplier = 8;
     public const int ExpectedVanillaCraftRecipeCount = 36;
-    public const int PackageSchemaVersion = 3;
+    public const int PackageSchemaVersion = 4;
     public const int VendorPriceReductionPercent = 99;
     public const int TomeStackSize = 100;
     public const int KeyStackSize = 50;
     public const int ProjectileStackSize = 500;
     public const int FullAutomapPresetCount = 1_092;
     public const string SelectorVendor = "Akara";
+    internal const string UniqueSwordSelectorAsset = "jm_selectors/unique_sword";
     // D2R's shipped tables stay below 30,000. Established total-conversion mods use the
     // 50,000 range for custom strings; values in the 60,000 range are not resolved by the
     // current 3.2 client and fall back to an unrelated base-item string.
     public const int FirstCustomStringId = 50_000;
     private const int MaximumCatalogLevel = 85;
+
+    private static readonly string[] StaticHdSelectorAssets =
+    [
+        "data/hd/global/ui/items/misc/jm_selectors/unique_sword.sprite",
+        "data/hd/global/ui/items/misc/jm_selectors/unique_sword.lowend.sprite",
+        "data/hd/items/misc/jm_selectors/unique_sword.json"
+    ];
 
     private static readonly HashSet<string> OriginalSingleCarryUniqueCharms =
         new(StringComparer.OrdinalIgnoreCase)
@@ -123,6 +131,7 @@ public static class InGameSupplyModBuilder
             ["magicprefix.txt"] = "3CF2B5F730D5B93388146ACDB6E2A7CFFB0AA0BF23E2C95B2D80D00841720381",
             ["magicsuffix.txt"] = "A697A051D988C78CBBBC8FE30D565CF473989817CE4D8A2BB08A321E2BC15C43",
             ["automagic.txt"] = "AA5B30AA2BF51460955A5FB3AD5E9017607EAC8E8CCE40F9C7B08AEB9FFCB7DF",
+            ["qualityitems.txt"] = "2AADD8C89316F3C58DD958839776AB01C3937A5E2E5D03188FC26B27309F4444",
             ["runes.txt"] = "767EDF4FB0F8391A61ED936374618699FE46057765F2D18DF985750AF67D13EB",
             ["lvlprest.txt"] = "C0F715A9368F9F7CCFC3C52F3C1FBD782914945877FA1CD3A711E13C13320037",
             ["items.json"] = "53A3A708AE83073F810CA64B1091FE5B77ABC686548377E34700B63D48885AD2",
@@ -233,6 +242,7 @@ public static class InGameSupplyModBuilder
         var magicPrefixes = D2TsvTable.Load(Path.Combine(sourceDirectory, "magicprefix.txt"));
         var magicSuffixes = D2TsvTable.Load(Path.Combine(sourceDirectory, "magicsuffix.txt"));
         var autoMagic = D2TsvTable.Load(Path.Combine(sourceDirectory, "automagic.txt"));
+        var qualityItems = D2TsvTable.Load(Path.Combine(sourceDirectory, "qualityitems.txt"));
         var runewords = D2TsvTable.Load(Path.Combine(sourceDirectory, "runes.txt"));
         var levelPresets = D2TsvTable.Load(Path.Combine(sourceDirectory, "lvlprest.txt"));
         var hdItems = JsonNode.Parse(
@@ -310,6 +320,7 @@ public static class InGameSupplyModBuilder
         ApplyPreferredAffixVariableRolls(magicPrefixes, propertyFunctions);
         ApplyPreferredAffixVariableRolls(magicSuffixes, propertyFunctions);
         ApplyPreferredAffixVariableRolls(autoMagic, propertyFunctions);
+        ApplyPreferredSuperiorRolls(qualityItems);
         ApplyPreferredRunewordVariableRolls(runewords, propertyFunctions);
         ApplyPreferredCubeVariableRolls(cubeMain, propertyFunctions);
         ApplyPreferredBaseDefenseRolls(armor);
@@ -397,6 +408,7 @@ public static class InGameSupplyModBuilder
             ["magicprefix.txt"] = magicPrefixes,
             ["magicsuffix.txt"] = magicSuffixes,
             ["automagic.txt"] = autoMagic,
+            ["qualityitems.txt"] = qualityItems,
             ["runes.txt"] = runewords,
             ["lvlprest.txt"] = levelPresets
         };
@@ -464,6 +476,7 @@ public static class InGameSupplyModBuilder
         await WriteLootFilterAsync(
             Path.Combine(outputDirectory, "jm-loot-filter.json"),
             cancellationToken);
+        await CopyStaticHdSelectorAssetsAsync(outputDirectory, cancellationToken);
 
         var outputFiles = Directory.EnumerateFiles(outputDirectory, "*", SearchOption.AllDirectories)
             .Where(path => !path.EndsWith("package-manifest.json", StringComparison.OrdinalIgnoreCase))
@@ -1021,6 +1034,64 @@ public static class InGameSupplyModBuilder
         }
     }
 
+    private static void ApplyPreferredSuperiorRolls(D2TsvTable qualityItems)
+    {
+        var supportedProperties = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "att", "dmg%", "ac%", "dur%"
+        };
+        foreach (var row in qualityItems.Rows)
+        {
+            for (var propertyIndex = 1; propertyIndex <= 2; propertyIndex++)
+            {
+                var property = qualityItems.Get(row, $"mod{propertyIndex}code");
+                if (property.Length == 0)
+                {
+                    continue;
+                }
+
+                if (!supportedProperties.Contains(property) ||
+                    !int.TryParse(qualityItems.Get(row, $"mod{propertyIndex}min"), out var minimum) ||
+                    !int.TryParse(qualityItems.Get(row, $"mod{propertyIndex}max"), out var maximum))
+                {
+                    throw new InvalidDataException(
+                        $"Unsupported superior property range '{property}'.");
+                }
+
+                qualityItems.Set(
+                    row,
+                    $"mod{propertyIndex}min",
+                    CalculatePreferredMinimum(
+                        minimum,
+                        maximum,
+                        PreferredAffixRollPercentile).ToString());
+            }
+        }
+
+        // QualityItems has no frequency column. Duplicate only existing legal rows to
+        // weight useful two-property outcomes without inventing a modifier combination
+        // or exceeding the vanilla maximum of two superior properties.
+        DuplicateSuperiorCombination(qualityItems, "ac%", "dur%", targetWeight: 8);
+        DuplicateSuperiorCombination(qualityItems, "att", "dmg%", targetWeight: 5);
+        DuplicateSuperiorCombination(qualityItems, "att", "dur%", targetWeight: 2);
+        DuplicateSuperiorCombination(qualityItems, "dmg%", "dur%", targetWeight: 10);
+    }
+
+    private static void DuplicateSuperiorCombination(
+        D2TsvTable qualityItems,
+        string firstProperty,
+        string secondProperty,
+        int targetWeight)
+    {
+        var source = qualityItems.Rows.Single(row =>
+            qualityItems.Get(row, "mod1code") == firstProperty &&
+            qualityItems.Get(row, "mod2code") == secondProperty);
+        for (var weight = 1; weight < targetWeight; weight++)
+        {
+            qualityItems.Rows.Add(qualityItems.CloneRow(source));
+        }
+    }
+
     private static void ApplyPreferredRunewordVariableRolls(
         D2TsvTable runewords,
         IReadOnlyDictionary<string, int> propertyFunctions)
@@ -1535,7 +1606,9 @@ public static class InGameSupplyModBuilder
                 AddHdItemMapping(
                     hdItems,
                     selector.Code,
-                    selector.Target.Quality == SupplyQuality.Unique
+                    category.Key == "unique-sword"
+                        ? UniqueSwordSelectorAsset
+                        : selector.Target.Quality == SupplyQuality.Unique
                         ? "gem/perfect_topaz"
                         : "gem/perfect_emerald");
                 AddItemNameString(
@@ -2540,6 +2613,30 @@ public static class InGameSupplyModBuilder
         {
             [code] = new JsonObject { ["asset"] = asset }
         });
+    }
+
+    private static async Task CopyStaticHdSelectorAssetsAsync(
+        string outputDirectory,
+        CancellationToken cancellationToken)
+    {
+        foreach (var relativePath in StaticHdSelectorAssets)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var destinationPath = Path.Combine(
+                outputDirectory,
+                relativePath.Replace('/', Path.DirectorySeparatorChar));
+            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+
+            await using var source = JmSupplyModPackage.OpenFile(relativePath);
+            await using var destination = new FileStream(
+                destinationPath,
+                FileMode.Create,
+                FileAccess.Write,
+                FileShare.None,
+                bufferSize: 64 * 1024,
+                useAsync: true);
+            await source.CopyToAsync(destination, cancellationToken);
+        }
     }
 
     private static Task WriteLootFilterAsync(

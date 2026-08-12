@@ -24,12 +24,14 @@ $tableSpecifications = @(
     @{ File = "magicprefix.txt"; Slots = 1..3; Property = "mod{0}code"; Minimum = "mod{0}min"; Maximum = "mod{0}max"; Parameter = "mod{0}param"; Name = "Name"; Percentile = 90 },
     @{ File = "magicsuffix.txt"; Slots = 1..3; Property = "mod{0}code"; Minimum = "mod{0}min"; Maximum = "mod{0}max"; Parameter = "mod{0}param"; Name = "Name"; Percentile = 90 },
     @{ File = "automagic.txt"; Slots = 1..3; Property = "mod{0}code"; Minimum = "mod{0}min"; Maximum = "mod{0}max"; Parameter = "mod{0}param"; Name = "Name"; Percentile = 90 },
+    @{ File = "qualityitems.txt"; Slots = 1..2; Property = "mod{0}code"; Minimum = "mod{0}min"; Maximum = "mod{0}max"; Parameter = "mod{0}param"; Name = "mod1code"; Percentile = 90 },
     @{ File = "runes.txt"; Slots = 1..7; Property = "T1Code{0}"; Minimum = "T1Min{0}"; Maximum = "T1Max{0}"; Parameter = "T1Param{0}"; Name = "Name"; Percentile = 75 },
     @{ File = "cubemain.txt"; Slots = 1..5; Property = "mod {0}"; Minimum = "mod {0} min"; Maximum = "mod {0} max"; Parameter = "mod {0} param"; Name = "description"; Percentile = 75 }
 )
 
 $expectedChangeCounts = @{
     "automagic.txt" = 32
+    "qualityitems.txt" = 12
     "cubemain.txt" = 103
     "magicprefix.txt" = 439
     "magicsuffix.txt" = 310
@@ -182,6 +184,38 @@ foreach ($specification in $tableSpecifications) {
             }
         }
     }
+}
+
+# QualityItems has no frequency field, so legal duplicate rows provide the weighting.
+$qualityRows = @(
+    Import-Csv -Delimiter "`t" -LiteralPath (Join-Path $generatedExcelPath "qualityitems.txt")
+)
+if ($qualityRows.Count -ne 29) {
+    $errors.Add("qualityitems.txt row count is $($qualityRows.Count); expected 29.")
+}
+$qualityArmorRows = @($qualityRows | Where-Object { [string]$_.armor -eq "1" })
+$qualityWeaponRows = @($qualityRows | Where-Object { [string]$_.weapon -eq "1" })
+$qualityArmorDualRows = @($qualityArmorRows | Where-Object {
+    -not [string]::IsNullOrWhiteSpace([string]$_.mod2code)
+})
+$qualityWeaponDualRows = @($qualityWeaponRows | Where-Object {
+    -not [string]::IsNullOrWhiteSpace([string]$_.mod2code)
+})
+$qualityWeaponDamageRows = @($qualityWeaponRows | Where-Object {
+    [string]$_.mod1code -eq "dmg%" -or [string]$_.mod2code -eq "dmg%"
+})
+if ($qualityArmorRows.Count -ne 10 -or $qualityArmorDualRows.Count -ne 8) {
+    $errors.Add(
+        "qualityitems.txt armor weighting expected 8 dual rolls out of 10; got " +
+        "$($qualityArmorDualRows.Count) out of $($qualityArmorRows.Count).")
+}
+if ($qualityWeaponRows.Count -ne 20 -or
+    $qualityWeaponDualRows.Count -ne 17 -or
+    $qualityWeaponDamageRows.Count -ne 16) {
+    $errors.Add(
+        "qualityitems.txt weapon weighting expected 17 dual and 16 damage rolls out of 20; got " +
+        "$($qualityWeaponDualRows.Count) dual and $($qualityWeaponDamageRows.Count) damage out of " +
+        "$($qualityWeaponRows.Count).")
 }
 
 # Audit every affix weight independently from the preferred-roll minimum audit.

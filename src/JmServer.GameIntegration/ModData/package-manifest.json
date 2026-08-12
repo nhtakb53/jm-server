@@ -1,5 +1,5 @@
 {
-  "SchemaVersion": 3,
+  "SchemaVersion": 4,
   "GameVersion": "3.2.92777",
   "SourceRevision": "cb27a8f574b873807e15cf9613d04d655cabdb60",
   "UniqueItemCount": 410,
@@ -50,6 +50,10 @@
       "Sha256": "73208C8F7701C88D5B17722370F27537935170A55D3BF7193C948E8BA3969E74"
     },
     {
+      "RelativePath": "data/global/excel/qualityitems.txt",
+      "Sha256": "CEE65C78073CC62E58965D88C7F7DD7760AC3A509873976D1722757BC8DD6170"
+    },
+    {
       "RelativePath": "data/global/excel/runes.txt",
       "Sha256": "E6B61E97AC9CBCD07242228CBFC9295FD962E2E90B31C7482031C7B73B8A8B15"
     },
@@ -66,8 +70,20 @@
       "Sha256": "2493F779C4D615F100D74D8156FF08D1E4C88A5320A485081B0B4B66A09D287B"
     },
     {
+      "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_sword.lowend.sprite",
+      "Sha256": "EAFDCD0006D6FA10F25DB9ECF0122246CB295394E6773CF929787CB6EC2A4DEB"
+    },
+    {
+      "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_sword.sprite",
+      "Sha256": "03C753C00C07B0919730E5242138AA35BF0BF14ECFFF63D49B2C65507BDB7F70"
+    },
+    {
       "RelativePath": "data/hd/items/items.json",
-      "Sha256": "11030C38C398728FEDA60D4EE45C0FE256AC76B58371CF525DD562686BA6B9C2"
+      "Sha256": "AC97458AA515AC8C07CEF0E01AECB9AFD0CB9F4F7FDC6062A82C929DCA31599B"
+    },
+    {
+      "RelativePath": "data/hd/items/misc/jm_selectors/unique_sword.json",
+      "Sha256": "5405991E0DCEB50353A4521268302181ABCFB8AC662B550B75B828F485F16009"
     },
     {
       "RelativePath": "data/local/lng/strings/item-names.json",
@@ -83,7 +99,7 @@
     },
     {
       "RelativePath": "jm-supply-catalog.json",
-      "Sha256": "3CCE5230FF950F72D48AE11AF3814F0F007952E188B0804D36A94E53F4BB539A"
+      "Sha256": "0C9B42A72AA8C9E2CD0E31D2E25FB4D93FB7D9E5391E199D774A01F2D42A4627"
     }
   ]
 }
