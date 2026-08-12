@@ -223,11 +223,11 @@
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_sword.lowend.sprite",
-      "Sha256": "16A6E1BA27BE1BA1FC8EB39C4F20BFE8CB37D0CC49E8DD4E50CF3D7E95E1C276"
+      "Sha256": "BA80157EAEF334B9F5976D7C1430C13E8B436E6E990ED23EE9AA264C9660EAA2"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/base_sword.sprite",
-      "Sha256": "EEA02A89EE54A4E4C244194D2938D3EA51E38DB3858E2C28D4995BC0A0C81297"
+      "Sha256": "90B9D1B281BC3A763676AD4AF51EDEC520355358BBDA5735D72B944E1512C305"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_dexterity.lowend.sprite",
@@ -279,11 +279,11 @@
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_vitality.lowend.sprite",
-      "Sha256": "753E9AFB8B4036B3991D3391712B89787F356A345C80CB4F5487B75327B5FA23"
+      "Sha256": "19E131617DB36172913859B0D9B20C16B1F8B978637C966248EF894622F9C772"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/charm_bonus_vitality.sprite",
-      "Sha256": "6DB9EC869CD0E8A1B15845CBF10852A575A75BA5CAB2C47ADE21577F64B1F250"
+      "Sha256": "FB17F6747634DF907D22511465841045113BB4A1BD638737FA47E77AA30E8C6D"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/materials_charms.lowend.sprite",
@@ -407,11 +407,11 @@
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_weapons.lowend.sprite",
-      "Sha256": "3F462F6E51DBAB6526B64D470B517A48EB940570BA8B207F38D6C97021EF0EC4"
+      "Sha256": "898C9FEBAA9D0088B9CDA86D3C8E2D513DB048F4CFE7A30321CBF604352B7291"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/set_weapons.sprite",
-      "Sha256": "DA7A09B3DB7DA3A764E3EDF23A6C7F4D08A303B02D7A9F698D0D60743407638C"
+      "Sha256": "87EA41D5AC82CD29E59B7ABDD56E9FAC525C07FF6772E8C55496042CAFCA4476"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/skill_charms_amazon.lowend.sprite",
@@ -671,11 +671,11 @@
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_sword.lowend.sprite",
-      "Sha256": "EAFDCD0006D6FA10F25DB9ECF0122246CB295394E6773CF929787CB6EC2A4DEB"
+      "Sha256": "EE37AC8D7F328CEFA3EDB330E7988888E7278DE620B5C18CFCC747C6D95DF1F0"
     },
     {
       "RelativePath": "data/hd/global/ui/items/misc/jm_selectors/unique_sword.sprite",
-      "Sha256": "03C753C00C07B0919730E5242138AA35BF0BF14ECFFF63D49B2C65507BDB7F70"
+      "Sha256": "B02BDAF12C8FE27D0DEF5473D6D5A06C0A22F6E35D7BB36E488E2FB96983EC48"
     },
     {
       "RelativePath": "data/hd/items/items.json",

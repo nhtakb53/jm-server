@@ -22,6 +22,7 @@ New-Item -ItemType Directory -Path $workRoot -Force | Out-Null
 
 $definitions = @(
     # Unique selectors keep the antique-gold treatment.
+    @{ Asset = "unique_sword"; Source = "selector-unique-sword.png"; Style = "native" },
     @{ Asset = "unique_axe"; Source = "weapon-axe.png"; Style = "unique" },
     @{ Asset = "unique_blunt"; Source = "weapon-blunt.png"; Style = "unique" },
     @{ Asset = "unique_bow"; Source = "weapon-bow.png"; Style = "unique" },
@@ -42,7 +43,7 @@ $definitions = @(
     @{ Asset = "unique_other"; Source = "charms-jewel.png"; Style = "unique" },
 
     # Set selectors are green-shifted so their quality is visible before reading the name.
-    @{ Asset = "set_weapons"; Source = "weapon-class.png"; Style = "set" },
+    @{ Asset = "set_weapons"; Source = "selector-set-weapons.png"; Style = "native" },
     @{ Asset = "set_body"; Source = "armor-body.png"; Style = "set" },
     @{ Asset = "set_helm"; Source = "armor-helm.png"; Style = "set" },
     @{ Asset = "set_shield"; Source = "armor-shield.png"; Style = "set" },
@@ -54,7 +55,7 @@ $definitions = @(
     @{ Asset = "set_other"; Source = "charms-jewel.png"; Style = "set" },
 
     # Base selectors use a silver treatment, distinct from unique and set selectors.
-    @{ Asset = "base_sword"; Source = "weapon-sword.png"; Style = "base" },
+    @{ Asset = "base_sword"; Source = "selector-base-sword.png"; Style = "native" },
     @{ Asset = "base_axe"; Source = "weapon-axe.png"; Style = "base" },
     @{ Asset = "base_blunt"; Source = "weapon-blunt.png"; Style = "base" },
     @{ Asset = "base_bow"; Source = "weapon-bow.png"; Style = "base" },
@@ -91,7 +92,7 @@ $definitions = @(
     @{ Asset = "base_mode_ethereal"; Source = "mode-ethereal.png"; Style = "unique" },
     @{ Asset = "base_mode_superior_ethereal"; Source = "mode-superior-ethereal.png"; Style = "unique" },
     @{ Asset = "charm_bonus_random"; Source = "option-random.png"; Style = "unique" },
-    @{ Asset = "charm_bonus_vitality"; Source = "option-vitality.png"; Style = "unique" },
+    @{ Asset = "charm_bonus_vitality"; Source = "selector-charm-vitality.png"; Style = "native" },
     @{ Asset = "charm_bonus_fhr"; Source = "option-fhr.png"; Style = "unique" },
     @{ Asset = "charm_bonus_movement"; Source = "option-movement.png"; Style = "unique" },
     @{ Asset = "charm_bonus_strength"; Source = "option-strength.png"; Style = "unique" },
@@ -187,4 +188,49 @@ foreach ($definition in $definitions) {
         $utf8WithoutBom)
 }
 
-Write-Host "Built $($definitions.Count + 1) selector icon assets (including validated unique_sword)."
+$manifestPath = Join-Path $modDataRoot "package-manifest.json"
+if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
+    throw "The supply package manifest is missing: $manifestPath"
+}
+
+$manifestJson = [System.IO.File]::ReadAllText($manifestPath)
+$manifest = $manifestJson | ConvertFrom-Json
+$manifestFiles = @{}
+foreach ($file in $manifest.Files) {
+    $manifestFiles[$file.RelativePath] = $file
+}
+
+foreach ($definition in $definitions) {
+    $fileNames = @(
+        "$($definition.Asset).sprite"
+        "$($definition.Asset).lowend.sprite"
+    )
+    foreach ($fileName in $fileNames) {
+        $relativePath = "data/hd/global/ui/items/misc/jm_selectors/$fileName"
+        if (-not $manifestFiles.ContainsKey($relativePath)) {
+            throw "The selector sprite is absent from the package manifest: $relativePath"
+        }
+
+        $spritePath = Join-Path $spriteRoot $fileName
+        $hash = (Get-FileHash -LiteralPath $spritePath -Algorithm SHA256).Hash
+        $pattern = '("RelativePath"\s*:\s*"' +
+                   [regex]::Escape($relativePath) +
+                   '"\s*,\s*"Sha256"\s*:\s*")[A-Fa-f0-9]{64}(")'
+        if ([regex]::Matches($manifestJson, $pattern).Count -ne 1) {
+            throw "The selector sprite does not have exactly one manifest hash: $relativePath"
+        }
+
+        $manifestJson = [regex]::Replace(
+            $manifestJson,
+            $pattern,
+            { param($match) $match.Groups[1].Value + $hash + $match.Groups[2].Value },
+            1)
+    }
+}
+
+[System.IO.File]::WriteAllText(
+    $manifestPath,
+    $manifestJson,
+    $utf8WithoutBom)
+
+Write-Host "Built $($definitions.Count) selector icon assets and refreshed their manifest hashes."
