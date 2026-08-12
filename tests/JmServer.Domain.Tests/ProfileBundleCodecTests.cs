@@ -4,6 +4,15 @@ namespace JmServer.Domain.Tests;
 
 public sealed class ProfileBundleCodecTests
 {
+    [Fact]
+    public void CustomKeyBindingsAreManagedAsGlobalControls()
+    {
+        Assert.True(ProfileSavePolicy.IsManagedFileName("Custom.key"));
+        Assert.True(ProfileSavePolicy.IsCharacterCompanion("Custom.key"));
+        Assert.True(ProfileSavePolicy.IsCharacterControl("Custom.key"));
+        Assert.True(ProfileSavePolicy.IsGlobalControl("Custom.key"));
+    }
+
     [Theory]
     [InlineData("Hero.key", "Hero", true)]
     [InlineData("Hero0.keyo", "Hero", true)]

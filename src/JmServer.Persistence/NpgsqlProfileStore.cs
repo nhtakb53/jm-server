@@ -365,6 +365,11 @@ public sealed class NpgsqlProfileStore(NpgsqlDataSource dataSource) : IProfileSt
 
         foreach (var file in files.Where(file => ProfileSavePolicy.IsCharacterCompanion(file.RelativePath)))
         {
+            if (ProfileSavePolicy.IsGlobalControl(file.RelativePath))
+            {
+                continue;
+            }
+
             if (!registeredNames.Any(
                     characterName => ProfileSavePolicy.BelongsToCharacter(
                         file.RelativePath,

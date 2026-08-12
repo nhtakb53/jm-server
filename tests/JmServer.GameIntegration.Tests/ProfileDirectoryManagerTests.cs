@@ -42,6 +42,38 @@ public sealed class ProfileDirectoryManagerTests
     }
 
     [Fact]
+    public async Task InstallCheckout_PreservesGlobalCustomKeyBindings()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "jm-profile-custom-key-test-" + Guid.NewGuid().ToString("N"));
+        var saveDirectory = Path.Combine(root, "save");
+        var quarantineRoot = Path.Combine(root, "quarantine");
+        Directory.CreateDirectory(saveDirectory);
+        try
+        {
+            await File.WriteAllBytesAsync(Path.Combine(saveDirectory, "Custom.key"), [9, 8]);
+            var bundle = ProfileBundleCodec.Encode(
+            [
+                new ProfileFile("Hero.d2s", [1]),
+                new ProfileFile("Custom.key", [2])
+            ]);
+
+            _ = await ProfileDirectoryManager.InstallCheckoutAsync(
+                bundle,
+                saveDirectory,
+                quarantineRoot);
+
+            Assert.Equal([9, 8], await File.ReadAllBytesAsync(
+                Path.Combine(saveDirectory, "Custom.key")));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public void CollectForCheckin_PreservesNumberedOfflineControlFiles()
     {
         var root = Path.Combine(
@@ -58,6 +90,7 @@ public sealed class ProfileDirectoryManagerTests
             File.WriteAllBytes(Path.Combine(saveDirectory, "Hero0.keyo"), [4]);
             File.WriteAllBytes(Path.Combine(saveDirectory, "Hero0.ctlo"), [5]);
             File.WriteAllBytes(Path.Combine(saveDirectory, "Hero12.keyo"), [6]);
+            File.WriteAllBytes(Path.Combine(saveDirectory, "Custom.key"), [7]);
 
             var collected = ProfileDirectoryManager.CollectForCheckin(
                 ["Hero"],
@@ -71,6 +104,7 @@ public sealed class ProfileDirectoryManagerTests
             Assert.Contains(files, file => file.RelativePath == "Hero0.keyo");
             Assert.Contains(files, file => file.RelativePath == "Hero0.ctlo");
             Assert.Contains(files, file => file.RelativePath == "Hero12.keyo");
+            Assert.Contains(files, file => file.RelativePath == "Custom.key");
         }
         finally
         {

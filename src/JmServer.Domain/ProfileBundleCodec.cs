@@ -159,6 +159,7 @@ public static class ProfileBundleCodec
 public static class ProfileSavePolicy
 {
     public const string PreferredSoftcoreSharedStashName = "ModernSharedStashSoftCoreV2.d2i";
+    public const string CustomKeyBindingsName = "Custom.key";
 
     private static readonly HashSet<string> CharacterExtensions = new(
         [
@@ -205,6 +206,9 @@ public static class ProfileSavePolicy
                extension.Equals(".ctl", StringComparison.OrdinalIgnoreCase) ||
                extension.Equals(".ctlo", StringComparison.OrdinalIgnoreCase);
     }
+
+    public static bool IsGlobalControl(string value) =>
+        value.Equals(CustomKeyBindingsName, StringComparison.OrdinalIgnoreCase);
 
     public static bool BelongsToCharacter(string value, string characterName)
     {

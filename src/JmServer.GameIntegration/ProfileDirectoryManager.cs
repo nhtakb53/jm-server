@@ -40,7 +40,8 @@ public static class ProfileDirectoryManager
             {
                 var fileName = Path.GetFileName(path);
                 return ProfileSavePolicy.IsCharacterControl(fileName) &&
-                       IsRegisteredCharacterFile(fileName, registeredNameSet);
+                       (ProfileSavePolicy.IsGlobalControl(fileName) ||
+                        IsRegisteredCharacterFile(fileName, registeredNameSet));
             })
             .Select(path => new ProfileFile(Path.GetFileName(path), File.ReadAllBytes(path)))
             .ToArray();
@@ -122,6 +123,7 @@ public static class ProfileDirectoryManager
             {
                 var name = Path.GetFileName(path);
                 return !ProfileSavePolicy.IsSharedStash(name) &&
+                       !ProfileSavePolicy.IsGlobalControl(name) &&
                        !IsRegisteredCharacterFile(name, registered);
             })
             .ToArray();
